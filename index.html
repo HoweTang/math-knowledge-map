@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小学数学知识链图 | 三年级 & 四年级</title>
+    <title>小学数学知识链图 | 三至六年级</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
             <div class="logo">
                 <span class="logo-icon">&#x1F4D0;</span>
                 <h1>小学数学知识链图</h1>
-                <span class="subtitle">三年级 &amp; 四年级</span>
+                <span class="subtitle">三至六年级</span>
             </div>
             <nav class="nav-tabs">
                 <button class="tab-btn active" data-view="graph" onclick="switchView('graph')">知识图谱</button>
@@ -25,6 +25,8 @@
                 <button class="grade-btn active" data-grade="all" onclick="filterGrade('all')">全部</button>
                 <button class="grade-btn" data-grade="3" onclick="filterGrade('3')">三年级</button>
                 <button class="grade-btn" data-grade="4" onclick="filterGrade('4')">四年级</button>
+                <button class="grade-btn" data-grade="5" onclick="filterGrade('5')">五年级</button>
+                <button class="grade-btn" data-grade="6" onclick="filterGrade('6')">六年级</button>
             </div>
         </header>
 
@@ -39,6 +41,8 @@
                     <h3>年级</h3>
                     <div class="legend-item"><span class="dot grade3"></span> 三年级</div>
                     <div class="legend-item"><span class="dot grade4"></span> 四年级</div>
+                    <div class="legend-item"><span class="dot grade5"></span> 五年级</div>
+                    <div class="legend-item"><span class="dot grade6"></span> 六年级</div>
                     <hr>
                     <h3>连线</h3>
                     <div class="legend-item"><span class="line-solid"></span> 前置知识</div>

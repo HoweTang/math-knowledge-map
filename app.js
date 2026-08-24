@@ -238,6 +238,8 @@ function renderList() {
 
     const grade3Nodes = filteredNodes.filter(n => n.grade === 3);
     const grade4Nodes = filteredNodes.filter(n => n.grade === 4);
+    const grade5Nodes = filteredNodes.filter(n => n.grade === 5);
+    const grade6Nodes = filteredNodes.filter(n => n.grade === 6);
 
     let html = '';
 
@@ -245,7 +247,7 @@ function renderList() {
         html += `<div class="grade-section">
             <h2 class="grade-section-title">
                 <span class="grade-badge grade3-badge">三年级</span>
-                共${grade3Nodes.length}个专题，54讲
+                共${grade3Nodes.length}个专题
             </h2>
             <div class="topic-grid">
                 ${grade3Nodes.map(n => renderTopicCard(n)).join('')}
@@ -257,10 +259,34 @@ function renderList() {
         html += `<div class="grade-section">
             <h2 class="grade-section-title">
                 <span class="grade-badge grade4-badge">四年级</span>
-                共${grade4Nodes.length}个专题，43讲
+                共${grade4Nodes.length}个专题
             </h2>
             <div class="topic-grid">
                 ${grade4Nodes.map(n => renderTopicCard(n)).join('')}
+            </div>
+        </div>`;
+    }
+
+    if (grade5Nodes.length > 0) {
+        html += `<div class="grade-section">
+            <h2 class="grade-section-title">
+                <span class="grade-badge grade5-badge">五年级</span>
+                共${grade5Nodes.length}个专题
+            </h2>
+            <div class="topic-grid">
+                ${grade5Nodes.map(n => renderTopicCard(n)).join('')}
+            </div>
+        </div>`;
+    }
+
+    if (grade6Nodes.length > 0) {
+        html += `<div class="grade-section">
+            <h2 class="grade-section-title">
+                <span class="grade-badge grade6-badge">六年级</span>
+                共${grade6Nodes.length}个专题
+            </h2>
+            <div class="topic-grid">
+                ${grade6Nodes.map(n => renderTopicCard(n)).join('')}
             </div>
         </div>`;
     }

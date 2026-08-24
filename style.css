@@ -8,6 +8,8 @@
 :root {
     --grade3: #4CAF50;
     --grade4: #2196F3;
+    --grade5: #FF9800;
+    --grade6: #9C27B0;
     --cat-calc: #E91E63;
     --cat-number: #3F51B5;
     --cat-geometry: #009688;
@@ -134,6 +136,8 @@ body {
 
 .grade-btn[data-grade="3"].active { border-color: var(--grade3); background: #e8f5e9; color: #2E7D32; }
 .grade-btn[data-grade="4"].active { border-color: var(--grade4); background: #e3f2fd; color: #1565C0; }
+.grade-btn[data-grade="5"].active { border-color: var(--grade5); background: #fff3e0; color: #E65100; }
+.grade-btn[data-grade="6"].active { border-color: var(--grade6); background: #f3e5f5; color: #6A1B9A; }
 
 .grade-btn:hover:not(.active) {
     border-color: #bbb;
@@ -219,6 +223,8 @@ body {
 
 .dot.grade3 { background: var(--grade3); }
 .dot.grade4 { background: var(--grade4); }
+.dot.grade5 { background: var(--grade5); }
+.dot.grade6 { background: var(--grade6); }
 .dot.cat-calc { background: var(--cat-calc); }
 .dot.cat-number { background: var(--cat-number); }
 .dot.cat-geometry { background: var(--cat-geometry); }
@@ -331,6 +337,8 @@ body {
 
 .grade3-badge { background: var(--grade3); }
 .grade4-badge { background: var(--grade4); }
+.grade5-badge { background: var(--grade5); }
+.grade6-badge { background: var(--grade6); }
 
 .topic-grid {
     display: grid;
@@ -356,6 +364,8 @@ body {
 
 .topic-card.grade-3 { border-left-color: var(--grade3); }
 .topic-card.grade-4 { border-left-color: var(--grade4); }
+.topic-card.grade-5 { border-left-color: var(--grade5); }
+.topic-card.grade-6 { border-left-color: var(--grade6); }
 
 .topic-card h4 {
     font-size: 15px;
@@ -454,7 +464,7 @@ body {
     top: 8px;
     bottom: 8px;
     width: 2px;
-    background: linear-gradient(to bottom, var(--grade3), var(--grade4));
+    background: linear-gradient(to bottom, var(--grade3), var(--grade4), var(--grade5), var(--grade6));
     border-radius: 1px;
 }
 
@@ -487,6 +497,8 @@ body {
 
 .path-node.grade-3::before { background: var(--grade3); box-shadow: 0 0 0 2px var(--grade3); }
 .path-node.grade-4::before { background: var(--grade4); box-shadow: 0 0 0 2px var(--grade4); }
+.path-node.grade-5::before { background: var(--grade5); box-shadow: 0 0 0 2px var(--grade5); }
+.path-node.grade-6::before { background: var(--grade6); box-shadow: 0 0 0 2px var(--grade6); }
 
 .path-node .node-title {
     font-weight: 600;
