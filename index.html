@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小学数学知识链图 | 三年级 & 四年级</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">&#x1F4D0;</span>
+                <h1>小学数学知识链图</h1>
+                <span class="subtitle">三年级 &amp; 四年级</span>
+            </div>
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-view="graph" onclick="switchView('graph')">知识图谱</button>
+                <button class="tab-btn" data-view="list" onclick="switchView('list')">知识列表</button>
+                <button class="tab-btn" data-view="path" onclick="switchView('path')">学习路径</button>
+            </nav>
+            <div class="grade-filter">
+                <button class="grade-btn active" data-grade="all" onclick="filterGrade('all')">全部</button>
+                <button class="grade-btn" data-grade="3" onclick="filterGrade('3')">三年级</button>
+                <button class="grade-btn" data-grade="4" onclick="filterGrade('4')">四年级</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 知识图谱视图 -->
+            <div class="view-panel active" id="graph-view">
+                <div class="graph-container">
+                    <svg id="knowledge-graph"></svg>
+                </div>
+                <div class="graph-legend">
+                    <h3>年级</h3>
+                    <div class="legend-item"><span class="dot grade3"></span> 三年级</div>
+                    <div class="legend-item"><span class="dot grade4"></span> 四年级</div>
+                    <hr>
+                    <h3>连线</h3>
+                    <div class="legend-item"><span class="line-solid"></span> 前置知识</div>
+                    <div class="legend-item"><span class="line-dashed"></span> 相关联系</div>
+                    <hr>
+                    <h3>知识类别</h3>
+                    <div class="legend-item"><span class="dot cat-calc"></span> 计算</div>
+                    <div class="legend-item"><span class="dot cat-number"></span> 数论</div>
+                    <div class="legend-item"><span class="dot cat-geometry"></span> 几何</div>
+                    <div class="legend-item"><span class="dot cat-app"></span> 应用题</div>
+                    <div class="legend-item"><span class="dot cat-count"></span> 计数</div>
+                    <div class="legend-item"><span class="dot cat-fraction"></span> 分数小数</div>
+                    <div class="legend-item"><span class="dot cat-travel"></span> 行程</div>
+                    <div class="legend-item"><span class="dot cat-other"></span> 其他</div>
+                    <hr>
+                    <p class="legend-tip">拖拽节点 | 滚轮缩放<br>点击节点查看详情</p>
+                </div>
+            </div>
+
+            <!-- 知识列表视图 -->
+            <div class="view-panel" id="list-view">
+                <div class="list-container" id="knowledge-list"></div>
+            </div>
+
+            <!-- 学习路径视图 -->
+            <div class="view-panel" id="path-view">
+                <div class="path-container" id="learning-paths"></div>
+            </div>
+        </main>
+
+        <!-- 知识点详情面板 -->
+        <div class="detail-overlay" id="detail-overlay" onclick="closeDetail()"></div>
+        <aside class="detail-panel" id="detail-panel">
+            <button class="close-btn" onclick="closeDetail()">&times;</button>
+            <div class="detail-content" id="detail-content">
+                <div class="empty-state">
+                    <p>&#x1F449; 点击知识图谱中的节点查看详细内容</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
