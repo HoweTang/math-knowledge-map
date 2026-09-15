@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盘古数学竞赛知识图谱 · AK4</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">&#x1F1F8;&#x1F1EA;</span>
+                <h1>盘古数学竞赛</h1>
+                <span class="subtitle subtitle-pangu">AK4 · 已翻译</span>
+            </div>
+
+            <!-- 图谱切换（四选） -->
+            <div class="map-switch">
+                <a class="map-switch-btn" href="index.html" title="小学教材知识图谱">
+                    &#x1F4D0; 小学教材
+                </a>
+                <a class="map-switch-btn" href="german.html" title="德国竞赛知识图谱">
+                    &#x1F3C6; 德国竞赛
+                </a>
+                <span class="map-switch-btn active">
+                    &#x1F3A8; 盘古竞赛
+                </span>
+                <a class="map-switch-btn" href="bridge.html" title="查看图谱之间的关联">
+                    &#x1F517; 关联视图
+                </a>
+            </div>
+
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-view="graph" onclick="switchView('graph')">知识图谱</button>
+                <button class="tab-btn" data-view="list" onclick="switchView('list')">主题列表</button>
+                <button class="tab-btn" data-view="path" onclick="switchView('path')">学习路径</button>
+                <button class="tab-btn" data-view="library" onclick="switchView('library')">题库浏览</button>
+            </nav>
+
+            <div class="grade-filter">
+                <button class="grade-btn active" data-round="all" onclick="filterRound('all')">全部</button>
+                <button class="grade-btn" data-round="初赛" onclick="filterRound('初赛')">初赛</button>
+                <button class="grade-btn" data-round="决赛" onclick="filterRound('决赛')">决赛</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 知识图谱视图 -->
+            <div class="view-panel active" id="graph-view">
+                <div class="graph-container">
+                    <svg id="knowledge-graph"></svg>
+                </div>
+                <div class="graph-legend">
+                    <h3>盘古 AK4 主题</h3>
+                    <div class="legend-item"><span class="dot cat-calc"></span> 基础运算</div>
+                    <div class="legend-item"><span class="dot cat-number"></span> 数位 / 数论</div>
+                    <div class="legend-item"><span class="dot cat-geometry"></span> 几何 / 空间</div>
+                    <div class="legend-item"><span class="dot cat-app"></span> 应用题</div>
+                    <div class="legend-item"><span class="dot cat-count"></span> 计数 / 递推</div>
+                    <div class="legend-item"><span class="dot cat-other"></span> 逻辑 / 推理</div>
+                    <hr>
+                    <h3>连线</h3>
+                    <div class="legend-item"><span class="line-solid"></span> 前置关系</div>
+                    <div class="legend-item"><span class="line-dashed"></span> 相关联系</div>
+                    <hr>
+                    <p class="legend-tip">
+                        全部 44 道题<br>
+                        2024-2026 两届初决赛<br>
+                        原题瑞典语，含中文翻译
+                    </p>
+                </div>
+            </div>
+
+            <!-- 主题列表 -->
+            <div class="view-panel" id="list-view">
+                <div class="list-container" id="knowledge-list"></div>
+            </div>
+
+            <!-- 学习路径 -->
+            <div class="view-panel" id="path-view">
+                <div class="path-container" id="learning-paths"></div>
+            </div>
+
+            <!-- 题库浏览（按届/轮次分组，展开显示每题翻译） -->
+            <div class="view-panel" id="library-view">
+                <div class="library-container" id="problem-library"></div>
+            </div>
+        </main>
+
+        <!-- 详情面板 -->
+        <div class="detail-overlay" id="detail-overlay" onclick="closeDetail()"></div>
+        <aside class="detail-panel" id="detail-panel">
+            <button class="close-btn" onclick="closeDetail()">&times;</button>
+            <div class="detail-content" id="detail-content">
+                <div class="empty-state">
+                    <p>&#x1F449; 点击节点查看题目翻译与关联知识</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="german-data.js"></script>
+    <script src="pangu-data.js"></script>
+    <script src="pangu-app.js"></script>
+</body>
+</html>
