@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>盘古数学竞赛知识图谱 · AK4</title>
+    <title>盘古数学竞赛知识图谱 · AK4-AK9</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
             <div class="logo">
                 <span class="logo-icon">&#x1F1F8;&#x1F1EA;</span>
                 <h1>盘古数学竞赛</h1>
-                <span class="subtitle subtitle-pangu">AK4 · 已翻译</span>
+                <span class="subtitle subtitle-pangu">AK4-AK9 · 已翻译</span>
             </div>
 
             <!-- 图谱切换（四选） -->
@@ -38,12 +38,35 @@
                 <button class="tab-btn" data-view="list" onclick="switchView('list')">主题列表</button>
                 <button class="tab-btn" data-view="path" onclick="switchView('path')">学习路径</button>
                 <button class="tab-btn" data-view="library" onclick="switchView('library')">题库浏览</button>
+                <button class="tab-btn" data-view="practice" onclick="switchView('practice')">练习模式</button>
+                <button class="tab-btn" data-view="print" onclick="switchView('print')">打印导出</button>
             </nav>
 
             <div class="grade-filter">
-                <button class="grade-btn active" data-round="all" onclick="filterRound('all')">全部</button>
-                <button class="grade-btn" data-round="初赛" onclick="filterRound('初赛')">初赛</button>
-                <button class="grade-btn" data-round="决赛" onclick="filterRound('决赛')">决赛</button>
+                <button class="grade-btn active" data-grade="all" onclick="filterGrade('all')">全年级</button>
+                <button class="grade-btn" data-grade="4" onclick="filterGrade(4)">AK4</button>
+                <button class="grade-btn" data-grade="5" onclick="filterGrade(5)">AK5</button>
+                <button class="grade-btn" data-grade="6" onclick="filterGrade(6)">AK6</button>
+                <button class="grade-btn" data-grade="7" onclick="filterGrade(7)">AK7</button>
+                <button class="grade-btn" data-grade="8" onclick="filterGrade(8)">AK8</button>
+                <button class="grade-btn" data-grade="9" onclick="filterGrade(9)">AK9</button>
+                <span style="width:10px"></span>
+                <button class="round-btn active" data-round="all" onclick="filterRound('all')">全部轮次</button>
+                <button class="round-btn" data-round="初赛" onclick="filterRound('初赛')">初赛</button>
+                <button class="round-btn" data-round="复赛" onclick="filterRound('复赛')">复赛</button>
+                <button class="round-btn" data-round="决赛" onclick="filterRound('决赛')">决赛</button>
+                <span style="width:10px"></span>
+                <select id="topic-filter" class="topic-select" onchange="filterTopic(this.value)" title="按主题筛选题目">
+                    <option value="all">全部主题</option>
+                </select>
+                <select id="difficulty-filter" class="topic-select" onchange="filterDifficulty(this.value)" title="按难度筛选">
+                    <option value="all">全部难度</option>
+                    <option value="1">⋆ 1 星</option>
+                    <option value="2">⋆⋆ 2 星</option>
+                    <option value="3">⋆⋆⋆ 3 星</option>
+                    <option value="4">⋆⋆⋆⋆ 4 星</option>
+                    <option value="5">⋆⋆⋆⋆⋆ 5 星</option>
+                </select>
             </div>
         </header>
 
@@ -55,21 +78,32 @@
                     <svg id="knowledge-graph"></svg>
                 </div>
                 <div class="graph-legend">
-                    <h3>盘古 AK4 主题</h3>
+                    <h3>年级标识</h3>
+                    <div class="legend-item"><span class="dot" style="background:#F9A825"></span> AK4（4 年级）</div>
+                    <div class="legend-item"><span class="dot" style="background:#42A5F5"></span> AK5（5 年级）</div>
+                    <div class="legend-item"><span class="dot" style="background:#66BB6A"></span> AK6（6 年级）</div>
+                    <div class="legend-item"><span class="dot" style="background:#AB47BC"></span> AK7（7 年级）</div>
+                    <div class="legend-item"><span class="dot" style="background:#EF5350"></span> AK8（8 年级）</div>
+                    <div class="legend-item"><span class="dot" style="background:#5D4037"></span> AK9（9 年级）</div>
+                    <hr>
+                    <h3>主题类别</h3>
                     <div class="legend-item"><span class="dot cat-calc"></span> 基础运算</div>
                     <div class="legend-item"><span class="dot cat-number"></span> 数位 / 数论</div>
                     <div class="legend-item"><span class="dot cat-geometry"></span> 几何 / 空间</div>
                     <div class="legend-item"><span class="dot cat-app"></span> 应用题</div>
                     <div class="legend-item"><span class="dot cat-count"></span> 计数 / 递推</div>
-                    <div class="legend-item"><span class="dot cat-other"></span> 逻辑 / 推理</div>
+                    <div class="legend-item"><span class="dot cat-fraction"></span> 分数 / 百分数</div>
+                    <div class="legend-item"><span class="dot cat-other"></span> 逻辑 / 代数 / 概率</div>
                     <hr>
                     <h3>连线</h3>
                     <div class="legend-item"><span class="line-solid"></span> 前置关系</div>
                     <div class="legend-item"><span class="line-dashed"></span> 相关联系</div>
                     <hr>
                     <p class="legend-tip">
-                        全部 44 道题<br>
-                        2024-2026 两届初决赛<br>
+                        共 609 道题<br>
+                        AK4: 142 · AK5: 98 · AK6: 74<br>
+                        AK7: 83 · AK8: 101 · AK9: 111<br>
+                        2015-2026 年瑞典盘古竞赛<br>
                         原题瑞典语，含中文翻译
                     </p>
                 </div>
@@ -88,6 +122,16 @@
             <!-- 题库浏览（按届/轮次分组，展开显示每题翻译） -->
             <div class="view-panel" id="library-view">
                 <div class="library-container" id="problem-library"></div>
+            </div>
+
+            <!-- 练习模式：随机抽题，一次一题 -->
+            <div class="view-panel" id="practice-view">
+                <div class="practice-container" id="practice-panel"></div>
+            </div>
+
+            <!-- 打印导出：按主题/年级生成可打印题集 -->
+            <div class="view-panel" id="print-view">
+                <div class="print-container" id="print-panel"></div>
             </div>
         </main>
 

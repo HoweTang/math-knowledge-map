@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知识关联视图 · 小学教材 ↔ 德国竞赛</title>
+    <title>知识关联视图 · 小学 ↔ 德国 ↔ 盘古</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
             <div class="logo">
                 <span class="logo-icon">&#x1F517;</span>
                 <h1>知识关联视图</h1>
-                <span class="subtitle subtitle-bridge">小学教材 ↔ 德国竞赛</span>
+                <span class="subtitle subtitle-bridge">小学 ↔ 德国 ↔ 盘古</span>
             </div>
 
             <!-- 图谱切换（四选） -->
@@ -42,6 +42,13 @@
                 <button class="grade-btn active" data-grade="all" onclick="filterGrade('all')">全部</button>
                 <button class="grade-btn" data-grade="k3" onclick="filterGrade('k3')">K3 相关</button>
                 <button class="grade-btn" data-grade="k4" onclick="filterGrade('k4')">K4 相关</button>
+                <span style="width:10px;display:inline-block"></span>
+                <button class="grade-btn" data-grade="ak4" onclick="filterGrade('ak4')">AK4</button>
+                <button class="grade-btn" data-grade="ak5" onclick="filterGrade('ak5')">AK5</button>
+                <button class="grade-btn" data-grade="ak6" onclick="filterGrade('ak6')">AK6</button>
+                <button class="grade-btn" data-grade="ak7" onclick="filterGrade('ak7')">AK7</button>
+                <button class="grade-btn" data-grade="ak8" onclick="filterGrade('ak8')">AK8</button>
+                <button class="grade-btn" data-grade="ak9" onclick="filterGrade('ak9')">AK9</button>
             </div>
         </header>
 
@@ -56,14 +63,17 @@
                     <h3>节点</h3>
                     <div class="legend-item"><span class="dot grade3"></span> 小学 3-6 年级知识点</div>
                     <div class="legend-item"><span class="dot bridge-german"></span> 德国竞赛 K3/K4 主题</div>
+                    <div class="legend-item"><span class="dot" style="background:#F9A825"></span> 盘古竞赛 AK4-AK9 主题</div>
                     <hr>
                     <h3>连线</h3>
-                    <div class="legend-item"><span class="line-cross"></span> 跨图关联</div>
+                    <div class="legend-item"><span class="line-cross"></span> 小学 ↔ 德国</div>
+                    <div class="legend-item"><span class="line-cross" style="border-top-color:#F9A825"></span> 小学 ↔ 盘古</div>
+                    <div class="legend-item"><span class="line-cross" style="border-top-color:#009688"></span> 德国 ↔ 盘古</div>
                     <hr>
                     <p class="legend-tip">
-                        左列：小学教材知识点<br>
-                        右列：德国竞赛主题<br>
-                        虚线：跨图关联<br>
+                        左列：小学教材<br>
+                        中列：德国竞赛<br>
+                        右列：盘古竞赛<br>
                         <br>
                         点击节点查看关联详情<br>
                         滚轮缩放 · 拖拽移动
@@ -92,6 +102,7 @@
 
     <script src="data.js"></script>
     <script src="german-data.js"></script>
+    <script src="pangu-data.js"></script>
     <script src="bridge-app.js"></script>
 </body>
 </html>

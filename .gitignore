@@ -10,3 +10,14 @@
 # OS
 Thumbs.db
 desktop.ini
+
+# 私人 / 无关文档
+AI Transformation in Test Automation*.pptx
+
+# PDF 源材料（体积大，本地保留，不入库）
+盘古竞赛/
+德国竞赛题/
+
+# 中间产物（可从 PDF 重新生成）
+_tools/paper_dumps/
+_tools/problems_raw.json
