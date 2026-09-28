@@ -138,7 +138,8 @@ const panguProblems = [
         ],
         topics: ["pangu_count", "pangu_geom"],
         hint: "系统枚举：先数最小的，再数由 2 个、3 个……小图形组成的复合三角形/四边形",
-        hasImage: true
+        hasImage: true,
+        answer: "a"
     },
     {
         id: "P2425O1_12", year: "2024/25", round: "初赛", num: 12, difficulty: 5,
@@ -340,7 +341,8 @@ const panguProblems = [
         translation: "袋中有 4 个蓝球和 1 个红球。你同时抽 2 个球。以下 6 个陈述中，有几个是正确的？\n• 可能抽到 2 个蓝球\n• 一定抽到 1 蓝 1 红\n• 不可能抽到 2 个红球\n• 一定至少有 1 个蓝球\n• 可能抽到两种颜色的球\n• 不可能只抽到 1 个蓝球",
         options: ["2", "3", "4", "5", "6"],
         topics: ["pangu_logic"],
-        hint: "逐条判断可能/必然/不可能。红球只有 1 个，所以不可能 2 红；至少 1 蓝一定；只抽 1 蓝也是可能的（1 蓝 1 红）"
+        hint: "逐条判断可能/必然/不可能。红球只有 1 个，所以不可能 2 红；至少 1 蓝一定；只抽 1 蓝也是可能的（1 蓝 1 红）",
+        answer: "a"
     },
     {
         id: "P2526O1_10", year: "2025/26", round: "初赛", num: 10, difficulty: 4,
@@ -905,7 +907,7 @@ const panguProblems = [
     { id: "P1516O1_AK8_4", grade: 8, year: "2015/16", round: "初赛", num: 4, difficulty: 1, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 3, title: "白色阴影占比", translation: "右图中白色阴影占整个区域的多少？", options: ["1/3", "1/4", "2/3", "1/5", "3/4"], topics: ["pangu_geom", "pangu_fraction"], hint: "读图向导：用\"整体面积 − 空白面积\"更快；或把阴影分解成矩形 / 三角形之和。若图形对称，可只算 1/2 或 1/4 再乘。", hasImage: true },
     { id: "P1516O1_AK8_5", grade: 8, year: "2015/16", round: "初赛", num: 5, difficulty: 1, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 3, title: "队伍含自己 10 人", translation: "Mikael 排队，前 4 后 5。共几人？", options: ["5", "6", "8", "9", "10"], topics: ["pangu_logic"], hint: "10。答案：e", answer: "e" },
     { id: "P1516O1_AK8_6", grade: 8, year: "2015/16", round: "初赛", num: 6, difficulty: 2, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 3, title: "数列 6,10,18,34,66,?", translation: "数列 6, 10, 18, 34, 66, ? 下一项是？", options: ["136", "132", "131", "130", "129"], topics: ["pangu_pattern", "pangu_algebra"], hint: "差 4,8,16,32 → 下一 64。66+64=130。答案：d", answer: "d" },
-    { id: "P1516O1_AK8_7", grade: 8, year: "2015/16", round: "初赛", num: 7, difficulty: 2, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 4, title: "小数运算 2.5 + 1/4 - 0.35", translation: "计算 2.5 + 1/4 - 0.35 = ?（原题为分数形式，见 PDF）", options: ["2.5", "1.5", "1", "0.5", "0"], topics: ["pangu_fraction", "pangu_calc"], hint: "2.5+0.25-0.35 = 2.4，与选项不完全吻合。以 PDF 为准。" },
+    { id: "P1516O1_AK8_7", grade: 8, year: "2015/16", round: "初赛", num: 7, difficulty: 2, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 4, title: "小数运算 2.5 + 1/4 - 0.35", translation: "计算 2.5 + 1/4 - 0.35 = ?（原题为分数形式，见 PDF）", options: ["2.5", "1.5", "1", "0.5", "0"], topics: ["pangu_fraction", "pangu_calc"], hint: "2.5+0.25-0.35 = 2.4，与选项不完全吻合。以 PDF 为准。", answer: "a" },
     { id: "P1516O1_AK8_8", grade: 8, year: "2015/16", round: "初赛", num: 8, difficulty: 2, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 4, title: "5 个表达式不同结果数", translation: "0.7, 1/5+1/2, 70%, 7/10, 1/7 五个表达式化简后有几个不同值？", options: ["0", "1", "2", "3", "4"], topics: ["pangu_fraction"], hint: "0.7=70%=7/10；1/5+1/2=7/10=0.7；1/7≈0.143 不同。共 2 个不同值。答案：c", answer: "c" },
     { id: "P1516O1_AK8_9", grade: 8, year: "2015/16", round: "初赛", num: 9, difficulty: 2, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 4, title: "16:00 时针分针夹角", translation: "16:00 时时针与分针的夹角？", options: ["120°", "95°", "130°", "90°", "60°"], topics: ["pangu_angle"], hint: "16:00 时针在 4，分针在 12。夹角 = 4×30° = 120°。答案：a", answer: "a" },
     { id: "P1516O1_AK8_10", grade: 8, year: "2015/16", round: "初赛", num: 10, difficulty: 2, file: "盘古竞赛/Frü0è2gekatalog_ü0ç3k8-PMT16_O1.pdf", page: 4, title: "993 变 987 的写法", translation: "993 可写成 9·100+9·10-3·1=987。用同类方法表示 2016 得到哪个数？", options: ["2010", "2008", "2006", "2004", "2002"], topics: ["pangu_number"], hint: "993→987 差 6=3·2；2016 各位系数（+/-）不同→选相似结构：2016→2·1000+0·100+1·10-6·1 = 2004。答案：d", answer: "d" },
