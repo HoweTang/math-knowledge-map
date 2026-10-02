@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瑞典 25 省份记忆地图 · Sveriges Landskap</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --c-norrland: #4FC3F7;
+    --c-svealand: #81C784;
+    --c-gotaland: #FFB74D;
+    --c-norrland-dark: #0288D1;
+    --c-svealand-dark: #388E3C;
+    --c-gotaland-dark: #F57C00;
+    --bg: #f5f7fa;
+    --card: #fff;
+    --border: #e2e6ea;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --accent: #009688;
+    --wrong: #e53935;
+    --right: #43A047;
+}
+html, body { height: 100%; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+/* Size presets — scale the whole app */
+body.size-small  { font-size: 12px; }
+body.size-small  main { grid-template-columns: 1fr 360px; gap: 10px; padding: 10px; }
+body.size-small  #map { max-height: calc(100vh - 170px); }
+body.size-normal #map { max-height: calc(100vh - 170px); }
+body.size-large  { font-size: 16px; }
+body.size-large  main { grid-template-columns: 1fr 480px; gap: 20px; padding: 20px; }
+body.size-large  #map { max-height: calc(100vh - 180px); }
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.header-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+h1 {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+h1 .flag { font-size: 22px; }
+.subtitle {
+    font-size: 12px;
+    background: linear-gradient(135deg, #006AA7, #FECC00);
+    color: #000;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.map-switch {
+    display: flex;
+    background: #f0f2f5;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+}
+.map-switch a, .map-switch span {
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+.map-switch .active {
+    background: white;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.mode-btn, .region-btn, .toggle-btn, .set-btn {
+    padding: 7px 14px;
+    border: 2px solid var(--border);
+    background: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all .15s;
+}
+.mode-btn.active {
+    border-color: var(--accent);
+    background: #e0f2f1;
+    color: #00695C;
+}
+.region-btn.active[data-r="Norrland"] { border-color: var(--c-norrland-dark); background: #E1F5FE; color: var(--c-norrland-dark); }
+.region-btn.active[data-r="Svealand"] { border-color: var(--c-svealand-dark); background: #E8F5E9; color: var(--c-svealand-dark); }
+.region-btn.active[data-r="Götaland"] { border-color: var(--c-gotaland-dark); background: #FFF3E0; color: var(--c-gotaland-dark); }
+.region-btn.active[data-r="all"] { border-color: #555; background: #eee; color: #000; }
+.toggle-btn.active {
+    border-color: #5C6BC0;
+    background: #E8EAF6;
+    color: #283593;
+}
+.set-btn.active {
+    border-color: var(--wrong);
+    background: #ffebee;
+    color: #B71C1C;
+    font-weight: 700;
+}
+.badge {
+    display: inline-block;
+    background: var(--wrong);
+    color: white;
+    font-size: 11px;
+    padding: 0 6px;
+    border-radius: 10px;
+    margin-left: 4px;
+    font-weight: 700;
+}
+
+.sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+.hint-text { font-size: 12px; color: var(--muted); margin-left: 4px; }
+
+.size-switch {
+    display: flex;
+    margin-left: auto;
+    background: #f0f2f5;
+    border-radius: 20px;
+    padding: 3px;
+    gap: 2px;
+}
+.size-switch button {
+    width: 32px;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+}
+.size-switch button.active {
+    background: white;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 16px;
+    padding: 16px;
+    min-height: 0;
+}
+@media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+
+.map-wrap {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+.map-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+.map-head .counter { color: var(--muted); display: flex; gap: 12px; }
+.map-head .counter b { color: var(--text); font-size: 14px; }
+
+#map {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 300px;
+    max-height: calc(100vh - 170px);
+    display: block;
+}
+
+.province {
+    stroke: #fff;
+    stroke-width: 1.2;
+    cursor: pointer;
+    transition: filter .15s, stroke .15s, fill .25s;
+}
+.province:hover { filter: brightness(1.15); stroke: #000; stroke-width: 1.5; }
+.province.selected { stroke: #000; stroke-width: 2.5; filter: brightness(1.2); }
+.province.quiz-right { animation: flashRight .7s; }
+.province.quiz-wrong { animation: flashWrong .7s; }
+.province.quiz-reveal { stroke: #000; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(0,0,0,.4)); }
+.province.quiz-highlight {
+    stroke: #FF6F00;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 10px #FF6F00);
+}
+.province.dim { opacity: .25; }
+.province.outline { fill: #cfd8dc !important; }
+.province.wrong-marked { stroke: var(--wrong); stroke-width: 2; stroke-dasharray: 3,2; }
+
+@keyframes flashRight { 0%,100%{filter:none} 50%{filter:drop-shadow(0 0 15px #4CAF50) brightness(1.3)} }
+@keyframes flashWrong { 0%,100%{filter:none} 25%,75%{filter:drop-shadow(0 0 15px #e53935) brightness(1.3)} }
+
+.p-num {
+    font-size: 11px;
+    font-weight: 700;
+    fill: #fff;
+    text-shadow: 0 0 2px rgba(0,0,0,.6);
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+.p-label {
+    font-size: 9px;
+    fill: #222;
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: central;
+    font-weight: 500;
+}
+.cap-dot {
+    fill: #B71C1C;
+    stroke: #fff;
+    stroke-width: 1;
+    pointer-events: none;
+}
+.cap-label {
+    font-size: 8px;
+    fill: #B71C1C;
+    pointer-events: none;
+    text-anchor: start;
+    dominant-baseline: central;
+    font-weight: 600;
+    paint-order: stroke;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+.panel {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    padding: 16px 18px;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+}
+
+.detail .emoji { font-size: 38px; margin-bottom: 2px; }
+.detail .sv-name { font-size: 24px; font-weight: 700; margin-bottom: 2px; }
+.detail .zh-name { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+.detail .region-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 12px; font-weight: 600; margin-bottom: 12px;
+}
+.region-Norrland { background: #E1F5FE; color: var(--c-norrland-dark); }
+.region-Svealand { background: #E8F5E9; color: var(--c-svealand-dark); }
+.region-Götaland { background: #FFF3E0; color: var(--c-gotaland-dark); }
+
+.detail h3 {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 12px 0 4px;
+}
+.detail .hook {
+    background: #fff8e1;
+    border-left: 3px solid #FFC107;
+    padding: 10px 12px;
+    border-radius: 6px;
+    line-height: 1.6; font-size: 14px; color: #4E342E;
+}
+.detail .fact {
+    background: #e3f2fd;
+    border-left: 3px solid #42A5F5;
+    padding: 10px 12px;
+    border-radius: 6px;
+    line-height: 1.6; font-size: 14px; color: #0D47A1;
+}
+.detail .cap-info {
+    background: #ffebee;
+    border-left: 3px solid var(--wrong);
+    padding: 10px 12px;
+    border-radius: 6px;
+    line-height: 1.6; font-size: 14px; color: #B71C1C;
+}
+.detail .nav-arrows { display: flex; gap: 8px; margin-top: 16px; }
+.detail .nav-arrows button {
+    flex: 1; padding: 8px; border: 2px solid var(--border);
+    background: white; border-radius: 8px; cursor: pointer;
+    font-size: 13px; color: var(--text);
+}
+.detail .nav-arrows button:hover { border-color: var(--accent); background: #f0faf9; }
+
+/* QUIZ SUB-MODE BAR */
+.quiz-submode {
+    display: flex;
+    gap: 6px;
+    background: #f5f7fa;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+}
+.quiz-submode button {
+    flex: 1;
+    padding: 7px 4px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+}
+.quiz-submode button.active {
+    background: white;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+.quiz-prompt {
+    background: linear-gradient(135deg, #006AA7, #0288D1);
+    color: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    text-align: center;
+}
+.quiz-prompt .label { font-size: 12px; opacity: .85; margin-bottom: 4px; }
+.quiz-prompt .name { font-size: 26px; font-weight: 700; }
+.quiz-prompt .zh { font-size: 13px; opacity: .85; margin-top: 2px; }
+
+.spell-prompt {
+    background: linear-gradient(135deg, #FF6F00, #F57C00);
+    color: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    text-align: center;
+}
+.spell-prompt .label { font-size: 12px; opacity: .9; margin-bottom: 6px; }
+.spell-prompt .zh { font-size: 24px; font-weight: 700; }
+.spell-prompt .meta { font-size: 12px; opacity: .9; margin-top: 4px; }
+
+.spell-input-wrap {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+.spell-input {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+}
+.spell-input:focus { border-color: #FF6F00; }
+.spell-input.right { border-color: var(--right); background: #E8F5E9; }
+.spell-input.wrong { border-color: var(--wrong); background: #FFEBEE; }
+.spell-chars {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.spell-chars button {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+.spell-chars button:hover { background: #e0f2f1; border-color: var(--accent); }
+
+.quiz-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+.quiz-stats .stat {
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12px;
+}
+.quiz-stats .stat b { font-size: 20px; display: block; }
+.quiz-stats .stat.ok { background: #E8F5E9; color: #2E7D32; }
+.quiz-stats .stat.bad { background: #FFEBEE; color: #C62828; }
+.quiz-stats .stat.total { background: #E3F2FD; color: #1565C0; }
+
+.quiz-feedback {
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.55;
+}
+.quiz-feedback.ok  { background: #E8F5E9; color: #1B5E20; border-left: 4px solid var(--right); }
+.quiz-feedback.bad { background: #FFEBEE; color: #B71C1C; border-left: 4px solid var(--wrong); }
+
+.quiz-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.quiz-actions button {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: #00796B; }
+.btn-sec { background: #eee; color: #333; }
+.btn-sec:hover { background: #ddd; }
+
+.hint-level {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+.hint-level button {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #666;
+}
+.hint-level button:hover { background: #fafcfd; }
+.hint-shown {
+    background: #FFF8E1;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #4E342E;
+    margin-top: 6px;
+    border-left: 3px solid #FFC107;
+}
+
+/* LIST MODE */
+.list-mode .group { margin-bottom: 18px; }
+.list-mode .group h2 {
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+.list-mode .group.Norrland h2 { background: #E1F5FE; color: var(--c-norrland-dark); }
+.list-mode .group.Svealand h2 { background: #E8F5E9; color: var(--c-svealand-dark); }
+.list-mode .group.Götaland h2 { background: #FFF3E0; color: var(--c-gotaland-dark); }
+.list-mode .item {
+    padding: 8px 10px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.5;
+    border-left: 3px solid transparent;
+}
+.list-mode .item:hover { background: #f5f7fa; }
+.list-mode .item.in-wrong { border-left-color: var(--wrong); background: #fff5f5; }
+.list-mode .item .num {
+    display: inline-block;
+    width: 22px; height: 22px;
+    text-align: center; line-height: 22px;
+    border-radius: 50%;
+    background: #666; color: #fff;
+    font-size: 11px; font-weight: 700;
+    margin-right: 6px;
+}
+.list-mode .item.Norrland .num { background: var(--c-norrland-dark); }
+.list-mode .item.Svealand .num { background: var(--c-svealand-dark); }
+.list-mode .item.Götaland .num { background: var(--c-gotaland-dark); }
+.list-mode .item .sv { font-weight: 600; }
+.list-mode .item .zh { color: #666; margin-left: 4px; font-size: 12px; }
+.list-mode .item .cap-tag {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--wrong);
+    margin-left: 6px;
+    padding: 1px 6px;
+    background: #ffebee;
+    border-radius: 10px;
+}
+.list-mode .item .hook { color: #555; display: block; margin-top: 2px; font-size: 12px; }
+
+.legend-mini {
+    display: flex;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--muted);
+    flex-wrap: wrap;
+}
+.legend-mini .box {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.lb-N { background: var(--c-norrland); }
+.lb-S { background: var(--c-svealand); }
+.lb-G { background: var(--c-gotaland); }
+.lb-cap { background: #B71C1C; border-radius: 50%; }
+
+.empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-row">
+        <h1><span class="flag">🇸🇪</span> 瑞典省份记忆地图</h1>
+        <span class="subtitle">Sveriges 25 Landskap</span>
+
+        <div class="map-switch">
+            <a href="index.html">📐 小学教材</a>
+            <a href="german.html">🏆 德国竞赛</a>
+            <a href="pangu.html">🎨 盘古竞赛</a>
+            <span class="active">🗺️ 瑞典地理</span>
+        </div>
+    </div>
+
+    <div class="header-row">
+        <button class="mode-btn active" data-mode="study" onclick="setMode('study')">📖 学习</button>
+        <button class="mode-btn" data-mode="quiz" onclick="setMode('quiz')">🎯 练习</button>
+        <button class="mode-btn" data-mode="list" onclick="setMode('list')">📋 列表</button>
+
+        <div class="sep"></div>
+
+        <button class="region-btn active" data-r="all" onclick="setRegion('all')">全部</button>
+        <button class="region-btn" data-r="Norrland" onclick="setRegion('Norrland')">Norrland</button>
+        <button class="region-btn" data-r="Svealand" onclick="setRegion('Svealand')">Svealand</button>
+        <button class="region-btn" data-r="Götaland" onclick="setRegion('Götaland')">Götaland</button>
+
+        <div class="sep"></div>
+
+        <button class="toggle-btn" id="btn-cap" onclick="toggleCapitals()">🏛️ 首府</button>
+        <button class="toggle-btn" id="btn-outline" onclick="toggleOutline()">⬜ 轮廓模式</button>
+
+        <div class="sep"></div>
+
+        <button class="set-btn" id="btn-wrong" onclick="toggleWrongOnly()">
+            🔖 错题本<span class="badge" id="wrong-badge">0</span>
+        </button>
+        <span class="hint-text" id="wrong-hint"></span>
+
+        <div class="size-switch" title="页面大小">
+            <button data-size="small"  onclick="setSize('small')">A⁻</button>
+            <button data-size="normal" class="active" onclick="setSize('normal')">A</button>
+            <button data-size="large"  onclick="setSize('large')">A⁺</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="map-wrap">
+        <div class="map-head">
+            <span class="legend-mini">
+                <span><span class="box lb-N"></span>Norrland 9</span>
+                <span><span class="box lb-S"></span>Svealand 6</span>
+                <span><span class="box lb-G"></span>Götaland 10</span>
+                <span><span class="box lb-cap"></span>首府</span>
+            </span>
+            <span class="counter" id="counter"><span>共 <b>25</b> 省</span><span id="counter-visible"></span></span>
+        </div>
+        <svg id="map" viewBox="0 0 320 820" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+
+    <aside class="panel" id="panel">
+        <div class="empty">加载中…</div>
+    </aside>
+</main>
+
+<script>
+// ===== DATA =====
+// shape: polygon points or ellipse. labelAt: (x,y) for number+name label.
+// cap: {name, x, y} — capital city name + screen position (near but offset from label)
+const PROVINCES = [
+    // NORRLAND (1-9)
+    {id:1, sv:'Lappland', zh:'拉普兰', region:'Norrland', emoji:'❄️',
+     shape:{type:'poly', points:'20,15 180,15 180,160 50,165 15,110'},
+     labelAt:{x:100,y:85}, cap:{name:'Kiruna', x:135, y:55},
+     hook:'最北、最大一省，北极圈以北；萨米人（Sami）故乡；极光与驯鹿',
+     fact:'占瑞典国土近 1/4；首府基律纳（Kiruna），有著名铁矿城'},
+    {id:2, sv:'Norrbotten', zh:'北博滕', region:'Norrland', emoji:'🧊',
+     shape:{type:'poly', points:'180,30 290,38 300,145 220,167 180,160'},
+     labelAt:{x:240,y:100}, cap:{name:'Luleå', x:270, y:140},
+     hook:'"Norr-botten"（北-底部）；东北角，紧挨芬兰',
+     fact:'首府吕勒奥（Luleå），东海岸的北端'},
+    {id:3, sv:'Västerbotten', zh:'西博滕', region:'Norrland', emoji:'🧀',
+     shape:{type:'poly', points:'180,165 220,167 295,150 285,250 195,245'},
+     labelAt:{x:240,y:205}, cap:{name:'Umeå', x:265, y:235},
+     hook:'"Väster-botten"（西-底部）；Norrbotten 正南',
+     fact:'首府于默奥（Umeå），有名的 Västerbottensost 奶酪'},
+    {id:4, sv:'Jämtland', zh:'耶姆特兰', region:'Norrland', emoji:'🎿',
+     shape:{type:'poly', points:'15,115 180,165 195,245 185,275 50,275 15,235'},
+     labelAt:{x:95,y:215}, cap:{name:'Östersund', x:115, y:245},
+     hook:'中西部山地，与挪威接壤；滑雪胜地（Åre）',
+     fact:'有大湖 Storsjön，传说中有水怪；首府厄斯特松德（Östersund）'},
+    {id:5, sv:'Ångermanland', zh:'翁厄曼兰', region:'Norrland', emoji:'🏔️',
+     shape:{type:'poly', points:'195,245 285,252 265,320 200,310'},
+     labelAt:{x:240,y:285}, cap:{name:'Härnösand', x:250, y:308},
+     hook:'东海岸；"高海岸 Höga Kusten"世界遗产，冰川反弹地形',
+     fact:'首府赫诺桑德（Härnösand）；海岸线上升最快的地方'},
+    {id:6, sv:'Medelpad', zh:'梅德尔帕德', region:'Norrland', emoji:'📍',
+     shape:{type:'poly', points:'200,312 265,322 258,352 205,348'},
+     labelAt:{x:230,y:333}, cap:{name:'Sundsvall', x:240, y:343},
+     hook:'"Medel = middle"，真的夹在中间，是最小的 Norrland 省之一',
+     fact:'首府松兹瓦尔（Sundsvall），"石头之城"'},
+    {id:7, sv:'Härjedalen', zh:'海里耶达伦', region:'Norrland', emoji:'⛰️',
+     shape:{type:'poly', points:'15,240 50,278 55,355 15,350'},
+     labelAt:{x:35,y:308}, cap:{name:'Sveg', x:38, y:330},
+     hook:'西南角山地；瑞典最高峰之一 Helags 在此',
+     fact:'人口最少的省之一，熊和驯鹿多于人；首府斯维格（Sveg）'},
+    {id:8, sv:'Hälsingland', zh:'海尔辛兰', region:'Norrland', emoji:'🏡',
+     shape:{type:'poly', points:'145,355 205,350 258,352 250,410 155,407'},
+     labelAt:{x:200,y:380}, cap:{name:'Hudiksvall', x:220, y:400},
+     hook:'东海岸；"装饰农舍 Hälsingegårdar"世界遗产',
+     fact:'7 座彩绘农舍被联合国教科文组织列入；首府胡迪克斯瓦尔（Hudiksvall）'},
+    {id:9, sv:'Gästrikland', zh:'耶斯特里克兰', region:'Norrland', emoji:'🐐',
+     shape:{type:'poly', points:'180,410 250,412 240,452 190,452'},
+     labelAt:{x:215,y:432}, cap:{name:'Gävle', x:225, y:447},
+     hook:'"Gäst = 客人"，Norrland 最南的"客人之地"，进 Svealand 的门厅',
+     fact:'首府耶夫勒（Gävle），每年圣诞大山羊（Gävlebocken）'},
+
+    // SVEALAND (10-15)
+    {id:10, sv:'Dalarna', zh:'达拉纳', region:'Svealand', emoji:'🐴',
+     shape:{type:'poly', points:'50,357 145,357 155,407 180,410 190,452 115,460 55,418'},
+     labelAt:{x:115,y:410}, cap:{name:'Falun', x:140, y:430},
+     hook:'红色达拉木马（Dalahäst）故乡；瑞典最浓的仲夏节',
+     fact:'大湖 Siljan；银矿城法伦（Falun）世界遗产'},
+    {id:11, sv:'Värmland', zh:'韦姆兰', region:'Svealand', emoji:'🌲',
+     shape:{type:'poly', points:'10,352 50,357 55,418 115,460 95,520 20,520 8,445'},
+     labelAt:{x:55,y:450}, cap:{name:'Karlstad', x:60, y:490},
+     hook:'西南林区，挨挪威；湖泊森林',
+     fact:'诺贝尔文学奖得主塞尔玛·拉格洛夫故乡；首府卡尔斯塔德（Karlstad）'},
+    {id:12, sv:'Västmanland', zh:'西曼兰', region:'Svealand', emoji:'🏭',
+     shape:{type:'poly', points:'130,462 180,460 185,500 135,500'},
+     labelAt:{x:157,y:478}, cap:{name:'Västerås', x:165, y:495},
+     hook:'"Väst-manland"（西-人之地），梅拉伦湖北侧',
+     fact:'首府维斯特罗斯（Västerås），古老工业区'},
+    {id:13, sv:'Uppland', zh:'乌普兰', region:'Svealand', emoji:'👑',
+     shape:{type:'poly', points:'190,460 258,460 265,510 200,520 185,500'},
+     labelAt:{x:225,y:482}, cap:{name:'Uppsala', x:230, y:500},
+     hook:'"Upp = 上/北"；首都斯德哥尔摩 + 乌普萨拉在此',
+     fact:'瑞典王国发源核心省；维京时代卢恩石遍地'},
+    {id:14, sv:'Närke', zh:'奈尔克', region:'Svealand', emoji:'🏰',
+     shape:{type:'poly', points:'100,470 130,490 125,520 90,525'},
+     labelAt:{x:110,y:495}, cap:{name:'Örebro', x:112, y:512},
+     hook:'中部小省，首府厄勒布鲁（Örebro），有古堡',
+     fact:'位于瑞典地理中心附近'},
+    {id:15, sv:'Södermanland', zh:'南曼兰', region:'Svealand', emoji:'🏞️',
+     shape:{type:'poly', points:'135,505 200,522 190,565 140,560 128,530'},
+     labelAt:{x:165,y:535}, cap:{name:'Nyköping', x:170, y:553},
+     hook:'"Söder-manland"（南-人之地），梅拉伦湖南侧；也叫 Sörmland',
+     fact:'靠近首都；中世纪城堡 Gripsholm；首府尼雪平（Nyköping）'},
+
+    // GÖTALAND (16-25)
+    {id:16, sv:'Dalsland', zh:'达尔斯兰', region:'Götaland', emoji:'🛶',
+     shape:{type:'poly', points:'25,525 90,528 85,575 25,578'},
+     labelAt:{x:55,y:548}, cap:{name:'Åmål', x:55, y:565},
+     hook:'西北角，湖泊运河多，被称作"迷你瑞士"',
+     fact:'达尔斯兰运河有著名高架渡槽（Håverud）；首府奥马尔（Åmål）'},
+    {id:17, sv:'Östergötland', zh:'东约特兰', region:'Götaland', emoji:'🏯',
+     shape:{type:'poly', points:'170,580 255,585 265,660 175,668'},
+     labelAt:{x:215,y:620}, cap:{name:'Linköping', x:220, y:640},
+     hook:'"Öster-götland"（东-哥特人之地）',
+     fact:'首府林雪平（Linköping），航空工业'},
+    {id:18, sv:'Västergötland', zh:'西约特兰', region:'Götaland', emoji:'🚢',
+     shape:{type:'poly', points:'28,585 165,580 170,665 85,680 25,625'},
+     labelAt:{x:105,y:620}, cap:{name:'Göteborg', x:50, y:655},
+     hook:'"Väster-götland"（西-哥特人之地）；哥德堡（Göteborg）在此',
+     fact:'瑞典最大湖韦讷恩（Vänern）畔'},
+    {id:19, sv:'Bohuslän', zh:'布胡斯兰', region:'Götaland', emoji:'🦞',
+     shape:{type:'poly', points:'3,540 25,540 25,648 3,648'},
+     labelAt:{x:14,y:594}, cap:{name:'Uddevalla', x:0, y:612},
+     hook:'西海岸渔业群岛，细长一条沿海地带',
+     fact:'著名龙虾、海产；斯莫根（Smögen）渔镇；首府乌德瓦拉（Uddevalla）'},
+    {id:20, sv:'Gotland', zh:'哥得兰岛', region:'Götaland', emoji:'🏖️',
+     shape:{type:'ellipse', cx:296, cy:625, rx:18, ry:32},
+     labelAt:{x:296,y:625}, cap:{name:'Visby', x:270, y:620},
+     hook:'波罗的海大岛；维斯比（Visby）中世纪城世界遗产',
+     fact:'石灰岩岛，Raukar 海蚀柱奇景'},
+    {id:21, sv:'Öland', zh:'厄兰岛', region:'Götaland', emoji:'🏝️',
+     shape:{type:'ellipse', cx:287, cy:725, rx:10, ry:35},
+     labelAt:{x:287,y:725}, cap:{name:'Borgholm', x:262, y:710},
+     hook:'细长小岛（想"Ö"是瘦长的瑞典字母）；皇家夏宫 Solliden',
+     fact:'有大桥连本土；风车和石灰岩平原 Stora Alvaret'},
+    {id:22, sv:'Småland', zh:'斯莫兰', region:'Götaland', emoji:'📦',
+     shape:{type:'poly', points:'92,680 170,668 265,665 268,750 170,765 95,748'},
+     labelAt:{x:180,y:710}, cap:{name:'Växjö', x:190, y:730},
+     hook:'"Små = 小"的复数，中部大森林；IKEA 发源地',
+     fact:'水晶玻璃王国；儿童文学家林格伦（Pippi 作者）故乡；首府韦克舍（Växjö）'},
+    {id:23, sv:'Blekinge', zh:'布莱金厄', region:'Götaland', emoji:'⚓',
+     shape:{type:'poly', points:'170,768 240,760 240,782 170,782'},
+     labelAt:{x:200,y:772}, cap:{name:'Karlskrona', x:200, y:790},
+     hook:'东南海岸条，被称"瑞典的花园"',
+     fact:'卡尔斯克鲁纳（Karlskrona）海军城世界遗产'},
+    {id:24, sv:'Halland', zh:'哈兰', region:'Götaland', emoji:'🏌️',
+     shape:{type:'poly', points:'30,682 90,680 85,745 30,758'},
+     labelAt:{x:60,y:712}, cap:{name:'Halmstad', x:55, y:730},
+     hook:'西海岸条，长沙滩+高尔夫度假胜地',
+     fact:'首府哈尔姆斯塔德（Halmstad）'},
+    {id:25, sv:'Skåne', zh:'斯科讷', region:'Götaland', emoji:'🌾',
+     shape:{type:'poly', points:'60,760 165,770 165,790 70,790 50,778'},
+     labelAt:{x:110,y:775}, cap:{name:'Malmö', x:115, y:788},
+     hook:'最南端，马尔默（Malmö），厄勒海峡大桥通丹麦',
+     fact:'瑞典粮仓；历史上曾属丹麦，口音独特'},
+];
+
+// ===== STATE =====
+let currentMode = 'study';
+let currentRegion = 'all';
+let selectedId = null;
+let showCapitals = false;
+let outlineMode = false;
+let wrongOnly = false;
+let quizSubmode = 'sv2map'; // 'sv2map' | 'zh2map' | 'map2spell'
+let sizePreset = 'normal';   // 'small' | 'normal' | 'large'
+let quiz = {
+    pool: [],
+    target: null,
+    correct: 0, wrong: 0, seen: 0,
+    hintLevel: 0,
+    answered: false,
+    lastSpellInput: ''
+};
+let wrongSet = new Set();
+
+const STORAGE_KEY = 'sv-provinces-stats-v2';
+function loadStats() {
+    try {
+        const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        if (typeof s.correct === 'number') quiz.correct = s.correct;
+        if (typeof s.wrong === 'number')   quiz.wrong = s.wrong;
+        if (typeof s.seen === 'number')    quiz.seen = s.seen;
+        if (Array.isArray(s.wrongSet))     wrongSet = new Set(s.wrongSet);
+        if (typeof s.showCapitals === 'boolean') showCapitals = s.showCapitals;
+        if (typeof s.outlineMode === 'boolean')  outlineMode  = s.outlineMode;
+        if (typeof s.quizSubmode === 'string')   quizSubmode  = s.quizSubmode;
+        if (typeof s.sizePreset === 'string')    sizePreset   = s.sizePreset;
+    } catch (e) {}
+}
+function saveStats() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        correct: quiz.correct, wrong: quiz.wrong, seen: quiz.seen,
+        wrongSet: Array.from(wrongSet),
+        showCapitals, outlineMode, quizSubmode, sizePreset
+    }));
+}
+
+// ===== HELPERS =====
+function regionColor(r) {
+    if (r === 'Norrland') return 'var(--c-norrland)';
+    if (r === 'Svealand') return 'var(--c-svealand)';
+    return 'var(--c-gotaland)';
+}
+
+// Normalize Swedish text for lenient spell matching:
+// å/ä → a, ö → o, lowercase, trim
+function normalizeSv(s) {
+    return (s || '').toLowerCase().trim()
+        .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
+        .replace(/é/g, 'e');
+}
+// Which special chars does this answer need?
+function specialCharsFor(sv) {
+    const chars = new Set();
+    for (const c of sv) {
+        if ('åäöÅÄÖ'.includes(c)) chars.add(c.toLowerCase());
+    }
+    return Array.from(chars);
+}
+
+// Should Swedish name label be shown on map for this mode?
+function shouldHideNameLabels() {
+    if (currentMode === 'quiz') return true;         // all quiz submodes hide
+    if (outlineMode) return true;                    // shape-only study
+    return false;
+}
+function shouldHideNumbers() {
+    return outlineMode;
+}
+
+// Is this id eligible for current pool (region + wrongOnly)?
+function inPool(p) {
+    if (currentRegion !== 'all' && p.region !== currentRegion) return false;
+    if (wrongOnly && !wrongSet.has(p.id)) return false;
+    return true;
+}
+function getPool() { return PROVINCES.filter(inPool); }
+
+// ===== RENDER MAP =====
+function renderMap() {
+    const svg = document.getElementById('map');
+    svg.innerHTML = '';
+
+    const hideNames = shouldHideNameLabels();
+    const hideNums  = shouldHideNumbers();
+
+    PROVINCES.forEach(p => {
+        const dim = !inPool(p);
+
+        let shape;
+        if (p.shape.type === 'poly') {
+            shape = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            shape.setAttribute('points', p.shape.points);
+        } else {
+            shape = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+            shape.setAttribute('cx', p.shape.cx);
+            shape.setAttribute('cy', p.shape.cy);
+            shape.setAttribute('rx', p.shape.rx);
+            shape.setAttribute('ry', p.shape.ry);
+        }
+        let cls = 'province';
+        if (dim) cls += ' dim';
+        if (p.id === selectedId) cls += ' selected';
+        if (outlineMode) cls += ' outline';
+        if (wrongSet.has(p.id) && currentMode !== 'quiz') cls += ' wrong-marked';
+        shape.setAttribute('class', cls);
+        shape.setAttribute('fill', regionColor(p.region));
+        shape.setAttribute('data-id', p.id);
+        shape.addEventListener('click', () => onProvinceClick(p.id));
+
+        // tooltip in quiz-click modes to not spoil names
+        if (currentMode !== 'quiz' || quizSubmode === 'map2spell') {
+            const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+            title.textContent = `${p.id}. ${p.sv} · ${p.zh}`;
+            shape.appendChild(title);
+        }
+        svg.appendChild(shape);
+
+        if (!hideNums) {
+            const numText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            numText.setAttribute('class', 'p-num');
+            numText.setAttribute('x', p.labelAt.x);
+            numText.setAttribute('y', p.labelAt.y - 5);
+            numText.textContent = p.id;
+            if (dim) numText.style.opacity = .3;
+            svg.appendChild(numText);
+        }
+        if (!hideNames) {
+            const nameText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            nameText.setAttribute('class', 'p-label');
+            nameText.setAttribute('x', p.labelAt.x);
+            nameText.setAttribute('y', p.labelAt.y + 7);
+            nameText.textContent = p.sv.length > 11 ? p.sv.slice(0,10)+'…' : p.sv;
+            if (dim) nameText.style.opacity = .3;
+            svg.appendChild(nameText);
+        }
+
+        // Capital city overlay
+        if (showCapitals && p.cap) {
+            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            dot.setAttribute('cx', p.cap.x);
+            dot.setAttribute('cy', p.cap.y);
+            dot.setAttribute('r', 2.4);
+            dot.setAttribute('class', 'cap-dot');
+            if (dim) dot.style.opacity = .3;
+            svg.appendChild(dot);
+
+            const capLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            capLabel.setAttribute('class', 'cap-label');
+            capLabel.setAttribute('x', p.cap.x + 4);
+            capLabel.setAttribute('y', p.cap.y);
+            capLabel.textContent = p.cap.name;
+            if (dim) capLabel.style.opacity = .3;
+            svg.appendChild(capLabel);
+        }
+    });
+
+    // Quiz: in spell mode, highlight the target so user can see which to spell
+    if (currentMode === 'quiz' && quizSubmode === 'map2spell' && quiz.target) {
+        const el = document.querySelector(`.province[data-id="${quiz.target.id}"]`);
+        if (el) el.classList.add('quiz-highlight');
+    }
+
+    updateCounter();
+    updateWrongBadge();
+}
+
+function updateCounter() {
+    const el = document.getElementById('counter-visible');
+    const parts = [];
+    if (currentRegion !== 'all') {
+        const n = PROVINCES.filter(p => p.region === currentRegion).length;
+        parts.push(`当前区 <b>${currentRegion}</b> <b>${n}</b> 省`);
+    }
+    if (wrongOnly) parts.push(`错题 <b>${wrongSet.size}</b> 道`);
+    el.innerHTML = parts.length ? ' · ' + parts.join(' · ') : '';
+}
+
+function updateWrongBadge() {
+    const badge = document.getElementById('wrong-badge');
+    badge.textContent = wrongSet.size;
+    badge.style.display = wrongSet.size ? '' : 'none';
+    const btn = document.getElementById('btn-wrong');
+    btn.classList.toggle('active', wrongOnly);
+    const hint = document.getElementById('wrong-hint');
+    if (wrongOnly) {
+        hint.textContent = `只练错题（${wrongSet.size} 道）`;
+    } else if (wrongSet.size > 0) {
+        hint.textContent = `有 ${wrongSet.size} 道错题待复习`;
+    } else {
+        hint.textContent = '';
+    }
+}
+
+// ===== MODE / TOGGLES =====
+function setMode(m) {
+    currentMode = m;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+    selectedId = null;
+    if (m === 'quiz') startQuizRound();
+    renderMap();
+    renderPanel();
+}
+function setRegion(r) {
+    currentRegion = r;
+    document.querySelectorAll('.region-btn').forEach(b => b.classList.toggle('active', b.dataset.r === r));
+    if (currentMode === 'quiz') startQuizRound();
+    renderMap();
+    renderPanel();
+}
+function toggleCapitals() {
+    showCapitals = !showCapitals;
+    document.getElementById('btn-cap').classList.toggle('active', showCapitals);
+    saveStats();
+    renderMap();
+}
+function toggleOutline() {
+    outlineMode = !outlineMode;
+    document.getElementById('btn-outline').classList.toggle('active', outlineMode);
+    saveStats();
+    renderMap();
+}
+function setSize(s) {
+    sizePreset = s;
+    applySize();
+    saveStats();
+}
+function applySize() {
+    document.body.classList.remove('size-small','size-normal','size-large');
+    document.body.classList.add('size-' + sizePreset);
+    document.querySelectorAll('.size-switch button').forEach(b =>
+        b.classList.toggle('active', b.dataset.size === sizePreset));
+}
+function toggleWrongOnly() {
+    if (!wrongOnly && wrongSet.size === 0) {
+        alert('还没有错题。先在练习模式答错几道题吧 🙂');
+        return;
+    }
+    wrongOnly = !wrongOnly;
+    if (currentMode === 'quiz') startQuizRound();
+    renderMap();
+    renderPanel();
+}
+
+// ===== CLICK =====
+function onProvinceClick(id) {
+    if (currentMode === 'quiz') {
+        if (quizSubmode === 'map2spell') return; // in spell mode map clicks are read-only
+        quizGuess(id);
+    } else {
+        selectedId = id;
+        renderMap();
+        renderPanel();
+    }
+}
+
+function selectId(id) {
+    selectedId = id;
+    renderMap();
+    renderPanel();
+}
+
+// ===== PANEL =====
+function renderPanel() {
+    const panel = document.getElementById('panel');
+    if (currentMode === 'list') return renderList(panel);
+    if (currentMode === 'quiz') return renderQuiz(panel);
+    renderDetail(panel);
+}
+
+function renderDetail(panel) {
+    if (!selectedId) {
+        panel.innerHTML = `<div class="empty">
+            👈 点击地图上的省份查看信息<br><br>
+            <div style="font-size:13px; text-align:left; line-height:1.7; color:#555; padding:0 12px;">
+                <b style="color:#009688">📖 学习模式提示</b><br>
+                • 颜色区分三大区：蓝=Norrland 绿=Svealand 橙=Götaland<br>
+                • 名字里 <b>Norr/Söder/Väster/Öster/Upp</b> = 北/南/西/东/上<br>
+                • <b>-botten</b> 结尾在东北"底部"；<b>-götland</b> 是哥特人之地<br>
+                • 两个岛：<b>Gotland</b>大，<b>Öland</b>瘦长<br><br>
+                <b style="color:#5C6BC0">⚙️ 工具栏小功能</b><br>
+                • <b>🏛️ 首府</b>：地图叠加首府名<br>
+                • <b>⬜ 轮廓模式</b>：隐藏颜色和编号，只看形状练识别<br>
+                • <b>🔖 错题本</b>：练习时答错会自动加入；可切换"只练错题"<br><br>
+                切到 <b>🎯 练习</b> 开始测验，或 <b>📋 列表</b> 看全部口诀。
+            </div>
+        </div>`;
+        return;
+    }
+    const p = PROVINCES.find(x => x.id === selectedId);
+    const idx = PROVINCES.findIndex(x => x.id === selectedId);
+    const prev = PROVINCES[(idx - 1 + 25) % 25];
+    const next = PROVINCES[(idx + 1) % 25];
+    const inWrong = wrongSet.has(p.id);
+
+    panel.innerHTML = `
+        <div class="detail">
+            <div class="emoji">${p.emoji}</div>
+            <div class="sv-name">${p.sv}</div>
+            <div class="zh-name">${p.zh} · #${p.id}${inWrong ? ' · <span style="color:#C62828">🔖 在错题本</span>' : ''}</div>
+            <span class="region-badge region-${p.region}">${p.region}</span>
+            <h3>🏛️ 首府</h3>
+            <div class="cap-info"><b>${p.cap.name}</b></div>
+            <h3>🧠 记忆钩子</h3>
+            <div class="hook">${p.hook}</div>
+            <h3>📎 小知识</h3>
+            <div class="fact">${p.fact}</div>
+            ${inWrong ? `<button class="btn-sec" style="margin-top:12px;padding:6px 12px;border-radius:6px;border:none;cursor:pointer;" onclick="removeFromWrong(${p.id})">✓ 已掌握，从错题本移出</button>` : ''}
+            <div class="nav-arrows">
+                <button onclick="selectId(${prev.id})">← ${prev.id} ${prev.sv}</button>
+                <button onclick="selectId(${next.id})">${next.id} ${next.sv} →</button>
+            </div>
+        </div>`;
+}
+
+function removeFromWrong(id) {
+    wrongSet.delete(id);
+    saveStats();
+    renderMap();
+    renderPanel();
+}
+
+function renderList(panel) {
+    const groups = ['Norrland', 'Svealand', 'Götaland'];
+    let html = '<div class="list-mode">';
+    groups.forEach(g => {
+        if (currentRegion !== 'all' && currentRegion !== g) return;
+        const items = PROVINCES.filter(p => p.region === g && (!wrongOnly || wrongSet.has(p.id)));
+        if (!items.length) return;
+        html += `<div class="group ${g}"><h2>${g}（${items.length} 省）</h2>`;
+        items.forEach(p => {
+            const wrong = wrongSet.has(p.id) ? ' in-wrong' : '';
+            html += `<div class="item ${p.region}${wrong}" onclick="selectId(${p.id}); setMode('study')">
+                <span class="num">${p.id}</span>
+                <span class="sv">${p.sv}</span>
+                <span class="zh">${p.zh}</span>
+                <span class="cap-tag">🏛️ ${p.cap.name}</span>
+                <span class="hook">${p.emoji} ${p.hook}</span>
+            </div>`;
+        });
+        html += `</div>`;
+    });
+    if (html === '<div class="list-mode">') html += '<div class="empty">当前筛选下没有省份</div>';
+    html += '</div>';
+    panel.innerHTML = html;
+}
+
+// ===== QUIZ =====
+function setQuizSubmode(m) {
+    quizSubmode = m;
+    saveStats();
+    startQuizRound();
+    renderMap();
+    renderPanel();
+}
+
+function startQuizRound() {
+    const pool = getPool();
+    quiz.pool = pool;
+    quiz.answered = false;
+    quiz.hintLevel = 0;
+    quiz.lastSpellInput = '';
+    if (pool.length === 0) {
+        quiz.target = null;
+        return;
+    }
+    // Prefer not repeating the same target twice in a row
+    let next;
+    for (let i = 0; i < 10; i++) {
+        next = pool[Math.floor(Math.random() * pool.length)];
+        if (!quiz.target || next.id !== quiz.target.id || pool.length === 1) break;
+    }
+    quiz.target = next;
+    // Clear highlights
+    document.querySelectorAll('.province').forEach(el => {
+        el.classList.remove('quiz-right','quiz-wrong','quiz-reveal','quiz-highlight','selected');
+    });
+}
+
+function quizGuess(id) {
+    if (quiz.answered) return;
+    quiz.answered = true;
+    quiz.seen++;
+    const correct = (id === quiz.target.id);
+    const clickedEl = document.querySelector(`.province[data-id="${id}"]`);
+    const targetEl  = document.querySelector(`.province[data-id="${quiz.target.id}"]`);
+    if (correct) {
+        quiz.correct++;
+        clickedEl.classList.add('quiz-right');
+        wrongSet.delete(quiz.target.id);     // 答对自动移出错题本
+    } else {
+        quiz.wrong++;
+        clickedEl.classList.add('quiz-wrong');
+        wrongSet.add(quiz.target.id);
+        setTimeout(() => targetEl && targetEl.classList.add('quiz-reveal'), 400);
+    }
+    saveStats();
+    renderQuiz(document.getElementById('panel'), {correct, clickedId: id});
+}
+
+function spellSubmit() {
+    if (quiz.answered || !quiz.target) return;
+    const input = document.getElementById('spell-input');
+    const val = input.value;
+    quiz.lastSpellInput = val;
+
+    // Strict first, then lenient
+    const strict = val.trim() === quiz.target.sv;
+    const lenient = normalizeSv(val) === normalizeSv(quiz.target.sv);
+
+    quiz.answered = true;
+    quiz.seen++;
+    if (strict || lenient) {
+        quiz.correct++;
+        wrongSet.delete(quiz.target.id);
+        input.classList.add('right');
+    } else {
+        quiz.wrong++;
+        wrongSet.add(quiz.target.id);
+        input.classList.add('wrong');
+    }
+    saveStats();
+    renderQuiz(document.getElementById('panel'), {
+        correct: strict || lenient,
+        isSpell: true,
+        strict, lenient,
+        userInput: val
+    });
+}
+
+function insertSpellChar(c) {
+    const input = document.getElementById('spell-input');
+    if (!input || quiz.answered) return;
+    const start = input.selectionStart || input.value.length;
+    const end = input.selectionEnd || input.value.length;
+    input.value = input.value.slice(0, start) + c + input.value.slice(end);
+    input.focus();
+    input.setSelectionRange(start + 1, start + 1);
+}
+
+function renderQuiz(panel, result) {
+    const t = quiz.target;
+    const pct = quiz.seen ? Math.round(quiz.correct / quiz.seen * 100) : 0;
+
+    const submodeBar = `
+        <div class="quiz-submode">
+            <button class="${quizSubmode==='sv2map'?'active':''}" onclick="setQuizSubmode('sv2map')">瑞语 → 点位</button>
+            <button class="${quizSubmode==='zh2map'?'active':''}" onclick="setQuizSubmode('zh2map')">中文 → 点位</button>
+            <button class="${quizSubmode==='map2spell'?'active':''}" onclick="setQuizSubmode('map2spell')">看位 → 拼写</button>
+        </div>`;
+
+    if (!t) {
+        panel.innerHTML = submodeBar + `<div class="empty">当前筛选下没有题目可练</div>`;
+        return;
+    }
+
+    const stats = `
+        <div class="quiz-stats">
+            <div class="stat ok"><b>${quiz.correct}</b>答对</div>
+            <div class="stat bad"><b>${quiz.wrong}</b>答错</div>
+            <div class="stat total"><b>${pct}%</b>正确率</div>
+        </div>`;
+
+    let promptHtml = '';
+    let inputHtml  = '';
+    let hintHtml   = '';
+
+    if (quizSubmode === 'sv2map') {
+        promptHtml = `
+            <div class="quiz-prompt">
+                <div class="label">点击地图上的省份：</div>
+                <div class="name">${t.sv}</div>
+                <div class="zh">${t.zh}</div>
+            </div>`;
+    } else if (quizSubmode === 'zh2map') {
+        promptHtml = `
+            <div class="quiz-prompt">
+                <div class="label">点击地图上这个省：</div>
+                <div class="name">${t.zh}</div>
+                <div class="zh">${t.region}</div>
+            </div>`;
+    } else { // map2spell
+        promptHtml = `
+            <div class="spell-prompt">
+                <div class="label">看地图上高亮位置，拼写它的瑞典名：</div>
+                <div class="zh">${t.zh}</div>
+                <div class="meta">${t.region} · #${t.id}</div>
+            </div>`;
+        const specials = specialCharsFor(t.sv);
+        const charBtns = ['å','ä','ö'].map(c => `<button onclick="insertSpellChar('${c}')">${c}</button>`).join('');
+        inputHtml = `
+            <div class="spell-input-wrap">
+                <input id="spell-input" class="spell-input" type="text"
+                       placeholder="输入瑞典省名…" autocomplete="off"
+                       spellcheck="false" value="${quiz.lastSpellInput || ''}"
+                       onkeydown="if(event.key==='Enter')spellSubmit()">
+                ${quiz.answered ? '' : '<button class="btn-primary" onclick="spellSubmit()" style="padding:0 16px;border:none;border-radius:8px;cursor:pointer;">确认</button>'}
+            </div>
+            <div class="spell-chars">${charBtns}</div>
+            ${specials.length ? `<div style="font-size:11px;color:#999;text-align:center;margin-top:-4px;margin-bottom:10px;">提示：这个名字包含特殊字母 <b>${specials.join(' ')}</b></div>` : ''}`;
+    }
+
+    if (!quiz.answered && quizSubmode !== 'map2spell') {
+        hintHtml = `<div class="hint-level">
+            <button onclick="showHint(1)">💡 区域</button>
+            <button onclick="showHint(2)">💡 编号范围</button>
+            <button onclick="showHint(3)">💡 首字母</button>
+        </div>`;
+        if (quiz.hintLevel >= 1) hintHtml += `<div class="hint-shown">📍 位于 <b>${t.region}</b>（${t.region === 'Norrland' ? '北' : t.region === 'Svealand' ? '中' : '南'}部）</div>`;
+        if (quiz.hintLevel >= 2) {
+            const rangeMap = { 'Norrland': '1-9', 'Svealand': '10-15', 'Götaland': '16-25' };
+            hintHtml += `<div class="hint-shown">🔢 编号在 <b>${rangeMap[t.region]}</b> 之间（本题 <b>#${t.id}</b>）</div>`;
+        }
+        if (quiz.hintLevel >= 3) hintHtml += `<div class="hint-shown">🔤 瑞典名首字母 <b>${t.sv[0]}</b></div>`;
+    }
+
+    let feedback = '';
+    if (quiz.answered && result) {
+        if (result.correct) {
+            feedback = `<div class="quiz-feedback ok">
+                ✅ 正确！<b>${t.sv}</b>（${t.zh}）
+                ${result.isSpell && !result.strict && result.lenient ? '<br><span style="font-size:12px;">（忽略了å/ä/ö 变音，宽松通过）</span>' : ''}
+                <br>🏛️ 首府 <b>${t.cap.name}</b><br>
+                ${t.emoji} ${t.hook}
+            </div>`;
+        } else {
+            if (result.isSpell) {
+                feedback = `<div class="quiz-feedback bad">
+                    ❌ 你输入了 "<b>${result.userInput || '(空)'}</b>"<br>
+                    正确拼写：<b>${t.sv}</b>（${t.zh}，#${t.id}）<br>
+                    🏛️ 首府 <b>${t.cap.name}</b><br>
+                    ${t.emoji} ${t.hook}
+                </div>`;
+            } else {
+                const clicked = PROVINCES.find(p => p.id === result.clickedId);
+                feedback = `<div class="quiz-feedback bad">
+                    ❌ 你点了 <b>${clicked ? clicked.sv : '?'}</b>${clicked?`（${clicked.zh}，#${clicked.id}）`:''}<br>
+                    正确答案：<b>${t.sv}</b>（${t.zh}，#${t.id}）<br>
+                    🏛️ 首府 <b>${t.cap.name}</b><br>
+                    ${t.emoji} ${t.hook}
+                </div>`;
+            }
+        }
+    }
+
+    const actions = `
+        <div class="quiz-actions">
+            ${quiz.answered
+                ? `<button class="btn-primary" onclick="nextQuestion()">下一题 →</button>`
+                : `<button class="btn-sec" onclick="skipQuestion()">跳过（算错）</button>`}
+            <button class="btn-sec" onclick="resetStats()">清零</button>
+        </div>
+        <div style="font-size:12px; color:#999; margin-top:12px; line-height:1.6;">
+            题库 <b>${quiz.pool.length}</b> 题 · 已练 <b>${quiz.seen}</b> 题
+            ${wrongOnly ? ' · <span style="color:#C62828">只练错题</span>' : ''}
+            <br>进度保存在本地浏览器
+        </div>`;
+
+    panel.innerHTML = submodeBar + promptHtml + inputHtml + stats + hintHtml + feedback + actions;
+
+    // Autofocus spell input
+    if (quizSubmode === 'map2spell') {
+        const inp = document.getElementById('spell-input');
+        if (inp && !quiz.answered) setTimeout(() => inp.focus(), 50);
+    }
+}
+
+function showHint(level) {
+    quiz.hintLevel = Math.max(quiz.hintLevel, level);
+    renderQuiz(document.getElementById('panel'));
+}
+function skipQuestion() {
+    if (!quiz.target) return;
+    quiz.answered = true;
+    quiz.seen++;
+    quiz.wrong++;
+    wrongSet.add(quiz.target.id);
+    saveStats();
+    const el = document.querySelector(`.province[data-id="${quiz.target.id}"]`);
+    if (el) el.classList.add('quiz-reveal');
+    renderQuiz(document.getElementById('panel'), {correct: false, clickedId: -1});
+}
+function nextQuestion() {
+    startQuizRound();
+    renderMap();
+    renderQuiz(document.getElementById('panel'));
+}
+function resetStats() {
+    if (!confirm('清零练习成绩与错题本？')) return;
+    quiz.correct = 0;
+    quiz.wrong = 0;
+    quiz.seen = 0;
+    wrongSet.clear();
+    saveStats();
+    renderMap();
+    renderQuiz(document.getElementById('panel'));
+}
+
+// ===== INIT =====
+loadStats();
+applySize();
+document.getElementById('btn-cap').classList.toggle('active', showCapitals);
+document.getElementById('btn-outline').classList.toggle('active', outlineMode);
+renderMap();
+renderPanel();
+</script>
+</body>
+</html>
