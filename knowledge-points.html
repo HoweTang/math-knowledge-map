@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘古数学知识点深度分析 · AK4-AK9</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --bg: #f5f7fa;
+    --card: #fff;
+    --border: #e2e6ea;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --accent: #009688;
+    --accent-dark: #00695C;
+    --accent-bg: #e0f2f1;
+    --wrong: #e53935;
+    --right: #43A047;
+    --warning: #F57C00;
+    --shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+html, body { height: 100%; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-size: 14px;
+}
+body.size-small  { font-size: 12px; }
+body.size-large  { font-size: 16px; }
+
+/* HEADER */
+header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+h1 {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+h1 .flag { font-size: 22px; }
+.subtitle {
+    font-size: 12px;
+    background: linear-gradient(135deg, #009688, #26A69A);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.map-switch {
+    display: flex;
+    background: #f0f2f5;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+}
+.map-switch a, .map-switch span {
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+.map-switch .active {
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+.grade-switch, .diff-switch {
+    display: flex;
+    background: #f0f2f5;
+    border-radius: 20px;
+    padding: 3px;
+    gap: 2px;
+}
+.grade-switch button, .diff-switch button {
+    padding: 6px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+}
+.grade-switch button.active, .diff-switch button.active {
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+
+.search-box {
+    flex: 1;
+    min-width: 180px;
+    max-width: 320px;
+    padding: 7px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    outline: none;
+    background: #fff;
+    font-family: inherit;
+}
+.search-box:focus { border-color: var(--accent); }
+
+.counter-pill {
+    padding: 4px 12px;
+    background: var(--accent-bg);
+    color: var(--accent-dark);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* MAIN LAYOUT */
+main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    overflow: hidden;
+}
+@media (max-width: 900px) {
+    main { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+}
+
+.sidebar {
+    background: #fff;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 16px;
+}
+.sidebar h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+    margin: 16px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+}
+.sidebar h3:first-child { margin-top: 0; }
+
+.cat-nav-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    gap: 8px;
+    transition: background .15s;
+    color: var(--text);
+    text-decoration: none;
+}
+.cat-nav-item:hover { background: #f5f7fa; }
+.cat-nav-item.active { background: var(--accent-bg); color: var(--accent-dark); font-weight: 600; }
+.cat-nav-item .count {
+    background: #eceff1;
+    color: #607D8B;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.cat-nav-item.active .count { background: var(--accent-dark); color: #fff; }
+
+.sidebar-stat {
+    background: linear-gradient(135deg, #006AA7, #0288D1);
+    color: #fff;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+.sidebar-stat .label { font-size: 11px; opacity: .85; }
+.sidebar-stat .big { font-size: 24px; font-weight: 700; margin: 2px 0; }
+.sidebar-stat .sub { font-size: 11px; opacity: .85; }
+
+/* CONTENT */
+.content {
+    overflow-y: auto;
+    padding: 20px 24px 60px;
+}
+.content-inner { max-width: 980px; margin: 0 auto; }
+
+.intro-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 22px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+    border-left: 4px solid var(--accent);
+}
+.intro-card h2 { font-size: 18px; margin-bottom: 6px; }
+.intro-card p { font-size: 13px; line-height: 1.65; color: #444; }
+.intro-card .missing {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #fff3e0;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #BF5F00;
+}
+
+.topn-card {
+    background: linear-gradient(135deg, #fff8e1, #fffde7);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    border-left: 4px solid #F9A825;
+}
+.topn-card h3 { font-size: 14px; margin-bottom: 10px; color: #E65100; }
+.topn-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+    font-size: 12px;
+}
+.topn-item {
+    padding: 6px 10px;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid #fff3e0;
+}
+.topn-item:hover { border-color: #F9A825; }
+.topn-item .rank { font-weight: 700; color: #E65100; }
+.topn-item .count { color: var(--muted); margin-left: auto; }
+
+/* CATEGORY */
+.cat {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+    overflow: hidden;
+}
+.cat-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    user-select: none;
+}
+.cat-header:hover { background: #fafcfd; }
+.cat.open .cat-header { border-bottom-color: var(--border); }
+.cat-header .emoji { font-size: 24px; }
+.cat-header .title {
+    font-size: 16px;
+    font-weight: 700;
+    flex: 1;
+}
+.cat-header .meta {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.cat-header .meta span {
+    padding: 2px 8px;
+    background: #f0f2f5;
+    border-radius: 10px;
+}
+.cat-header .caret { color: var(--muted); font-size: 14px; transition: transform .2s; }
+.cat.open .cat-header .caret { transform: rotate(90deg); }
+
+.cat-body { display: none; padding: 14px 18px 18px; }
+.cat.open .cat-body { display: block; }
+
+.cat-desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #fafcfd;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+}
+.cat-tip {
+    font-size: 12px;
+    color: #BF5F00;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: #fff3e0;
+    border-radius: 6px;
+}
+
+.cat-strategies {
+    margin: 12px 0;
+    padding: 10px 12px;
+    background: #f8faff;
+    border-radius: 6px;
+    border-left: 3px solid #42A5F5;
+}
+.cat-strategies h4 {
+    font-size: 12px;
+    color: #1565C0;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+.cat-strategies ul { padding-left: 18px; }
+.cat-strategies li {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #333;
+}
+.cat-strategies code {
+    background: #e3f2fd;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+/* KNOWLEDGE POINT */
+.kp {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+.kp-header {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+}
+.kp-header:hover { background: #fafcfd; }
+.kp.open .kp-header { border-bottom: 1px solid var(--border); background: #fafcfd; }
+.kp-header .caret { color: var(--muted); font-size: 11px; width: 10px; transition: transform .2s; }
+.kp.open .kp-header .caret { transform: rotate(90deg); }
+.kp-header .name { flex: 1; font-weight: 600; }
+.kp-header .misc-tag {
+    font-size: 10px;
+    color: #888;
+    background: #f0f2f5;
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 4px;
+}
+.kp-header .diff { font-size: 11px; color: var(--warning); margin-right: 6px; }
+.kp-header .count {
+    background: #eceff1;
+    color: #455A64;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.kp-body { display: none; padding: 6px 12px 10px; }
+.kp.open .kp-body { display: block; }
+
+/* PROBLEM */
+.prob {
+    border-left: 3px solid #eee;
+    padding: 8px 12px;
+    margin: 6px 0;
+    background: #fafcfd;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+}
+.prob.difficulty-1 { border-left-color: #4CAF50; }
+.prob.difficulty-2 { border-left-color: #8BC34A; }
+.prob.difficulty-3 { border-left-color: #FFC107; }
+.prob.difficulty-4 { border-left-color: #FF9800; }
+.prob.difficulty-5 { border-left-color: #F44336; }
+
+.prob-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+}
+.prob-head:hover { color: var(--accent); }
+.prob-head .stars { color: var(--warning); font-size: 11px; letter-spacing: 1px; }
+.prob-head .id {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: #fff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+.prob-head .meta { color: var(--muted); font-size: 11px; font-weight: 400; margin-left: auto; }
+.prob-head .caret { color: var(--muted); font-size: 11px; width: 10px; }
+.prob.open .prob-head .caret { transform: rotate(90deg); }
+
+.prob-body { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ddd; }
+.prob.open .prob-body { display: block; }
+
+.prob-question {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #333;
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    background: #fff;
+    border-radius: 4px;
+    white-space: pre-wrap;
+}
+.prob-options {
+    margin: 6px 0;
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.prob-opt {
+    padding: 3px 10px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+.prob-opt.correct {
+    background: #e8f5e9;
+    color: #1B5E20;
+    border-color: #a5d6a7;
+    font-weight: 700;
+}
+.prob-answer {
+    display: inline-block;
+    padding: 3px 10px;
+    background: #c8e6c9;
+    color: #1B5E20;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 4px 6px 4px 0;
+}
+.prob-hint {
+    background: #fff8e1;
+    border-left: 3px solid #F9A825;
+    padding: 7px 10px;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: #4E342E;
+    margin-top: 6px;
+    white-space: pre-wrap;
+}
+
+.hidden { display: none !important; }
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+}
+
+.loading {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* TEXTBOOK LINK CARDS */
+.textbook-section {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #f3e5f5, #fce4ec);
+    border-radius: 6px;
+    border-left: 3px solid #9C27B0;
+}
+.textbook-section h4 {
+    font-size: 12px;
+    color: #6A1B9A;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+.textbook-section .no-match {
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
+}
+.tb-item {
+    background: #fff;
+    border-radius: 6px;
+    margin: 6px 0;
+    overflow: hidden;
+    border: 1px solid #e8d5ec;
+}
+.tb-head {
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 12px;
+}
+.tb-head:hover { background: #faf5fc; }
+.tb-item.open .tb-head { background: #f8edfa; border-bottom: 1px solid #e8d5ec; }
+.tb-head .caret { color: #9C27B0; font-size: 10px; width: 10px; transition: transform .2s; }
+.tb-item.open .tb-head .caret { transform: rotate(90deg); }
+.tb-head .grade-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+.tb-head .grade-3 { background: #4CAF50; }
+.tb-head .grade-4 { background: #2196F3; }
+.tb-head .grade-5 { background: #FF9800; }
+.tb-head .grade-6 { background: #9C27B0; }
+.tb-head .name { flex: 1; font-weight: 600; color: #333; }
+.tb-head .lectures {
+    font-size: 10px;
+    color: #999;
+    background: #f0f2f5;
+    padding: 1px 6px;
+    border-radius: 8px;
+}
+.tb-body { display: none; padding: 8px 12px 10px; font-size: 12px; }
+.tb-item.open .tb-body { display: block; }
+.tb-desc { color: #555; line-height: 1.6; margin-bottom: 8px; }
+.tb-sect { margin: 8px 0; }
+.tb-sect-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6A1B9A;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+.tb-sect ul { padding-left: 18px; margin: 2px 0; }
+.tb-sect li { line-height: 1.65; color: #333; margin-bottom: 2px; }
+.tb-example {
+    background: #f8faff;
+    border-left: 2px solid #42A5F5;
+    padding: 6px 10px;
+    margin: 4px 0;
+    border-radius: 0 4px 4px 0;
+}
+.tb-example b { color: #1565C0; }
+.tb-example-sol {
+    color: #555;
+    margin-top: 3px;
+    font-size: 11px;
+    line-height: 1.65;
+}
+.tb-exercise {
+    padding: 4px 10px;
+    background: #fffde7;
+    border-left: 2px solid #F9A825;
+    margin: 3px 0;
+    border-radius: 0 4px 4px 0;
+    color: #4E342E;
+    line-height: 1.55;
+}
+.tb-tip { color: #666; font-size: 11px; line-height: 1.6; }
+
+/* Scrollbar polish */
+.sidebar::-webkit-scrollbar, .content::-webkit-scrollbar { width: 8px; }
+.sidebar::-webkit-scrollbar-thumb, .content::-webkit-scrollbar-thumb {
+    background: #cfd8dc; border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-row">
+        <h1><span class="flag">📊</span> 知识点深度分析</h1>
+        <span class="subtitle">AK4-AK9 盘古竞赛</span>
+        <div class="map-switch">
+            <a href="index.html">📐 小学教材</a>
+            <a href="german.html">🏆 德国竞赛</a>
+            <a href="pangu.html">🎨 盘古竞赛</a>
+            <a href="sweden-provinces.html">🗺️ 瑞典地理</a>
+            <a href="bridge.html">🔗 关联视图</a>
+            <span class="active">📊 知识点分析</span>
+        </div>
+    </div>
+    <div class="header-row">
+        <div class="grade-switch" id="grade-switch">
+            <!-- buttons generated by JS -->
+        </div>
+        <div class="sep"></div>
+        <div class="diff-switch" id="diff-switch">
+            <button data-diff="all" class="active">全部难度</button>
+            <button data-diff="1">⋆</button>
+            <button data-diff="2">⋆⋆</button>
+            <button data-diff="3">⋆⋆⋆</button>
+            <button data-diff="4">⋆⋆⋆⋆</button>
+            <button data-diff="5">⋆⋆⋆⋆⋆</button>
+        </div>
+        <div class="sep"></div>
+        <input class="search-box" id="search" placeholder="🔍 搜索题目标题 / 题目 ID / 内容…" autocomplete="off">
+        <div class="counter-pill" id="counter">加载中…</div>
+    </div>
+</header>
+
+<main>
+    <aside class="sidebar">
+        <div class="sidebar-stat" id="sidebar-stat">
+            <div class="label">当前筛选</div>
+            <div class="big" id="stat-total">—</div>
+            <div class="sub" id="stat-sub">题库题数</div>
+        </div>
+        <h3>大类导航</h3>
+        <div id="cat-nav"></div>
+        <h3>快速操作</h3>
+        <a class="cat-nav-item" onclick="expandAllCats()">▸▸ 展开所有大类</a>
+        <a class="cat-nav-item" onclick="collapseAllCats()">▾▾ 收起所有大类</a>
+        <a class="cat-nav-item" onclick="scrollToTopN()">🏆 高频 Top 20</a>
+    </aside>
+
+    <section class="content">
+        <div class="content-inner" id="main-content">
+            <div class="loading">⏳ 加载 pangu-data.js 中…</div>
+        </div>
+    </section>
+</main>
+
+<!-- Load textbook data first (knowledgeNodes) + Pangu data (panguNodes, panguProblems) -->
+<script src="data.js"></script>
+<script src="pangu-data.js"></script>
+
+<script>
+// ===================== TOPIC META =====================
+// Must mirror _tools/knowledge_report.js (same clustering rules).
+const TOPIC_META = [
+    {
+        key: 'pangu_calc', label: '基础运算', emoji: '🧮',
+        desc: '四则运算、运算顺序、速算技巧、单位换算、以及运算的陷阱题',
+        strategies: [
+            '<b>运算顺序</b>：括号 → 乘除 → 加减；同级从左到右',
+            '<b>速算技巧</b>：配对消项（1−2+3−4+… 两两配对），凑整法（25×4、125×8），逆运算补数',
+            '<b>单位换算</b>：时间（1时=60分=3600秒）、长度（m/cm/mm/km）、体积（L/ml/dl）、重量（kg/g）',
+            '<b>陷阱警觉</b>：读清"从 A 中减 B"的方向、"是 A 的几倍" vs "比 A 多几倍"',
+            '<b>估算验证</b>：答案与数量级是否合理'
+        ],
+        clusters: [
+            { name: '交替加减/配对求和', patterns: [/交替/, /正负/, /加减$/, /\+\s*\d+\s*-\s*\d+/, /望远/] },
+            { name: '等差连加（1+3+…）', patterns: [/\d+\+\d+\+[.…]/, /\d+\+\d+\+\d+\+/, /奇数.*求和/, /奇数.*之和/, /偶数.*求和/, /连.*加/, /1\.\.1000/] },
+            { name: '多步混合运算', patterns: [/算式求值/, /算式谜/, /和中减/, /两数之和/, /两数的[商和差积]/, /算式/, /计算 ?\d/, /值$/, /从.*中.*减/] },
+            { name: '单位换算', patterns: [/换算/, /\d+ ?(ml|L|cm|m|km|kg|g|分钟|秒|小时|dl)/, /升.*ml/, /\d+ ?升/, /千克|公斤/] },
+            { name: '运算符判断/填符号', patterns: [/运算符/, /填符号/, /填.*运算/, /\?/, /□/, /^.*\?.*=/] },
+            { name: '乘法表/乘法基础', patterns: [/乘法/, /乘积/, /\d+×\d+/, /\d+ ?[·\.] ?\d+/, /倒数|逆运算/] },
+            { name: '逆推/估算', patterns: [/估算/, /大约/, /量级/, /逆推/, /倒推/, /结果.*是/, /\?.*=/] },
+        ]
+    },
+    {
+        key: 'pangu_number', label: '数论/数位', emoji: '🔢',
+        desc: '整数的数位结构、整除性、奇偶、回文、位数计数、特殊数的构造',
+        strategies: [
+            '<b>数位表示</b>：三位数 abc = 100a+10b+c，拆开可做代数运算',
+            '<b>整除规则</b>：2（末位偶）、3（数字和被3整除）、5（末位0或5）、9（数字和被9整除）、11（奇位和−偶位和被11整除）',
+            '<b>最大/最小数</b>：大数把大数字放高位，小数把大数字放低位，首位不能为 0',
+            '<b>回文数</b>：abc...cba，中间对称',
+            '<b>位数计数</b>：n 位数共 9×10^(n-1) 个（首位 1-9，其余 0-9）',
+            '<b>奇偶性</b>：和的奇偶 = 奇数个数的奇偶；积只要有偶数就是偶数'
+        ],
+        clusters: [
+            { name: '整除/数字和', patterns: [/整除/, /数字和/, /被 ?\d+ ?整除/, /的倍数/, /除以.*余/, /mod/] },
+            { name: '数位组合（最大/最小）', patterns: [/最[大小]/, /位数.*和/, /几位数/, /数位/, /数字组成/, /\d+ ?位数/, /位数描述/] },
+            { name: '回文数/对称数', patterns: [/回文/, /对称数/, /镜数/] },
+            { name: '位数计数', patterns: [/几位/, /多少个数/, /\d位数/, /位数.*个数/, /\d+..\d+.*几个|\d+..\d+.*多少/, /共用.*数字/, /连位数/] },
+            { name: '数轴/定位', patterns: [/数轴/, /箭头/, /位置数/] },
+            { name: '两数关系（和/差/积）', patterns: [/两.*数的|两数的|两邻|相邻.*数.*(和|差|积|乘积)|两.*乘积/, /\d+ ?[+\-×÷] ?\d+.*求|求 ?.*和$|求 ?.*差$/] },
+            { name: '质数/合数/因数倍数', patterns: [/质数/, /素数/, /因数/, /因子/, /约数/, /倍数/, /公倍数|公约数|最[大小]公/] },
+            { name: '阶乘/幂运算/符号代数', patterns: [/阶乘|!\s*(mod|\+)/, /\^-?\d|\d\^|指数|[0-9]\.[0-9]\)\^/, /◇|□|♠|♥|♣|♦/, /同形代同数/, /符号代/] },
+            { name: '古数/非十进制表达', patterns: [/亿|万|零/, /中文数/, /罗马数/, /二进制/] },
+        ]
+    },
+    {
+        key: 'pangu_fraction', label: '分数/小数', emoji: '🥧',
+        desc: '分数的意义、通分约分、分数四则、分数与小数转换、分数应用',
+        strategies: [
+            '<b>比较大小</b>：通分到同分母，或都化为小数；交叉相乘比较 a/b vs c/d：ad vs bc',
+            '<b>分数单位</b>：n/d 表示 n 份 d 分之一',
+            '<b>单位1</b>：题目里"的"字前面的量通常是单位 1',
+            '<b>运算</b>：加减先通分；乘法分子乘分子；除法乘以倒数',
+            '<b>倍比关系</b>：A 是 B 的 2/5 → A/B = 2/5；若 B=10，A=4'
+        ],
+        clusters: [
+            { name: '分数的比较与大小', patterns: [/比大小/, /[大小]于.*分数|分数.*[大小]于/, /之间的分数/, /中间.*分数/, /\d+\/\d+.*\d+\/\d+/] },
+            { name: '分数单位与运算', patterns: [/分数.*运算|分数.*乘|分数.*除|分数.*加|分数.*减/, /[加减乘除].*分数/, /\d\/\d/, /约分/, /通分/] },
+            { name: '分数应用（求整体/部分）', patterns: [/几分之几/, /的 ?\d+\/\d+/, /剩下/, /用了.*分/, /\d+\/\d+.*用/] },
+            { name: '小数运算', patterns: [/小数/, /\d+\.\d+/, /0\.\d+/] },
+            { name: '阴影面积占比（分数）', patterns: [/阴影.*占|白色.*占|占.*几/, /阴影.*比例|阴影比/, /占比$/] },
+            { name: '折纸/倍半/比值', patterns: [/对折/, /折 ?\d+ ?次/, /倍$|几倍/] },
+            { name: '表达式求最值', patterns: [/表达式.*最[大小]|求.*最[大小]值|最[大小]值$/] },
+        ]
+    },
+    {
+        key: 'pangu_percent', label: '百分数', emoji: '💯',
+        desc: '百分比的意义、涨跌恢复、复合变化、浓度问题',
+        strategies: [
+            '<b>百分数即分数</b>：50% = 1/2',
+            '<b>涨跌不对消</b>：+20% 后 −20% ≠ 0，实际 1.2×0.8 = 0.96',
+            '<b>恢复原价</b>：涨 X% 后要恢复，需降 X/(100+X) ×100%',
+            '<b>浓度</b>：溶质 / 溶液 × 100%，混合用加权平均'
+        ],
+        clusters: [
+            { name: '涨跌百分比/恢复原价', patterns: [/涨/, /降/, /跌/, /折/, /涨价/, /涨幅/, /恢复/, /%.*%/, /-\d+%|\+\d+%|\-20%|-50%/, /夹克.*%/] },
+            { name: '复合百分比变化（股票类）', patterns: [/\d+%.*\d+%/, /先.*再.*%/, /连续.*%/, /股票.*%|股票.*跌|股票.*涨/] },
+            { name: '浓度/含量比例', patterns: [/浓度/, /含量/, /盐水/, /糖水/, /占.*%/, /占比/, /混合.*含/] },
+            { name: '面积占比（百分比）', patterns: [/面积.*%|%.*面积|面积.*百分/, /百分比.*正方|正方.*百分/, /覆盖.*%/] },
+            { name: '人数比例/统计百分比', patterns: [/\d+%.*人|%.*有多少|%.*学生|%.*同学|国考.*%/, /\d+%.*占|占.*%/] },
+        ]
+    },
+    {
+        key: 'pangu_algebra', label: '代数/方程', emoji: '📐',
+        desc: '设未知数、列方程、代数式求值、方程组、恒等变形',
+        strategies: [
+            '<b>设元原则</b>：设出题目最终要求的量（直接设），或设最小的量（间接设）',
+            '<b>列方程三要素</b>：等量关系、未知数、方程',
+            '<b>平衡问题</b>：把一端的 X 个 A = 另一端的 Y 个 B 转化为比例',
+            '<b>恒等式</b>：(a+b)² = a²+2ab+b²；a²−b² = (a+b)(a−b)',
+            '<b>代入消元</b>：方程组中用一式表示一个变量代入另一式'
+        ],
+        clusters: [
+            { name: '一元/二元方程', patterns: [/方程/, /设.*为.*x/, /等于.*求/, /\+\d+.*=.*求/] },
+            { name: '代数式求值/化简', patterns: [/求值/, /化简/, /表达式/, /代数式/, /求 ?x$/, /求 ?[a-z]$/, /计算.*式/] },
+            { name: '天平/平衡问题', patterns: [/天平/, /平衡/, /称重/, /砝码/, /跷跷板/] },
+            { name: '恒等式/完全平方/差积', patterns: [/a\+b|a-b|a²|a\^2|平方和|差.*平方|a·b|a×b|AB|AB=|a\+b=/, /\(.*\)²|\(.*\)\^2/] },
+            { name: '比例/倍比问题', patterns: [/倍.*关系/, /比例/, /:[0-9]/, /\d+:\d+/, /几倍|是.*倍/] },
+            { name: '数列第 n 项/等差求和', patterns: [/第 ?\d+ ?项/, /第\s*n/, /下一项/, /第 ?\d+ ?个/, /\d+\+\d+\+[.…]/, /\d+\+\d+\+\d+\+/, /奇数.*求和|奇数.*之和|偶数.*求和/, /连 ?加|1\+2\+3/, /等差/, /1\.\.1000|1\.\.\d+/] },
+            { name: '鸡兔同笼类（变形）', patterns: [/鸡兔|笼子/, /腿.*头|头.*脚|轮.*辆|车.*轮|头.*腿|脚.*头/, /几只.*几只|多少只.*多少只/, /\d+ ?[辆车只].*\d+ ?轮/, /\d+ 头.*\d+ 只/] },
+            { name: '平均数问题', patterns: [/平均/, /均值/, /平均 ?\d+/, /平均.*求/] },
+            { name: '符号代数/图形代数', patterns: [/♠|♥|♣|♦|◇|□(.*=|.*求)|★/, /同形代同数|符号.*代.*数|同一字母|同形|用.*代替/] },
+            { name: '年龄问题', patterns: [/年龄|岁$|\d+ ?岁|岁数|年前|年后|比.*大.*岁|比.*小.*岁|祖孙|父子|兄弟.*岁/] },
+            { name: '最值问题（求最大/最小）', patterns: [/A\+B=.*求.*最[大小]|最[大小]值|求.*最[大小]/, /两数积.*最/] },
+        ]
+    },
+    {
+        key: 'pangu_geom', label: '平面几何', emoji: '📏',
+        desc: '面积、周长、阴影面积、图形计数、相似变换、几何构造',
+        strategies: [
+            '<b>阴影面积</b>：整体减空白；割补拼合；旋转/平移把阴影聚拢',
+            '<b>面积公式</b>：三角形 ½bh；平行四边形 bh；梯形 ½(a+b)h；圆 πr²',
+            '<b>三角形计数</b>：按大小/方向分类，不漏不重',
+            '<b>中位线定理</b>：三角形中位线 = 底边的 ½，且平行',
+            '<b>面积比 = 相似比²</b>',
+            '<b>勾股</b>：直角三角形 a² + b² = c²'
+        ],
+        clusters: [
+            { name: '阴影面积（割补/等积变换）', patterns: [/阴影/, /阴影面积/, /阴影部分/, /灰色.*面积|灰色区域|灰色三角形/, /涂绿|涂色.*面积/, /覆盖.*面积/] },
+            { name: '图形计数（三角形/四边形/正方形）', patterns: [/三角形.*数|数.*三角形/, /几个三角形/, /四边形.*数|多少正方形|找.*正方形|正方形.*种类/, /点阵.*正方/, /图中.*图形/] },
+            { name: '周长问题', patterns: [/周长/, /绕.*一圈|绕图|沿.*长度|绳.*长|绕.*长/, /周长.*正方|正方.*周长/] },
+            { name: '面积比较/比值', patterns: [/面积比/, /面积.*比/, /倍面积/, /几倍面积/, /面积.*大小/] },
+            { name: '矩形/正方形拼接', patterns: [/拼成/, /拼接/, /矩形|正方形.*拼/, /由.*正方形/, /L ?形.*拼/, /\d+ ?相同.*拼/, /\d+ ?正方形拼|\d+ 矩形拼/] },
+            { name: '中点/中线', patterns: [/中点/, /中线/, /中位线/, /均匀.*中点/, /中线.*求/] },
+            { name: '圆与扇形', patterns: [/圆/, /扇形/, /半圆/, /弧/, /车轮.*转|轮子转/] },
+            { name: '勾股/直角三角形', patterns: [/直角/, /勾股/, /斜边/] },
+            { name: '相似/全等/反射对称', patterns: [/相似/, /全等/, /镜像|反射|对称/, /折成|折起/, /折叠/] },
+            { name: '几何构造（选边/能否构成）', patterns: [/选.*拼.*三角形|选.*构成|能否构成|三角形不等|三角形三边|第三边|三边长|木棒.*三角/, /连续 ?\d+ ?整数关系/] },
+            { name: '网格/格子路径', patterns: [/方格.*路径|网格路径|格路|格子.*路|Mario.*方格/] },
+            { name: '图形变换/辨识', patterns: [/找.*不同|找出.*图|印章.*图|不同的图|图形匹配|图形放大|不同之处|图形种类/] },
+        ]
+    },
+    {
+        key: 'pangu_solid', label: '立体几何', emoji: '🧊',
+        desc: '立方体、长方体、骰子、展开图、三视图、涂色与切割',
+        strategies: [
+            '<b>骰子</b>：相对面之和 = 7（1↔6、2↔5、3↔4）',
+            '<b>展开图</b>：11 种正方体展开图，相邻面相邻、相对面隔一个',
+            '<b>三视图</b>：主、左、俯',
+            '<b>涂色切割</b>：n³ 块中，角 8 块（三面）、棱 12(n−2) 块（两面）、面 6(n−2)² 块（一面）、内 (n−2)³ 块（无色）'
+        ],
+        clusters: [
+            { name: '骰子问题（相对面/朝向）', patterns: [/骰子/, /色子/, /点数.*骰|骰.*点数/] },
+            { name: '展开图与还原', patterns: [/展开图/, /展开/, /折[成起]/, /能否折成/, /折 立方|折立方/] },
+            { name: '三视图/视图识别', patterns: [/视图/, /正视|俯视|侧视|左视/, /三视/, /字母.*视|字母.*俯/] },
+            { name: '立方体切割/涂色', patterns: [/切割/, /涂色.*立方|涂色.*方块|立方.*涂/, /切成/, /小方块/, /小立方/, /\d×\d×\d.*涂|\d*×\d*×\d.*切/] },
+            { name: '表面积/体积计算', patterns: [/表面积/, /体积/, /容积/, /涂面积/] },
+            { name: '补全立体/缺块', patterns: [/补全/, /缺.*块/, /缺.*方块/, /补立方|补.*方块/, /缺.*立方|空缺.*块/] },
+            { name: '立体堆叠/拼接', patterns: [/堆/, /叠/, /堆积/, /堆放/, /拼成.*立方|拼立方|60 ?立方体|\d+ ?立方.*拼|拼.*长方/, /装 ?立方|立方.*装/] },
+            { name: '最大内切球/最大圆柱', patterns: [/内切|最大.*球|最大.*圆柱|球.*半径.*长方/] },
+            { name: '蚂蚁/路径（立体上）', patterns: [/蚂蚁.*立方|蚂蚁.*方块|蚂蚁.*爬/] },
+        ]
+    },
+    {
+        key: 'pangu_angle', label: '角度', emoji: '📐',
+        desc: '角的度量、三角形与多边形内角、等腰等边角特性、钟表角',
+        strategies: [
+            '<b>三角形内角和</b>：180°',
+            '<b>n 边形内角和</b>：(n−2)×180°',
+            '<b>等腰三角形</b>：两底角相等；等边 60°',
+            '<b>外角 = 不相邻两内角之和</b>',
+            '<b>平行线</b>：同位角、内错角相等；同旁内角互补',
+            '<b>钟表角</b>：时针 30°/时、0.5°/分；分针 6°/分；夹角 |30H − 5.5M|'
+        ],
+        clusters: [
+            { name: '等腰/等边角计算', patterns: [/等腰/, /等边/, /等腰等边/, /等腰[^，]*等腰/, /五边形.*角|正方形.*角/] },
+            { name: '多边形内角和', patterns: [/多边形/, /内角和/, /\d+ ?边形/, /α\+β\+γ|α+β/] },
+            { name: '三角形角比例/中线', patterns: [/角比|比.*求 ?C|角 ?\d:\d/, /ABC.*角|三角形.*角/, /中线|中位/, /\d+:\d+:\d+/, /2x\+3x|求 ?x$/] },
+            { name: '钟表时针分针夹角', patterns: [/时针/, /分针/, /钟面|钟表.*角|时.*分.*夹角|16:00/] },
+            { name: '外角/平行线角', patterns: [/外角/, /平行线/, /同位角|内错角/] },
+            { name: '求任意角 b/c（综合）', patterns: [/求 ?[bcdm] ?角|求 ?[bcdm]$|求 ?v ?角|求 ?v$|a=\d+.*求|m\+n|求.*角|找角度/] },
+        ]
+    },
+    {
+        key: 'pangu_count', label: '计数/组合', emoji: '🎯',
+        desc: '加法/乘法原理、排列组合、路径计数、图形计数、容斥',
+        strategies: [
+            '<b>加法原理（分类）</b>：若干类方法 → 加起来',
+            '<b>乘法原理（分步）</b>：若干步 → 乘起来',
+            '<b>路径计数</b>：只能右/下走的网格路径 = C(m+n, m)',
+            '<b>排列 vs 组合</b>：顺序重要 vs 不重要',
+            '<b>容斥</b>：|A∪B| = |A|+|B|−|A∩B|',
+            '<b>图形计数</b>：按大小/位置/方向分类枚举'
+        ],
+        clusters: [
+            { name: '路径计数', patterns: [/路径/, /路线/, /走法/, /几种走/, /路.*几种/, /网格.*走|格子.*走/] },
+            { name: '选法/组合', patterns: [/选法/, /几种选/, /从.*中选/, /取 ?\d+/, /选 ?\d+ ?[从个]/] },
+            { name: '排列（顺序相关）', patterns: [/排列/, /排法/, /站队/, /几种排/, /顺序/, /中间者|排在.*中间/] },
+            { name: '图形中数三角形/四边形/正方形', patterns: [/图中.*三角形|三角形.*图/, /图中.*四边形|找.*四边形/, /几个三角形/, /数.*三角形/, /图.*正方形|找正方形|正方形.*种类|点阵.*正方形/, /多少正方形/] },
+            { name: '容斥（至少/至多）', patterns: [/至少/, /至多/, /都不/, /同时/, /\d+%.*\d+%.*双|两者皆/] },
+            { name: '涂色方案数', patterns: [/涂色方案|涂.*几种|染色|有多少涂法|着色/] },
+            { name: '握手/比赛场次', patterns: [/握手/, /比赛/, /场次/, /两两/, /兄妹|姐妹.*认识/] },
+            { name: '编号/数字串计数', patterns: [/编号|数字串|密码/, /位回文.*个数|位数.*有多少/, /多少个数|有多少数/, /\d位数.*多少/] },
+            { name: '连成/连写（位数计数）', patterns: [/连位数|连成.*大数|按顺序连/, /1\.\.\d+ ?连/, /连写.*数字|数字.*连写/] },
+            { name: '立方体/长方体拼法', patterns: [/长方体.*拼|立方体.*拼|多少种长方体|多少种立方/] },
+            { name: '书页/印刷数字计数', patterns: [/书页|页码.*数字|位数.*书|印刷.*数字/, /数字.*书页/] },
+            { name: '幻方填数', patterns: [/幻方|3×3 ?[^.]+填|填数 ?\d/, /3×3.*方格.*填/] },
+        ]
+    },
+    {
+        key: 'pangu_pattern', label: '规律/数列', emoji: '🔁',
+        desc: '找规律、等差等比、周期、图形规律、递推',
+        strategies: [
+            '<b>等差</b>：公差 d，第 n 项 = a₁+(n−1)d；前 n 项和 = n(a₁+aₙ)/2',
+            '<b>等比</b>：公比 r，第 n 项 = a₁×r^(n−1)',
+            '<b>周期</b>：找周期长度 T，第 n 个 = 第 (n mod T) 个',
+            '<b>图形规律</b>：观察增量，常也是数列',
+            '<b>递推</b>：斐波那契 aₙ = aₙ₋₁ + aₙ₋₂'
+        ],
+        clusters: [
+            { name: '等差数列（第 n 项/求和）', patterns: [/等差/, /\d+,\d+,\d+/, /第 ?\d+ ?项/, /前 ?\d+ ?[项个]和/, /\d+\+\d+\+[.…]/, /奇数.*求和|奇数.*之和/, /连.*加/, /1\+2\+3|1\.\.1000|1\.\.n/, /\d+..\d+.*和/] },
+            { name: '等比/倍增数列', patterns: [/等比/, /倍增/, /翻倍/, /\d+,\d+,\d+.*倍/, /下一项.*倍/] },
+            { name: '周期循环规律', patterns: [/循环/, /周期/, /\d+色.*第/, /第 ?\d+ ?[个张]/, /第 ?\d+ ?星期/] },
+            { name: '图形规律（点数/边数）', patterns: [/第 ?\d+ ?张图/, /第 ?\d+ ?个图/, /点数/, /图形.*数/, /串珠.*剩/, /第 ?\d+.*有多少/] },
+            { name: '斐波那契/递推', patterns: [/斐波那契/, /兔子.*繁殖/, /上一个.*下一个/, /1,1,2,3,5|跳台阶|青蛙.*跳/] },
+            { name: '交替/变号规律', patterns: [/交替|交错|正负|望远/, /B-A|A-B.*图/] },
+            { name: '图形变换规律（镜像/旋转）', patterns: [/镜像/, /旋转.*图|转.*图/, /右倍下半|下半.*图/] },
+            { name: '数字规律（三角形数/方阵数）', patterns: [/三角形数|方阵数|三角数|数字金字塔|数字塔|金字塔/, /A\+B.*三角|三角.*A\+B/, /数字 1-10|数字金字/] },
+            { name: '找缺失/找规律（三选一）', patterns: [/找规律|找.*缺失|缺失.*和|识别模式|识别规律|找 ?\?|数列.*下一项|数列下一/] },
+        ]
+    },
+    {
+        key: 'pangu_logic', label: '逻辑推理', emoji: '🧠',
+        desc: '真假话、假设法、排除法、鸽巢原理、匹配问题',
+        strategies: [
+            '<b>假设法</b>：假设某人说真话 → 推演能否自洽',
+            '<b>真假话型</b>：n 人中 k 真 n−k 假，列表遍历',
+            '<b>排除法</b>：选项互斥时，排除掉的就是答案',
+            '<b>鸽巢</b>：n+1 个苹果放 n 个抽屉，至少一个抽屉有≥2 个',
+            '<b>最不利情形</b>：假设最坏情况算最少次数',
+            '<b>匹配表</b>：画人×属性的 ✓/✗ 表格'
+        ],
+        clusters: [
+            { name: '真假话推理', patterns: [/真话|说谎|真.*假|谎话|真话假话|真\(假\)/, /唯一.*真|唯一.*假|只.*真.*|真.*真.*假/, /真假各一/] },
+            { name: '鸽巢原理（最少/至少）', patterns: [/至少|最少|保证.*有/, /同生日|生日.*至少/, /帽子.*最少/] },
+            { name: '位置/顺序/排名推理', patterns: [/顺序|排在|第 ?\d+ ?名|名次|第几|排在.*名|中间者|排列顺序/] },
+            { name: '陷阱题/脑筋急转弯', patterns: [/陷阱/, /年龄.*无关|无法求解/, /脑筋/, /农民|冬眠.*年龄/, /自指|自我指涉/] },
+            { name: '匹配推理（谁拿什么）', patterns: [/谁.*谁|分别|各.*一个|配对|对应/, /各有.*姐妹|各.*兄弟|各.*几|球衣号/] },
+            { name: '最少/最大年龄综合推理', patterns: [/最 ?[大小]|年龄.*最|.* ?孩子.*最小|.*谁.*最大|.*谁.*最小/, /最大.*谁|最小.*谁/] },
+            { name: '时间/先后推理', patterns: [/先.*后|提前|推迟.*几|顺序.*比赛|时间.*名次/, /跳远.*第|比赛.*先/] },
+        ]
+    },
+    {
+        key: 'pangu_puzzle', label: '智力题/数字谜', emoji: '🧩',
+        desc: '字母运算、填数、幻方、拼图、脑筋急转弯',
+        strategies: [
+            '<b>字母运算</b>：从个位开始分析进位；相同字母 = 相同数字；首位不能为 0',
+            '<b>幻方</b>：n×n 幻方每行列对角和 = n(n²+1)/2；3×3 幻和 15',
+            '<b>填数</b>：从约束最多的位置开始',
+            '<b>倒推</b>：从目标状态反推初始状态',
+            '<b>穷举剪枝</b>：枚举少量情况，剪掉不合理的'
+        ],
+        clusters: [
+            { name: '字母运算/密码数字谜', patterns: [/字母.*算|CRYPT|COYOTE|密码|字母运算|SEND|MONEY|同形代同数|符号代同数/, /算式谜|缺失数字/, /◇|♠|♥|♣|♦|★|■|▲/] },
+            { name: '幻方/数独/拉丁方', patterns: [/幻方|数独|填数|方格.*填|3x3|9x9|拉丁方|金字塔.*填|数字 1-10/] },
+            { name: '拼图/图形填充', patterns: [/拼图|拼成|填入|组成|拼接|彩色.*拼|L ?形拼/] },
+            { name: '涂色/图案方案', patterns: [/涂色方案|染色.*方案|图案.*方案|模式.*方案|涂.*几种|染.*几种|着色/] },
+            { name: '逆推/倒水/称重', patterns: [/倒水|分水|称/, /倒推|逆推|还原/] },
+            { name: '脑筋急转弯/陷阱', patterns: [/陷阱|无法求解|脑筋|年龄.*农民|冬眠.*年龄/] },
+            { name: '算式填符号/算式求值', patterns: [/算式求值|算式谜|填符号.*算|填运算符|算式.*等号|8?[.·]9|65.*?.*47/, /连 ?加 ?10 层|金字塔.*缺失/] },
+            { name: '拉丁方/几何方阵', patterns: [/5×5|4×4.*拉丁|拉丁方|同行同列|每行每列/] },
+            { name: '扩展乘法/立方幂', patterns: [/立方幂|金币|金币塔|数字分配|两位数.*求和/] },
+        ]
+    },
+    {
+        key: 'pangu_app', label: '应用题', emoji: '💼',
+        desc: '行程、工程、经济、年龄、浓度等生活化问题',
+        strategies: [
+            '<b>读题三遍</b>：找已知/未知 → 抓条件 → 画线段/表格',
+            '<b>行程</b>：相遇 d=(v₁+v₂)t；追及 d=(v₁−v₂)t；过桥 路程=车长+桥长',
+            '<b>工程</b>：效率 × 时间 = 工作量；设总量为 1',
+            '<b>鸡兔同笼</b>：假设全是鸡 → 多出的脚数 ÷ 2 = 兔子数',
+            '<b>年龄</b>：年龄差永不变',
+            '<b>经济</b>：成本/售价/利润/利润率'
+        ],
+        clusters: [
+            { name: '行程（相遇/追及/过桥）', patterns: [/相遇|追及|速度|距离|公里|km|火车|过桥|路程|公路|小时.*行|步长|步 ?vs|步数|时速|离信息/] },
+            { name: '工程问题（效率）', patterns: [/工作|效率|工程|天数|单独|合作|同时.*完成|打扫|打印|清洗|割草|割.*用.*分/] },
+            { name: '鸡兔同笼类', patterns: [/鸡兔|笼|腿.*头|头.*脚|轮.*辆|车.*轮|几只.*几只|多少只.*多少只|\d+ ?[辆车只].*\d+ ?轮/] },
+            { name: '年龄问题', patterns: [/年龄|岁$|\d+ ?岁|岁数|比.*大.*岁|比.*小.*岁|祖孙|姐弟年龄|父子.*岁|三代/] },
+            { name: '经济（买卖/利润/找零）', patterns: [/价钱|元|价格|克朗|crown|SEK|块钱|买卖|利润|找款|付款|账单|价签|打折|宝石付款|钱.*多少/] },
+            { name: '浓度/混合/果汁', patterns: [/浓度|盐水|糖水|混合|稀释|溶液|果汁|柚子.*苹果|油果果|调配/] },
+            { name: '分配/等分', patterns: [/分给|平分|均分|分成|每人.*几|分.*等|球.*孩子|球分给|糖果分给|均匀分配/] },
+            { name: '容器问题', patterns: [/杯|桶|瓶|容器|倒入|盛|油箱|水龙头.*蓄水|浴缸|游泳池|游泳.*运动员/] },
+            { name: '相对体重/平衡问题', patterns: [/体重|重量|较重|较轻|体重比|体重.*谁|同重/, /婴儿.*悬挂|挂件.*平衡/] },
+            { name: '生活数据/统计类', patterns: [/派对人数|观众.*变化|毛巾.*夹子|锯木头|滑雪.*每小时呼吸|呼吸次数|打猫|打扫.*次数|毛巾晾/] },
+            { name: '身高/长度实际应用', patterns: [/身高|身长|个高|高度.*差|比.*高|比.*矮|脚印/] },
+            { name: '时间/场景混合', patterns: [/锯木头|分段|段 ?\d+ ?分|用时.*分|段.*锯/] },
+            { name: '数字/数据类（名次/排位）', patterns: [/卡车玉米|名次.*奖|跳远.*第|比赛名次|同生日/] },
+        ]
+    },
+    {
+        key: 'pangu_time', label: '时间/日期', emoji: '⏰',
+        desc: '时间计算、星期几、时钟角度、日历、持续时间',
+        strategies: [
+            '<b>星期几</b>：n 天后 → 星期 = (起点 + n) mod 7',
+            '<b>日期</b>：平年 365 = 52 周 + 1 天；闰年 366 = 52 周 + 2 天',
+            '<b>时钟角度</b>：时针 30°/时、0.5°/分；分针 6°/分；夹角 |30H−5.5M|',
+            '<b>跨天</b>：24 时制、跨 00:00',
+            '<b>持续时间</b>：结束 − 开始，跨午夜 +24'
+        ],
+        clusters: [
+            { name: '星期几（周期型）', patterns: [/星期|周 ?[一二三四五六日天]|星期几|12 ?天后|天后.*星期/] },
+            { name: '时长计算（跨小时/跨日）', patterns: [/多少[分秒小时]|持续|用时|所需时间|时长|总时间|总时长|间隔.*秒/, /100 ?小时后|小时.*几点/] },
+            { name: '时钟指针夹角', patterns: [/时针|分针|钟.*夹角|钟.*角|钟面.*角|16:00|时钟.*角/] },
+            { name: '时刻表（出发/到达）', patterns: [/出发|到达|启程|火车|公交|航班|飞机|时刻/] },
+            { name: '时间倒推', patterns: [/几点开始|提前|推迟/] },
+            { name: '连续事件/营业时段', patterns: [/营业|开放|泳池.*一周|6 ?支蜡烛|蜡烛|燃烧/] },
+        ]
+    },
+    {
+        key: 'pangu_probability', label: '概率/统计', emoji: '🎲',
+        desc: '等可能事件、独立事件、几何概率、Galton 板',
+        strategies: [
+            '<b>等可能</b>：P(A) = 有利结果 / 总结果',
+            '<b>独立相乘</b>：P(A∩B) = P(A)·P(B)',
+            '<b>互斥相加</b>：P(A∪B) = P(A)+P(B)',
+            '<b>对立</b>：P(A) + P(非A) = 1',
+            '<b>Galton 板</b>：n 层，到 k 槽概率 = C(n,k)/2ⁿ'
+        ],
+        clusters: [
+            { name: '等可能事件概率', patterns: [/概率/, /可能.*几分之几|机率/] },
+            { name: 'Galton 板', patterns: [/Galton|高尔顿|钉板/] },
+            { name: '取球/抽签', patterns: [/取球|抽/, /红球|蓝球|白球|黑球|球.*取|帽子.*抽|帽子.*取/] },
+            { name: '最少抽取（鸽巢）', patterns: [/至少取|最少抽|保证取|最少.*次|保证.*次/] },
+            { name: '骰子概率/平均值', patterns: [/骰子.*概率|两.*骰子|点数.*和|骰子平均|骰子.*次|骰子.*期望/] },
+            { name: '统计/均值/方差', patterns: [/平均.*求/, /方差|标准差|中位数|众数/] },
+        ]
+    },
+];
+
+// ============== GRADE-specific intros ==============
+const GRADE_INFO = {
+    4: {
+        name: 'AK4 (四年级)',
+        intro: 'AK4 是盘古竞赛入门级别，每年考 12（初赛）+ 10（决赛）题。侧重<b>读题能力、运算熟练度、空间想象、模式识别</b>。不考代数、分数运算、角度、百分比、概率。',
+        tipPerCategory: {
+            pangu_calc: '对 AK4 来说这是<b>送分题</b>。要练到秒答，常考：填运算符号、交替加减、从和中减、换算单位。',
+            pangu_app: 'AK4 的应用题重点是<b>读清题目</b>。常见陷阱："农民几岁"（动物与年龄无关）。画线段/表格！',
+            pangu_count: 'AK4 的计数都是<b>可枚举</b>的。常见：三角形计数、路径数、组合。老老实实画图数。',
+            pangu_puzzle: 'AK4 的数字谜/智力题常考<b>算式填数字</b>、幻方、简单字母运算。练好进位规则就能解一大半。',
+            pangu_logic: 'AK4 逻辑题多是<b>真假话、匹配、位置、陷阱</b>。遇到匹配题画表格。',
+            pangu_pattern: 'AK4 的规律大多是<b>找下一项/第 N 项</b>：周期、等差、图形规律。',
+            pangu_number: 'AK4 的数论入门：数位、最大/最小数、简单整除。关键是会把 abc = 100a+10b+c 分析。',
+            pangu_time: 'AK4 常考：<b>星期几</b>（mod 7）、<b>时长</b>（跨小时）。时针夹角不会出。',
+            pangu_solid: 'AK4 立体题多是<b>三视图、展开图、切涂方块</b>。要练空间想象，建议折纸实操。',
+            pangu_geom: 'AK4 几何重点：<b>周长、图形计数、拼接、简单阴影</b>。',
+        }
+    },
+    5: {
+        name: 'AK5 (五年级)',
+        intro: 'AK5 比 AK4 多了<b>分数初步、简单比例</b>。几何题的拼接难度提升。不考百分比、代数证明、角度计算、概率。',
+        tipPerCategory: {}
+    },
+    6: {
+        name: 'AK6 (六年级)',
+        intro: 'AK6 开始出现<b>简单代数（求 x）、分数四则、少量角度和百分比</b>。几何综合题增多。',
+        tipPerCategory: {}
+    },
+    7: {
+        name: 'AK7 (七年级/初一)',
+        intro: 'AK7 过渡到初中：<b>完整代数、方程组、分数运算、角度、立体几何综合</b>。概率尚不涉及。',
+        tipPerCategory: {}
+    },
+    8: {
+        name: 'AK8 (八年级/初二)',
+        intro: 'AK8 考<b>代数变形、几何证明、百分数、概率初步、三角形角度综合</b>。基础运算题几乎消失。',
+        tipPerCategory: {}
+    },
+    9: {
+        name: 'AK9 (九年级/初三)',
+        intro: 'AK9 最难：<b>复杂代数、几何证明综合、概率、分数/百分比压轴题</b>。几乎没有送分题。',
+        tipPerCategory: {}
+    }
+};
+
+// ===================== STATE =====================
+let currentGrade = 4;
+let currentDiff = 'all';
+let currentCategory = null;   // key or null
+let searchTerm = '';
+let allProblems = [];
+let kpData = {}; // {topicKey: {clusterName: [problems]}}
+let textbookMap = {}; // textbook topic id -> node
+let panguToTextbook = {}; // pangu topic key -> array of textbook topic ids
+
+// ===================== DATA LOADING =====================
+function inferGrade(file) {
+    if (/ü0ç3k4|Ak4|AK4/.test(file)) return 4;
+    if (/ü0ç3k5|Ak5|AK5/.test(file)) return 5;
+    if (/ü0ç3k6|Ak6|AK6/.test(file)) return 6;
+    if (/ü0ç3k7|Ak7|AK7/.test(file)) return 7;
+    if (/ü0ç3k8|Ak8|AK8/.test(file)) return 8;
+    if (/ü0ç3k9|Ak9|AK9/.test(file)) return 9;
+    return 0;
+}
+
+function clusterTitle(topic, title) {
+    const meta = TOPIC_META.find(m => m.key === topic);
+    if (!meta) return ['综合应用（独立题型）'];
+    const hits = [];
+    for (const cl of meta.clusters) {
+        if (cl.patterns.some(re => re.test(title))) hits.push(cl.name);
+    }
+    return hits.length ? hits : ['综合应用（独立题型）'];
+}
+
+function buildData() {
+    if (typeof panguProblems === 'undefined') return false;
+    allProblems = panguProblems.map(p => ({ ...p, _grade: inferGrade(p.file || '') }));
+    // Build textbook lookup
+    if (typeof knowledgeNodes !== 'undefined') {
+        knowledgeNodes.forEach(n => { textbookMap[n.id] = n; });
+    }
+    // Build pangu topic -> textbook mapping
+    if (typeof panguNodes !== 'undefined') {
+        panguNodes.forEach(n => {
+            panguToTextbook[n.id] = n.linkedElementary || [];
+        });
+    }
+    return true;
+}
+
+function recomputeKP() {
+    // Filter problems by current grade
+    const filtered = allProblems.filter(p => p._grade === currentGrade);
+    kpData = {};
+    filtered.forEach(p => {
+        (p.topics || []).forEach(topic => {
+            const clusters = clusterTitle(topic, p.title || '');
+            clusters.forEach(cn => {
+                kpData[topic] = kpData[topic] || {};
+                kpData[topic][cn] = kpData[topic][cn] || [];
+                kpData[topic][cn].push(p);
+            });
+        });
+    });
+}
+
+// ===================== FILTERING =====================
+function matchesFilter(p) {
+    if (currentDiff !== 'all' && p.difficulty !== parseInt(currentDiff)) return false;
+    if (searchTerm) {
+        const q = searchTerm.toLowerCase();
+        const hay = ((p.title||'') + ' ' + (p.translation||'') + ' ' + (p.id||'') + ' ' + (p.hint||'')).toLowerCase();
+        if (!hay.includes(q)) return false;
+    }
+    return true;
+}
+
+// ===================== RENDER =====================
+function renderGradeSwitch() {
+    const el = document.getElementById('grade-switch');
+    const counts = { 4:0, 5:0, 6:0, 7:0, 8:0, 9:0 };
+    allProblems.forEach(p => { if (counts[p._grade] !== undefined) counts[p._grade]++; });
+    el.innerHTML = [4,5,6,7,8,9].map(g => `
+        <button data-grade="${g}" class="${g === currentGrade ? 'active' : ''}" onclick="setGrade(${g})">
+            AK${g} <small style="opacity:.6">${counts[g]}</small>
+        </button>
+    `).join('');
+}
+
+function renderSidebar() {
+    const nav = document.getElementById('cat-nav');
+    // Compute per-category counts (filtered by current difficulty+search)
+    const catCounts = {};
+    Object.entries(kpData).forEach(([topic, clusters]) => {
+        catCounts[topic] = 0;
+        Object.values(clusters).forEach(arr => arr.forEach(p => { if (matchesFilter(p)) catCounts[topic]++; }));
+    });
+    const items = TOPIC_META
+        .map(m => ({ meta: m, count: catCounts[m.key] || 0 }))
+        .filter(x => x.count > 0)
+        .sort((a,b) => b.count - a.count);
+
+    nav.innerHTML = items.map(({ meta, count }) =>
+        `<a class="cat-nav-item ${currentCategory === meta.key ? 'active' : ''}" onclick="jumpToCat('${meta.key}')">
+            <span>${meta.emoji} ${meta.label}</span>
+            <span class="count">${count}</span>
+        </a>`
+    ).join('');
+
+    // Stat panel
+    const filteredCount = Object.values(catCounts).reduce((s,n) => s+n, 0);
+    const grade = currentGrade;
+    const gradeProblemCount = allProblems.filter(p => p._grade === grade).length;
+    document.getElementById('stat-total').textContent = gradeProblemCount;
+    document.getElementById('stat-sub').textContent = `AK${grade} 题库 · ${items.length} 大类`;
+}
+
+function renderCounter() {
+    const totalMatchingProblems = new Set();
+    Object.values(kpData).forEach(clusters => {
+        Object.values(clusters).forEach(arr => arr.forEach(p => { if (matchesFilter(p)) totalMatchingProblems.add(p.id); }));
+    });
+    const txt = `当前显示 ${totalMatchingProblems.size} 题`;
+    document.getElementById('counter').textContent = txt;
+}
+
+function renderContent() {
+    const el = document.getElementById('main-content');
+    const info = GRADE_INFO[currentGrade];
+
+    // Intro card
+    let html = `<div class="intro-card">
+        <h2>${info.name} 考察重心</h2>
+        <p>${info.intro}</p>`;
+    const missingMetas = TOPIC_META.filter(m => !kpData[m.key] || Object.values(kpData[m.key]).length === 0);
+    if (missingMetas.length) {
+        html += `<div class="missing">
+            <b>不出现的大类</b>：${missingMetas.map(m => m.emoji + m.label).join(' · ')}
+            — AK${currentGrade} 完全不涉及。
+        </div>`;
+    }
+    html += `</div>`;
+
+    // Top-N card (excluding "综合应用")
+    const allClusters = [];
+    Object.entries(kpData).forEach(([topic, clusters]) => {
+        Object.entries(clusters).forEach(([cn, arr]) => {
+            if (/综合应用/.test(cn)) return;
+            const filtered = arr.filter(matchesFilter);
+            if (!filtered.length) return;
+            const meta = TOPIC_META.find(m => m.key === topic);
+            allClusters.push({ name: cn, meta, count: filtered.length });
+        });
+    });
+    allClusters.sort((a,b) => b.count - a.count);
+    const topN = allClusters.slice(0, 20);
+    if (topN.length) {
+        html += `<div class="topn-card" id="topn-card">
+            <h3>🏆 AK${currentGrade} 高频核心知识点 Top ${topN.length}</h3>
+            <div class="topn-list">
+                ${topN.map((c, i) => `
+                    <div class="topn-item" onclick="jumpToKP('${c.meta.key}', ${JSON.stringify(c.name)})">
+                        <span class="rank">#${i+1}</span>
+                        <span>${c.meta.emoji} ${c.name}</span>
+                        <span class="count">${c.count}题</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>`;
+    }
+
+    // Categories
+    const sortedTopics = Object.entries(kpData)
+        .map(([topic, clusters]) => {
+            const meta = TOPIC_META.find(m => m.key === topic);
+            const problems = [];
+            Object.values(clusters).forEach(arr => arr.forEach(p => { if (matchesFilter(p)) problems.push(p); }));
+            return { topic, meta, clusters, count: problems.length };
+        })
+        .filter(x => x.count > 0 && x.meta)
+        .sort((a,b) => b.count - a.count);
+
+    sortedTopics.forEach(({ topic, meta, clusters, count }) => {
+        const tip = (info.tipPerCategory && info.tipPerCategory[topic]) || '';
+        const isOpen = currentCategory === topic;
+        html += `<div class="cat ${isOpen ? 'open' : ''}" id="cat-${topic}">
+            <div class="cat-header" onclick="toggleCat('${topic}')">
+                <span class="emoji">${meta.emoji}</span>
+                <span class="title">${meta.label}</span>
+                <span class="meta">
+                    <span>${count} 题</span>
+                    <span>${Object.keys(clusters).length} 个知识点</span>
+                </span>
+                <span class="caret">▸</span>
+            </div>
+            <div class="cat-body">
+                <div class="cat-desc">${meta.desc}</div>
+                ${tip ? `<div class="cat-tip">💡 <b>AK${currentGrade} 定位</b>：${tip}</div>` : ''}
+                <div class="cat-strategies">
+                    <h4>🧭 解题策略</h4>
+                    <ul>${meta.strategies.map(s => `<li>${s}</li>`).join('')}</ul>
+                </div>
+                ${renderTextbookLinks(topic)}
+                ${renderKPs(clusters)}
+            </div>
+        </div>`;
+    });
+
+    el.innerHTML = html;
+}
+
+function renderTextbookLinks(topicKey) {
+    const linkedIds = panguToTextbook[topicKey] || [];
+    const linked = linkedIds.map(id => textbookMap[id]).filter(Boolean);
+    if (linked.length === 0) {
+        return `<div class="textbook-section">
+            <h4>📘 对应小学教材</h4>
+            <div class="no-match">本大类在小学教材中暂无直接对应章节（可能是初中/竞赛专属内容）</div>
+        </div>`;
+    }
+    // Group by grade for cleaner display
+    linked.sort((a,b) => a.grade - b.grade);
+    return `<div class="textbook-section">
+        <h4>📘 对应小学教材（${linked.length} 讲，点击展开）</h4>
+        ${linked.map(renderTextbookItem).join('')}
+    </div>`;
+}
+
+function renderTextbookItem(n) {
+    const kpList = (n.keyPoints || []).map(k => `<li>${escapeHtml(k)}</li>`).join('');
+    const examples = (n.examples || []).map(e => `
+        <div class="tb-example">
+            <b>${escapeHtml(e.title || '例题')}</b>: ${escapeHtml(e.question || '')}
+            ${e.solution ? `<div class="tb-example-sol"><b>解</b>: ${escapeHtml(e.solution).replace(/\n/g, '<br>')}</div>` : ''}
+        </div>
+    `).join('');
+    const exercises = (n.exercises || []).map((e, i) => `
+        <div class="tb-exercise">${i+1}. ${escapeHtml(e)}</div>
+    `).join('');
+    const tips = (n.tips || []).map(t => `<li>${escapeHtml(t)}</li>`).join('');
+
+    return `<div class="tb-item" data-tbid="${n.id}">
+        <div class="tb-head" onclick="toggleTB(this)">
+            <span class="caret">▸</span>
+            <span class="grade-badge grade-${n.grade}">${n.grade}年级</span>
+            <span class="name">${escapeHtml(n.name || '')}</span>
+            ${n.lectures ? `<span class="lectures">${escapeHtml(n.lectures)}</span>` : ''}
+        </div>
+        <div class="tb-body">
+            ${n.description ? `<div class="tb-desc">${escapeHtml(n.description)}</div>` : ''}
+            ${kpList ? `<div class="tb-sect"><div class="tb-sect-title">📌 关键知识点</div><ul>${kpList}</ul></div>` : ''}
+            ${examples ? `<div class="tb-sect"><div class="tb-sect-title">💡 例题</div>${examples}</div>` : ''}
+            ${exercises ? `<div class="tb-sect"><div class="tb-sect-title">✏️ 练习题</div>${exercises}</div>` : ''}
+            ${tips ? `<div class="tb-sect"><div class="tb-sect-title">🎯 讲解提示</div><ul class="tb-tip">${tips}</ul></div>` : ''}
+            <div style="font-size:10px;color:#aaa;margin-top:8px;">📖 教材 ID: ${n.id}</div>
+        </div>
+    </div>`;
+}
+
+function toggleTB(headerEl) {
+    const item = headerEl.closest('.tb-item');
+    item.classList.toggle('open');
+}
+
+function renderKPs(clusters) {
+    const sorted = Object.entries(clusters)
+        .map(([name, arr]) => ({ name, problems: arr.filter(matchesFilter) }))
+        .filter(x => x.problems.length > 0)
+        .sort((a,b) => {
+            if (/综合应用/.test(a.name)) return 1;
+            if (/综合应用/.test(b.name)) return -1;
+            return b.problems.length - a.problems.length;
+        });
+
+    return sorted.map(({ name, problems }) => {
+        const isMisc = /综合应用/.test(name);
+        const diffs = problems.map(p => p.difficulty).filter(Boolean);
+        const diffRange = diffs.length ? `${Math.min(...diffs)}-${Math.max(...diffs)}⋆` : '';
+        return `<div class="kp" data-kpname="${encodeURIComponent(name)}">
+            <div class="kp-header" onclick="toggleKP(this)">
+                <span class="caret">▸</span>
+                <span class="name">${name}${isMisc ? '<span class="misc-tag">独立题型</span>' : ''}</span>
+                <span class="diff">${diffRange}</span>
+                <span class="count">${problems.length} 题</span>
+            </div>
+            <div class="kp-body">${problems.map(renderProblem).join('')}</div>
+        </div>`;
+    }).join('');
+}
+
+function renderProblem(p) {
+    const stars = '⋆'.repeat(p.difficulty||0);
+    const answerIdx = p.answer ? (p.answer.toLowerCase().charCodeAt(0) - 97) : -1;
+    const options = (p.options || []).map((opt, i) =>
+        `<span class="prob-opt ${i === answerIdx ? 'correct' : ''}">
+            ${String.fromCharCode(97+i)}) ${escapeHtml(opt)}
+        </span>`
+    ).join('');
+    const question = escapeHtml(p.translation || '').replace(/\n/g, '<br>');
+    const hint = escapeHtml(p.hint || '').replace(/\n/g, '<br>');
+
+    return `<div class="prob difficulty-${p.difficulty||3}">
+        <div class="prob-head" onclick="toggleProb(this)">
+            <span class="caret">▸</span>
+            <span class="stars">${stars}</span>
+            <span>${escapeHtml(p.title || '')}</span>
+            <span class="id">${p.id}</span>
+            <span class="meta">${p.year} ${p.round}</span>
+        </div>
+        <div class="prob-body">
+            <div class="prob-question">${question}</div>
+            ${options ? `<div class="prob-options">${options}</div>` : ''}
+            ${p.answer ? `<span class="prob-answer">✓ 答案：${p.answer}</span>` : ''}
+            ${hint ? `<div class="prob-hint"><b>💡 思路</b>：${hint}</div>` : ''}
+            ${p.file ? `<div style="font-size:11px;color:#999;margin-top:6px;">📄 ${escapeHtml(p.file)}${p.page ? ` · 第 ${p.page} 页` : ''}</div>` : ''}
+        </div>
+    </div>`;
+}
+
+function escapeHtml(s) {
+    return String(s||'').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ===================== UI ACTIONS =====================
+function setGrade(g) {
+    currentGrade = g;
+    currentCategory = null;
+    recomputeKP();
+    renderGradeSwitch();
+    renderSidebar();
+    renderContent();
+    renderCounter();
+    document.querySelector('.content').scrollTop = 0;
+}
+
+function setDiff(d) {
+    currentDiff = d;
+    document.querySelectorAll('#diff-switch button').forEach(b =>
+        b.classList.toggle('active', b.dataset.diff === d));
+    renderSidebar();
+    renderContent();
+    renderCounter();
+}
+
+function toggleCat(topic) {
+    currentCategory = currentCategory === topic ? null : topic;
+    const el = document.getElementById('cat-' + topic);
+    if (el) el.classList.toggle('open', currentCategory === topic);
+    renderSidebar();
+}
+
+function jumpToCat(topic) {
+    currentCategory = topic;
+    renderContent();
+    renderSidebar();
+    setTimeout(() => {
+        const el = document.getElementById('cat-' + topic);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+}
+
+function jumpToKP(topic, kpName) {
+    currentCategory = topic;
+    renderContent();
+    renderSidebar();
+    setTimeout(() => {
+        const catEl = document.getElementById('cat-' + topic);
+        if (!catEl) return;
+        const kp = catEl.querySelector(`.kp[data-kpname="${encodeURIComponent(kpName)}"]`);
+        if (kp) {
+            kp.classList.add('open');
+            kp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 100);
+}
+
+function toggleKP(headerEl) {
+    const kp = headerEl.closest('.kp');
+    kp.classList.toggle('open');
+}
+
+function toggleProb(headerEl) {
+    const prob = headerEl.closest('.prob');
+    prob.classList.toggle('open');
+}
+
+function expandAllCats() {
+    document.querySelectorAll('.cat').forEach(el => el.classList.add('open'));
+}
+function collapseAllCats() {
+    document.querySelectorAll('.cat').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.kp').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.prob').forEach(el => el.classList.remove('open'));
+}
+function scrollToTopN() {
+    document.querySelector('.content').scrollTop = 0;
+    const card = document.getElementById('topn-card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===================== INIT =====================
+let searchTimer = null;
+document.getElementById('search').addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        searchTerm = e.target.value.trim();
+        renderSidebar();
+        renderContent();
+        renderCounter();
+    }, 200);
+});
+
+document.querySelectorAll('#diff-switch button').forEach(b => {
+    b.addEventListener('click', () => setDiff(b.dataset.diff));
+});
+
+function init() {
+    if (!buildData()) {
+        document.getElementById('main-content').innerHTML =
+            '<div class="empty-state">❌ 无法加载 pangu-data.js，请确认文件存在。</div>';
+        return;
+    }
+    recomputeKP();
+    renderGradeSwitch();
+    renderSidebar();
+    renderContent();
+    renderCounter();
+}
+
+// Wait for pangu-data.js to load
+if (typeof panguProblems !== 'undefined') {
+    init();
+} else {
+    window.addEventListener('load', init);
+}
+</script>
+</body>
+</html>

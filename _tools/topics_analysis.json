@@ -1,0 +1,409 @@
+{
+  "totalProblems": 609,
+  "byYear": {
+    "2024/25": 22,
+    "2025/26": 22,
+    "2015/16": 247,
+    "2021/22": 86,
+    "2022/23": 112,
+    "2023/24": 74,
+    "2020/21": 46
+  },
+  "byGrade": {
+    "4": 142,
+    "5": 98,
+    "6": 74,
+    "7": 83,
+    "8": 101,
+    "9": 111
+  },
+  "byRound": {
+    "初赛": 277,
+    "决赛": 260,
+    "复赛": 72
+  },
+  "byDiff": {
+    "1": 67,
+    "2": 87,
+    "3": 143,
+    "4": 163,
+    "5": 149
+  },
+  "topics": [
+    {
+      "tag": "pangu_algebra",
+      "count": 145,
+      "byGrade": {
+        "5": 24,
+        "6": 23,
+        "7": 27,
+        "8": 32,
+        "9": 39
+      }
+    },
+    {
+      "tag": "pangu_geom",
+      "count": 142,
+      "byGrade": {
+        "4": 24,
+        "5": 19,
+        "6": 19,
+        "7": 26,
+        "8": 27,
+        "9": 27
+      }
+    },
+    {
+      "tag": "pangu_pattern",
+      "count": 81,
+      "byGrade": {
+        "4": 17,
+        "5": 18,
+        "6": 10,
+        "7": 13,
+        "8": 10,
+        "9": 13
+      }
+    },
+    {
+      "tag": "pangu_app",
+      "count": 81,
+      "byGrade": {
+        "4": 28,
+        "5": 21,
+        "6": 12,
+        "7": 10,
+        "8": 5,
+        "9": 5
+      }
+    },
+    {
+      "tag": "pangu_number",
+      "count": 68,
+      "byGrade": {
+        "4": 13,
+        "5": 11,
+        "6": 8,
+        "7": 7,
+        "8": 14,
+        "9": 15
+      }
+    },
+    {
+      "tag": "pangu_calc",
+      "count": 62,
+      "byGrade": {
+        "4": 27,
+        "5": 12,
+        "6": 9,
+        "7": 4,
+        "8": 7,
+        "9": 3
+      }
+    },
+    {
+      "tag": "pangu_count",
+      "count": 61,
+      "byGrade": {
+        "4": 19,
+        "5": 12,
+        "6": 8,
+        "7": 4,
+        "8": 12,
+        "9": 6
+      }
+    },
+    {
+      "tag": "pangu_puzzle",
+      "count": 56,
+      "byGrade": {
+        "4": 19,
+        "5": 10,
+        "6": 9,
+        "7": 8,
+        "8": 6,
+        "9": 4
+      }
+    },
+    {
+      "tag": "pangu_solid",
+      "count": 52,
+      "byGrade": {
+        "4": 15,
+        "5": 10,
+        "6": 7,
+        "7": 6,
+        "8": 7,
+        "9": 7
+      }
+    },
+    {
+      "tag": "pangu_logic",
+      "count": 48,
+      "byGrade": {
+        "4": 17,
+        "5": 9,
+        "6": 6,
+        "7": 7,
+        "8": 6,
+        "9": 3
+      }
+    },
+    {
+      "tag": "pangu_fraction",
+      "count": 48,
+      "byGrade": {
+        "5": 7,
+        "6": 5,
+        "7": 12,
+        "8": 10,
+        "9": 14
+      }
+    },
+    {
+      "tag": "pangu_time",
+      "count": 17,
+      "byGrade": {
+        "4": 8,
+        "5": 6,
+        "6": 2,
+        "7": 1
+      }
+    },
+    {
+      "tag": "pangu_percent",
+      "count": 14,
+      "byGrade": {
+        "6": 1,
+        "7": 2,
+        "8": 5,
+        "9": 6
+      }
+    },
+    {
+      "tag": "pangu_angle",
+      "count": 14,
+      "byGrade": {
+        "6": 1,
+        "7": 2,
+        "8": 6,
+        "9": 5
+      }
+    },
+    {
+      "tag": "pangu_probability",
+      "count": 10,
+      "byGrade": {
+        "8": 3,
+        "9": 7
+      }
+    }
+  ],
+  "coOccurrences": [
+    {
+      "pair": "pangu_algebra + pangu_app",
+      "count": 30
+    },
+    {
+      "pair": "pangu_algebra + pangu_pattern",
+      "count": 26
+    },
+    {
+      "pair": "pangu_count + pangu_geom",
+      "count": 23
+    },
+    {
+      "pair": "pangu_algebra + pangu_geom",
+      "count": 23
+    },
+    {
+      "pair": "pangu_algebra + pangu_number",
+      "count": 19
+    },
+    {
+      "pair": "pangu_count + pangu_number",
+      "count": 13
+    },
+    {
+      "pair": "pangu_fraction + pangu_geom",
+      "count": 12
+    },
+    {
+      "pair": "pangu_algebra + pangu_puzzle",
+      "count": 11
+    },
+    {
+      "pair": "pangu_app + pangu_calc",
+      "count": 10
+    },
+    {
+      "pair": "pangu_number + pangu_puzzle",
+      "count": 8
+    },
+    {
+      "pair": "pangu_pattern + pangu_puzzle",
+      "count": 8
+    },
+    {
+      "pair": "pangu_app + pangu_fraction",
+      "count": 8
+    },
+    {
+      "pair": "pangu_geom + pangu_solid",
+      "count": 7
+    },
+    {
+      "pair": "pangu_count + pangu_pattern",
+      "count": 6
+    },
+    {
+      "pair": "pangu_logic + pangu_puzzle",
+      "count": 6
+    },
+    {
+      "pair": "pangu_fraction + pangu_number",
+      "count": 6
+    },
+    {
+      "pair": "pangu_angle + pangu_geom",
+      "count": 6
+    },
+    {
+      "pair": "pangu_app + pangu_geom",
+      "count": 5
+    },
+    {
+      "pair": "pangu_algebra + pangu_fraction",
+      "count": 5
+    },
+    {
+      "pair": "pangu_app + pangu_logic",
+      "count": 4
+    },
+    {
+      "pair": "pangu_count + pangu_solid",
+      "count": 4
+    },
+    {
+      "pair": "pangu_app + pangu_time",
+      "count": 4
+    },
+    {
+      "pair": "pangu_geom + pangu_puzzle",
+      "count": 4
+    },
+    {
+      "pair": "pangu_number + pangu_solid",
+      "count": 4
+    },
+    {
+      "pair": "pangu_calc + pangu_solid",
+      "count": 3
+    },
+    {
+      "pair": "pangu_number + pangu_pattern",
+      "count": 3
+    },
+    {
+      "pair": "pangu_calc + pangu_fraction",
+      "count": 3
+    },
+    {
+      "pair": "pangu_geom + pangu_logic",
+      "count": 2
+    },
+    {
+      "pair": "pangu_calc + pangu_count",
+      "count": 2
+    },
+    {
+      "pair": "pangu_geom + pangu_pattern",
+      "count": 2
+    },
+    {
+      "pair": "pangu_calc + pangu_time",
+      "count": 2
+    },
+    {
+      "pair": "pangu_fraction + pangu_percent",
+      "count": 2
+    },
+    {
+      "pair": "pangu_algebra + pangu_probability",
+      "count": 2
+    },
+    {
+      "pair": "pangu_count + pangu_probability",
+      "count": 2
+    },
+    {
+      "pair": "pangu_algebra + pangu_angle",
+      "count": 2
+    },
+    {
+      "pair": "pangu_calc + pangu_pattern",
+      "count": 1
+    },
+    {
+      "pair": "pangu_app + pangu_puzzle",
+      "count": 1
+    },
+    {
+      "pair": "pangu_app + pangu_pattern",
+      "count": 1
+    },
+    {
+      "pair": "pangu_calc + pangu_puzzle",
+      "count": 1
+    },
+    {
+      "pair": "pangu_logic + pangu_time",
+      "count": 1
+    },
+    {
+      "pair": "pangu_fraction + pangu_pattern",
+      "count": 1
+    },
+    {
+      "pair": "pangu_algebra + pangu_time",
+      "count": 1
+    },
+    {
+      "pair": "pangu_count + pangu_logic",
+      "count": 1
+    },
+    {
+      "pair": "pangu_logic + pangu_number",
+      "count": 1
+    },
+    {
+      "pair": "pangu_algebra + pangu_logic",
+      "count": 1
+    },
+    {
+      "pair": "pangu_logic + pangu_percent",
+      "count": 1
+    },
+    {
+      "pair": "pangu_geom + pangu_percent",
+      "count": 1
+    },
+    {
+      "pair": "pangu_logic + pangu_probability",
+      "count": 1
+    },
+    {
+      "pair": "pangu_fraction + pangu_probability",
+      "count": 1
+    },
+    {
+      "pair": "pangu_number + pangu_probability",
+      "count": 1
+    },
+    {
+      "pair": "pangu_algebra + pangu_percent",
+      "count": 1
+    }
+  ],
+  "problemsMissingTopics": []
+}
