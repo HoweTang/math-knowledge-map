@@ -412,12 +412,266 @@ main {
     margin-bottom: 3px;
 }
 
-/* Print styles */
+/* ============== PRINT TOOLBAR ============== */
+.print-bar {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: linear-gradient(90deg, #FFF3E0, #FFE0B2);
+    border-bottom: 1px solid #FFCC80;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.print-bar b { color: #BF360C; }
+.print-bar .hint { color: #6D4C41; font-size: 12px; }
+.print-btn {
+    padding: 7px 14px;
+    background: #E65100;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.print-btn:hover { background: #BF360C; }
+.print-btn.secondary {
+    background: #fff;
+    color: #BF360C;
+    border: 1.5px solid #BF360C;
+}
+.print-btn.secondary:hover { background: #FFF3E0; }
+.print-select {
+    padding: 6px 12px;
+    border: 1.5px solid #FFCC80;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 13px;
+    color: #4E342E;
+    font-family: inherit;
+    cursor: pointer;
+}
+body.print-filter-no-practice .practice { display: none !important; }
+body.print-filter-no-takeaway .ex-takeaway { display: none !important; }
+body.print-filter-no-tips .kp-tips { display: none !important; }
+body.print-filter-no-overview .cat-overview, body.print-filter-no-overview .intro { display: none !important; }
+/* 试卷模式：隐藏答案、解题步骤、要点 */
+body.print-hide-answers .ex-steps,
+body.print-hide-answers .ex-ans,
+body.print-hide-answers .ex-takeaway { display: none !important; }
+/* 试卷模式下给每道题留出答题空间 */
+body.print-hide-answers .ex { min-height: 90px; padding-bottom: 20px !important; }
+body.print-hide-answers .ex::after {
+    content: '答：________________________________________';
+    display: block;
+    margin-top: 10px;
+    color: #999;
+    font-size: 11pt;
+    letter-spacing: 2px;
+}
+
+/* Hide elements marked for print-exclusion (works for screen too, just dim) */
+.print-hidden {
+    opacity: .3;
+}
 @media print {
-    header { position: static; background: #fff !important; color: #000 !important; }
-    .map-switch, .toc { display: none !important; }
-    .cat, .kp { page-break-inside: avoid; }
+    .print-hidden { display: none !important; }
+}
+
+/* ============== PRINT STYLES ============== */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 15mm 12mm;
+    }
+    html, body {
+        height: auto !important;
+        overflow: visible !important;
+        background: #fff !important;
+        font-size: 11pt !important;
+        line-height: 1.5 !important;
+    }
+    header {
+        position: static !important;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 0 10px 0 !important;
+        box-shadow: none !important;
+        border-bottom: 2px solid #333 !important;
+        margin-bottom: 10px;
+    }
+    header h1 { font-size: 16pt !important; margin: 0 !important; }
+    header .sub { background: #eee !important; color: #000 !important; padding: 2px 8px !important; }
+    .map-switch, .toc, .print-bar { display: none !important; }
+
+    main { padding: 0 !important; max-width: 100% !important; }
+    .intro { background: #fff !important; border-left: 3px solid #333 !important; box-shadow: none !important;
+             padding: 8px 12px !important; margin-bottom: 10px !important; page-break-after: avoid; }
+    .intro h2 { font-size: 13pt !important; }
+    .intro p { font-size: 10pt !important; }
+    .intro .highlight { background: transparent !important; color: #000 !important; font-weight: 700; }
+
+    /* Expand everything */
     .cat-body, .kp-body { display: block !important; }
+    .cat.open, .cat { }
+    .caret { display: none !important; }
+
+    /* Category */
+    .cat {
+        box-shadow: none !important;
+        border: 1.5px solid #333 !important;
+        border-radius: 4px !important;
+        margin-bottom: 12px !important;
+        page-break-inside: auto;
+        page-break-before: auto;
+    }
+    .cat-head {
+        background: #eee !important;
+        padding: 6px 10px !important;
+        border-bottom: 1px solid #333 !important;
+        page-break-after: avoid;
+    }
+    .cat-head .ti { font-size: 13pt !important; }
+    .cat-head .emoji { font-size: 14pt !important; }
+    .cat-head .meta span { background: #fff !important; border: 1px solid #999 !important; color: #000 !important; }
+    .cat-body { padding: 8px 10px !important; }
+
+    .cat-overview {
+        background: #f5f5f5 !important;
+        border-left: 2px solid #333 !important;
+        padding: 6px 10px !important;
+        font-size: 10pt !important;
+        page-break-after: avoid;
+    }
+    .cat-overview b { color: #000 !important; }
+
+    .cat-strategies {
+        background: #fafafa !important;
+        border-left: 2px solid #666 !important;
+        padding: 6px 10px !important;
+        page-break-inside: avoid;
+    }
+    .cat-strategies h4 { font-size: 9pt !important; color: #000 !important; }
+    .cat-strategies li { font-size: 10pt !important; }
+    .cat-strategies b { color: #000 !important; }
+
+    /* Knowledge point */
+    .kp {
+        border: 1px solid #999 !important;
+        margin-bottom: 8px !important;
+        page-break-inside: auto;
+    }
+    .kp-head {
+        background: #f0f0f0 !important;
+        padding: 5px 8px !important;
+        border-bottom: 1px solid #999 !important;
+        page-break-after: avoid;
+    }
+    .kp-head .idx {
+        background: #333 !important;
+        color: #fff !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
+    .kp-head .name { font-size: 11pt !important; }
+    .kp-head .count { background: #fff !important; border: 1px solid #999 !important; }
+    .kp-body { padding: 6px 8px !important; }
+
+    .kp-analysis {
+        background: #f8f8f8 !important;
+        border-left: 2px solid #333 !important;
+        color: #000 !important;
+        padding: 5px 8px !important;
+        font-size: 10pt !important;
+        page-break-inside: avoid;
+    }
+    .kp-analysis h5 { color: #000 !important; }
+    .kp-tips {
+        background: #fafafa !important;
+        border-left: 2px solid #666 !important;
+        padding: 5px 8px !important;
+        page-break-inside: avoid;
+    }
+    .kp-tips h5 { color: #000 !important; }
+    .kp-tips b { color: #000 !important; }
+
+    /* Example */
+    .ex {
+        background: #fff !important;
+        border: 1px solid #999 !important;
+        border-left: 3px solid #333 !important;
+        padding: 6px 10px !important;
+        margin-bottom: 6px !important;
+        page-break-inside: avoid;
+    }
+    .ex-head { gap: 6px !important; }
+    .ex-badge { background: #333 !important; color: #fff !important; padding: 1px 7px !important; }
+    .ex-stars { color: #000 !important; }
+    .ex-title { font-size: 11pt !important; }
+    .ex-q {
+        background: #f8f8f8 !important;
+        padding: 5px 8px !important;
+        font-size: 10pt !important;
+    }
+    .ex-q b { color: #000 !important; }
+    .ex-steps {
+        background: #fafafa !important;
+        padding: 5px 8px !important;
+        page-break-inside: avoid;
+    }
+    .ex-steps h6 { color: #000 !important; }
+    .ex-steps li { font-size: 9.5pt !important; color: #000 !important; }
+    .ex-steps li b { color: #000 !important; }
+    .ex-steps code {
+        background: #eee !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+        padding: 0 3px !important;
+        font-size: 9pt !important;
+    }
+
+    .ex-ans {
+        background: #e0e0e0 !important;
+        color: #000 !important;
+        border: 1.5px solid #333 !important;
+        padding: 2px 8px !important;
+        font-size: 10pt !important;
+    }
+    .ex-takeaway {
+        background: #fafafa !important;
+        border-left: 2px solid #666 !important;
+        padding: 4px 8px !important;
+        font-size: 9pt !important;
+        color: #000 !important;
+    }
+    .ex-takeaway b { color: #000 !important; }
+
+    .practice {
+        background: #f5f5f5 !important;
+        border: 1px dashed #666 !important;
+        padding: 6px 10px !important;
+        page-break-inside: avoid;
+    }
+    .practice h5 { color: #000 !important; }
+    .practice li { font-size: 10pt !important; color: #000 !important; }
+
+    /* Page break hints */
+    .cat { page-break-before: auto; }
+    .cat:first-of-type { page-break-before: avoid; }
+
+    /* Hide buttons / tooltips that don't make sense in print */
+    button, .caret { display: none !important; }
+
+    /* URL in footer (optional) */
+    a[href]:after { content: ''; } /* don't print URLs */
 }
 
 /* Mobile */
@@ -452,6 +706,28 @@ main {
     </div>
     <nav class="toc" id="toc"></nav>
 </header>
+
+<div class="print-bar">
+    <b>🖨️ 打印 / 导出 PDF</b>
+    <select class="print-select" id="print-scope" title="选择要打印的内容范围">
+        <option value="all">全部 10 大类</option>
+        <option value="examples">只打印例题（省策略/要点）</option>
+        <option value="strategies">只打印考点+策略（省例题）</option>
+    </select>
+    <select class="print-select" id="print-cat" title="只打印某个大类">
+        <option value="all">范围：全部大类</option>
+    </select>
+    <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;color:#BF360C;font-weight:600;">
+        <input type="checkbox" id="print-hide-ans" style="cursor:pointer;">
+        隐藏答案（试卷模式）
+    </label>
+    <button class="print-btn secondary" onclick="presetExamMode()" title="一键切换到试卷模式：只例题 + 隐藏答案">
+        📝 试卷模式
+    </button>
+    <button class="print-btn" onclick="doPrint()">🖨️ 立即打印</button>
+    <button class="print-btn secondary" onclick="savePdf()">💾 保存为 PDF</button>
+    <span class="hint">💡 <b>Ctrl+P</b> 也行；A4 纵向；<b>试卷模式</b> 每题留答题线</span>
+</div>
 
 <main>
     <div class="intro">
@@ -4000,9 +4276,92 @@ function toggleEl(el) {
     el.closest('.kp').classList.toggle('open');
 }
 
+// ============== PRINT ==============
+function populatePrintCatSelector() {
+    const sel = document.getElementById('print-cat');
+    AK4.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.slug;
+        opt.textContent = `仅打印：${c.emoji} ${c.cat}`;
+        sel.appendChild(opt);
+    });
+}
+
+function applyPrintSettings() {
+    const scope = document.getElementById('print-scope').value;
+    const cat = document.getElementById('print-cat').value;
+    const hideAns = document.getElementById('print-hide-ans').checked;
+
+    // Clear filter classes
+    document.body.classList.remove(
+        'print-filter-no-practice',
+        'print-filter-no-takeaway',
+        'print-filter-no-tips',
+        'print-filter-no-overview',
+        'print-hide-answers'
+    );
+
+    if (scope === 'examples') {
+        document.body.classList.add('print-filter-no-tips');
+    } else if (scope === 'strategies') {
+        document.querySelectorAll('.ex, .practice').forEach(e => e.classList.add('print-hidden'));
+    } else {
+        document.querySelectorAll('.ex, .practice').forEach(e => e.classList.remove('print-hidden'));
+    }
+
+    // Hide answers (试卷模式)
+    if (hideAns) {
+        document.body.classList.add('print-hide-answers');
+    }
+
+    // Category filter
+    document.querySelectorAll('.cat').forEach(el => {
+        if (cat === 'all' || el.id === 'cat-' + cat) {
+            el.classList.remove('print-hidden');
+            el.classList.add('open');
+        } else {
+            el.classList.add('print-hidden');
+        }
+    });
+
+    // Force-expand every KP for print
+    document.querySelectorAll('.kp').forEach(el => el.classList.add('open'));
+}
+
+function presetExamMode() {
+    document.getElementById('print-scope').value = 'examples';
+    document.getElementById('print-hide-ans').checked = true;
+    applyPrintSettings();
+    alert('📝 已切换到试卷模式：\n\n' +
+          '✓ 只打印例题（省考点+策略）\n' +
+          '✓ 隐藏答案 + 解题步骤 + 要点\n' +
+          '✓ 每题自动留出答题线\n\n' +
+          '点击"立即打印"或 Ctrl+P 继续。');
+}
+
+function doPrint() {
+    applyPrintSettings();
+    // Wait a frame for DOM updates
+    setTimeout(() => window.print(), 50);
+}
+
+function savePdf() {
+    applyPrintSettings();
+    alert(
+        '💡 保存为 PDF 的方法：\n\n' +
+        '1. 下一步会打开打印预览\n' +
+        '2. 在"目标打印机"中选择 "另存为 PDF" 或 "Microsoft Print to PDF"\n' +
+        '3. 点击保存\n\n' +
+        'A4 纵向、页边距 15mm 已在样式里设好。'
+    );
+    setTimeout(() => window.print(), 50);
+}
+
+
 // INIT
 renderToc();
 renderContent();
+populatePrintCatSelector();
 </script>
 </body>
 </html>
