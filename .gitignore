@@ -21,3 +21,9 @@ AI Transformation in Test Automation*.pptx
 # 中间产物（可从 PDF 重新生成）
 _tools/paper_dumps/
 _tools/problems_raw.json
+_tools/docx_qw/
+_tools/docx_task1/
+_tools/pdf_qw/
+_tools/pdf_qw_pages/
+_tools/*_log.txt
+.commit-msg.tmp

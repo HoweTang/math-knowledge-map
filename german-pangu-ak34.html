@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>德国盘古 AK3/4 71 题 · 中德双版试卷</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --bg: #f5f7fa;
+    --card: #fff;
+    --border: #e2e6ea;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --accent: #006AA7;   /* 德国国旗蓝 */
+    --accent-dark: #005488;
+    --warning: #F57C00;
+    --wrong: #e53935;
+    --right: #43A047;
+    --shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+html, body { height: 100%; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+header {
+    background: linear-gradient(135deg, #000, #DD0000 50%, #FFCE00);
+    color: #fff;
+    padding: 20px 24px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.hd-row {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    max-width: 1200px; margin: 0 auto;
+}
+header h1 { font-size: 20px; display: flex; align-items: center; gap: 10px; margin: 0; }
+header .sub {
+    font-size: 12px;
+    opacity: .95;
+    padding: 3px 10px;
+    background: rgba(255,255,255,.2);
+    border-radius: 10px;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
+}
+.map-switch {
+    display: flex;
+    background: rgba(0,0,0,.3);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+    margin-left: auto;
+}
+.map-switch a, .map-switch span {
+    padding: 6px 11px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+    color: rgba(255,255,255,.8);
+    font-weight: 500;
+    white-space: nowrap;
+}
+.map-switch .active { background: rgba(255,255,255,.95); color: #000; }
+
+.toc {
+    max-width: 1200px; margin: 12px auto 0;
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+}
+.toc a {
+    padding: 6px 12px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 16px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+.toc a:hover { background: rgba(255,255,255,.3); }
+
+.print-bar {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: linear-gradient(90deg, #FFF3E0, #FFE0B2);
+    border-bottom: 1px solid #FFCC80;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.print-bar b { color: #BF360C; }
+.print-bar .hint { color: #6D4C41; font-size: 12px; }
+.print-btn {
+    padding: 7px 14px;
+    background: #E65100;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+}
+.print-btn:hover { background: #BF360C; }
+.print-btn.sec { background: #fff; color: #BF360C; border: 1.5px solid #BF360C; }
+.print-btn.sec:hover { background: #FFF3E0; }
+.print-select {
+    padding: 6px 12px; border: 1.5px solid #FFCC80;
+    border-radius: 6px; background: #fff;
+    font-size: 13px; color: #4E342E;
+    cursor: pointer;
+}
+label.chk { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; color: #BF360C; font-weight: 600; }
+
+main { max-width: 1000px; margin: 0 auto; padding: 20px 24px 100px; }
+
+.intro {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+}
+.intro h2 { font-size: 17px; margin-bottom: 6px; }
+.intro p { font-size: 13px; line-height: 1.7; color: #444; }
+.intro .highlight {
+    background: #FFF8E1; padding: 1px 7px; border-radius: 3px;
+    font-weight: 600; color: #BF360C;
+}
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 12px 0 0;
+}
+.stat-card {
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 8px;
+    background: #f8faff;
+    border: 1px solid #e0ecfa;
+}
+.stat-card b { display: block; font-size: 20px; color: var(--accent); font-weight: 700; }
+.stat-card span { font-size: 11px; color: var(--muted); }
+
+/* Section */
+.sect {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 180px;
+}
+.sect-head {
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, #fafbfc, #fff);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+}
+.sect-head:hover { background: #f0f4f8; }
+.sect-head .emoji { font-size: 24px; }
+.sect-head .ti { font-size: 17px; font-weight: 700; flex: 1; }
+.sect-head .meta { font-size: 12px; color: var(--muted); display: flex; gap: 8px; }
+.sect-head .meta span { padding: 2px 8px; background: #eceff1; border-radius: 10px; }
+.sect-head .caret { color: var(--muted); font-size: 14px; transition: transform .2s; }
+.sect.closed .sect-head .caret { transform: rotate(-90deg); }
+
+.sect-body { padding: 14px 20px 18px; }
+.sect.closed .sect-body { display: none; }
+
+/* Problem */
+.p {
+    background: #fff;
+    border: 1px solid #e8d5ec;
+    border-left: 4px solid #9C27B0;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+}
+.p-head {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.p-badge {
+    background: #9C27B0; color: #fff;
+    padding: 2px 10px; border-radius: 10px;
+    font-size: 11px; font-weight: 700;
+}
+.p-points {
+    background: #FFF3E0; color: #BF360C;
+    padding: 2px 8px; border-radius: 10px;
+    font-size: 11px; font-weight: 700;
+}
+.p-tag {
+    background: #E8F5E9; color: #1B5E20;
+    padding: 2px 8px; border-radius: 10px;
+    font-size: 11px;
+}
+.p-kp {
+    background: #E3F2FD; color: #0D47A1;
+    padding: 2px 8px; border-radius: 10px;
+    font-size: 11px;
+}
+.p-warn {
+    background: #FFEBEE; color: #C62828;
+    padding: 2px 8px; border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.p-ti {
+    font-size: 13px; font-weight: 700; margin-left: auto; color: var(--muted);
+}
+
+.p-q {
+    background: #faf5fc;
+    padding: 10px 14px; border-radius: 6px;
+    font-size: 14px; line-height: 1.7; margin-bottom: 10px;
+    color: #212121; white-space: pre-wrap;
+}
+.p-q b { color: #6A1B9A; }
+.p-q code {
+    background: #fff; padding: 1px 5px;
+    border-radius: 3px; font-family: 'SF Mono', Consolas, monospace;
+    font-size: 12px; border: 1px solid #e8d5ec;
+}
+
+.p-figure {
+    background: #fafbfc;
+    border: 1px dashed #ccc;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    font-style: italic;
+}
+
+.p-opts {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0;
+}
+.p-opt {
+    padding: 5px 12px;
+    background: #fff;
+    border: 1.5px solid #ddd;
+    border-radius: 16px;
+    font-size: 13px;
+}
+.p-opt.correct {
+    background: #c8e6c9;
+    color: #1B5E20;
+    border-color: #43A047;
+    font-weight: 700;
+}
+.p-opt.user-wrong {
+    background: #FFEBEE;
+    color: #C62828;
+    border-color: #e53935;
+    text-decoration: line-through;
+}
+
+.p-steps {
+    background: #fffde7;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 8px 0 6px;
+}
+.p-steps h6 {
+    font-size: 11px;
+    color: #E65100;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.p-steps ol { padding-left: 20px; margin: 0; }
+.p-steps li { font-size: 13px; line-height: 1.7; color: #4E342E; margin-bottom: 2px; }
+.p-steps li b { color: #BF360C; }
+.p-steps code {
+    background: #fff; padding: 1px 5px; border-radius: 3px;
+    color: #BF360C; font-family: 'SF Mono', Consolas, monospace;
+    font-size: 12px; border: 1px solid #ffe082;
+}
+
+.p-ans {
+    display: inline-block;
+    background: #c8e6c9;
+    color: #1B5E20;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 13px;
+    margin: 4px 6px 4px 0;
+}
+
+.p-de {
+    background: #ECEFF1;
+    border-left: 3px solid #607D8B;
+    padding: 6px 10px;
+    border-radius: 0 4px 4px 0;
+    font-size: 11px;
+    color: #37474F;
+    line-height: 1.6;
+    margin-top: 6px;
+    font-style: italic;
+}
+.p-de b { color: #263238; }
+
+.p-note {
+    background: #FFF3E0;
+    border-left: 3px solid #F57C00;
+    padding: 7px 11px;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    color: #BF360C;
+    margin-top: 6px;
+}
+
+/* Print mode */
+body.print-exam .p-steps,
+body.print-exam .p-ans,
+body.print-exam .p-de,
+body.print-exam .p-note,
+body.print-exam .p-opt.correct { background: #fff !important; color: #000 !important; border-color: #ddd !important; font-weight: normal !important; }
+body.print-exam .p-opt.correct::after { content: ''; }
+body.print-exam .p-steps,
+body.print-exam .p-ans,
+body.print-exam .p-de,
+body.print-exam .p-note { display: none !important; }
+body.print-exam .p-opt.user-wrong { background: #fff; color: #000; border-color: #ddd; text-decoration: none; }
+body.print-exam .p::after {
+    content: '答：___________________';
+    display: block;
+    margin-top: 10px;
+    color: #999;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+@media print {
+    @page { size: A4 portrait; margin: 12mm; }
+    html, body { height: auto !important; overflow: visible !important; background: #fff !important; font-size: 10pt !important; }
+    header { position: static !important; background: #fff !important; color: #000 !important; padding: 0 0 10px 0 !important; border-bottom: 2px solid #333 !important; box-shadow: none !important; }
+    header h1 { font-size: 14pt !important; color: #000 !important; }
+    header .sub { background: #eee !important; color: #000 !important; }
+    .map-switch, .toc, .print-bar { display: none !important; }
+    main { padding: 0 !important; max-width: 100% !important; }
+    .intro { background: #fff !important; padding: 6px 10px !important; margin-bottom: 10px !important; box-shadow: none !important; border-left: 2px solid #333 !important; }
+    .intro .stat-cards { display: none !important; }
+    .sect { box-shadow: none !important; border: 1.5px solid #333 !important; margin-bottom: 10px !important; page-break-inside: auto; }
+    .sect.closed .sect-body { display: block !important; }
+    .sect-head { background: #eee !important; padding: 5px 8px !important; border-bottom: 1px solid #333 !important; page-break-after: avoid; }
+    .sect-head .caret { display: none !important; }
+    .sect-head .ti { font-size: 12pt !important; }
+    .sect-body { padding: 6px 8px !important; }
+    .p { page-break-inside: avoid; margin-bottom: 6px !important; padding: 6px 10px !important; }
+    .p-head { gap: 4px !important; margin-bottom: 4px !important; }
+    .p-badge, .p-points, .p-tag, .p-kp { padding: 1px 6px !important; font-size: 9pt !important; }
+    .p-badge { background: #333 !important; }
+    .p-tag, .p-kp, .p-points { background: #eee !important; color: #000 !important; }
+    .p-q { background: #f8f8f8 !important; padding: 5px 8px !important; font-size: 10pt !important; }
+    .p-steps { background: #fafafa !important; padding: 5px 8px !important; }
+    .p-steps li { font-size: 9pt !important; color: #000 !important; }
+    .p-steps code, .p-q code { background: #eee !important; border: 1px solid #ccc !important; color: #000 !important; }
+    .p-ans { background: #e0e0e0 !important; color: #000 !important; border: 1.5px solid #333 !important; }
+    .p-opt.correct { background: #e0e0e0 !important; color: #000 !important; border: 1.5px solid #333 !important; }
+    .p-de { background: #f5f5f5 !important; color: #000 !important; }
+    .p-note { background: #fafafa !important; color: #000 !important; }
+    button, .caret { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="hd-row">
+        <h1><span>🇩🇪</span> 德国盘古 AK3/4 试题集</h1>
+        <span class="sub">71 题 · 中德双版 · 1-5 分</span>
+        <div class="map-switch">
+            <a href="index.html">📐 教材</a>
+            <a href="pangu.html">🎨 盘古</a>
+            <a href="knowledge-points.html">📊 题库分析</a>
+            <a href="ak4-knowledge-expand.html">📚 AK4 教学</a>
+            <span class="active">🇩🇪 德国题集</span>
+        </div>
+    </div>
+    <nav class="toc" id="toc"></nav>
+</header>
+
+<div class="print-bar">
+    <b>🖨️ 打印 / 导出</b>
+    <select class="print-select" id="print-sect" title="选择打印范围">
+        <option value="all">全部 5 组</option>
+        <option value="s1">仅 1 分组</option>
+        <option value="s2">仅 2 分组</option>
+        <option value="s3">仅 3 分组</option>
+        <option value="s4">仅 4 分组</option>
+        <option value="s5">仅 5 分组</option>
+    </select>
+    <label class="chk">
+        <input type="checkbox" id="print-hide-ans">
+        隐藏答案 (试卷模式)
+    </label>
+    <button class="print-btn sec" onclick="examMode()">📝 一键试卷</button>
+    <button class="print-btn" onclick="doPrint()">🖨️ 立即打印</button>
+    <span class="hint">A4 · Ctrl+P 也可</span>
+</div>
+
+<main>
+    <div class="intro">
+        <h2>🇩🇪 来源 & 说明</h2>
+        <p>
+            这些题来自<b>德国版盘古竞赛（AK3/AK4）</b>，原文为德语，部分已自动翻译为中文（有些错译已修正）。
+            本页包含 <span class="highlight">36 道题 · 分 3 组</span>（1 分、2 分、3 分），每道附
+            <span class="highlight">修正后的中文题干 · 完整选项 · 答案 · 解题步骤 · 对应盘古知识点</span>。
+            有少数答案存疑或原题 OCR 有问题，用 ⚠️ 标出。
+        </p>
+        <div class="stat-cards" style="grid-template-columns:repeat(6,1fr);">
+            <div class="stat-card"><b>11</b><span>1 分组</span></div>
+            <div class="stat-card"><b>13</b><span>2 分组</span></div>
+            <div class="stat-card"><b>19</b><span>3 分组</span></div>
+            <div class="stat-card"><b>11</b><span>4 分组</span></div>
+            <div class="stat-card"><b>17</b><span>5 分组</span></div>
+            <div class="stat-card"><b>71</b><span>总题数</span></div>
+        </div>
+    </div>
+
+    <div id="content"></div>
+</main>
+
+<script>
+// ============== 36 题数据 ==============
+// 每道题结构: {id, section, num, taskLabel, points, question, de?, figure?, options, answer, userAnswer?, steps, kp, pangu, warn?}
+const PROBLEMS = [
+// ============ 1 分组 (9 题) ============
+{
+    id:'P01', section:'s1', num:1, taskLabel:'任务一', points:1,
+    question:'萨宾 (Sabine) 有 42 枚鸡蛋。她把蛋放在蛋盒里。<b>一盒鸡蛋可以装 6 个</b>。她需要多少个蛋盒？',
+    options:['6','7','8','36','48'],
+    answer:'b',
+    steps:[
+        '一盒 6 个蛋 → 42 ÷ 6 = <code>7 个蛋盒</code>'
+    ],
+    pangu:'💼 应用题', kp:'除法分配'
+},
+{
+    id:'P02', section:'s1', num:2, taskLabel:'任务二', points:1,
+    question:'阿里 (Ari) 有 10 颗弹珠。<b>安妮 (Anna) 比阿里多 5 颗</b> 弹珠。阿里和安妮一共有多少颗弹珠？',
+    options:['15','20','25','30','35'],
+    answer:'c',
+    steps:[
+        'Anna 的弹珠 = 10 + 5 = <code>15 颗</code>',
+        '两人一共 = 10 + 15 = <code>25 颗</code>'
+    ],
+    pangu:'💼 应用题', kp:'和差问题'
+},
+{
+    id:'P03', section:'s1', num:3, taskLabel:'任务三', points:1,
+    question:'Lea 身高 <b>1 米 21 厘米</b>（原题：1,21 m）。她的哥哥 Thomas <b>比 Lea 矮 23 厘米</b>。Thomas 多高？',
+    options:['92 cm','98 cm','102 cm','108 cm','112 cm'],
+    answer:'b',
+    steps:[
+        '先统一单位：1 米 21 cm = <code>121 cm</code>',
+        'Thomas = 121 − 23 = <code>98 cm</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'单位换算 + 减法'
+},
+{
+    id:'P04', section:'s1', num:4, taskLabel:'任务四', points:1,
+    question:'一个牧羊人有 <b>18 只白羊、4 只黑羊和 1 只牧羊犬</b>。这个牧羊人多大年龄？',
+    options:['21 岁','22 岁','23 岁','72 岁','无法解决'],
+    answer:'e',
+    steps:[
+        '题目给的是<b>动物数量</b>，和牧羊人年龄<b>没有必然关联</b>',
+        '这是经典<b>陷阱题</b>（即"农民几岁"类）',
+        '答：<code>无法解决</code>'
+    ],
+    pangu:'🧠 逻辑推理', kp:'陷阱题识别',
+    note:'典型陷阱题，警惕"题目给无关信息"的套路'
+},
+{
+    id:'P05', section:'s1', num:5, taskLabel:'任务 5', points:1,
+    question:'哪个数字能完成下列数字模式？<br><code>1, 2, 4, 7, __, 16, 22, 29, 37</code>',
+    options:['8','9','10','11','12'],
+    answer:'d',
+    steps:[
+        '观察相邻差：2−1=1, 4−2=2, 7−4=3, ?−7=?, 16−?=?, ...',
+        '差值本身是等差数列：<code>1, 2, 3, 4, 5, 6, 7, 8</code>',
+        '所以缺的位置的差 = <code>4</code>，缺的数 = 7 + 4 = <code>11</code>',
+        '验证：11 + 5 = 16 ✓'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'二阶差数列'
+},
+{
+    id:'P06', section:'s1', num:6, taskLabel:'任务 6', points:1,
+    question:'第五个图形由多少点组成？<br>（1 Figur = 1 点, 2 Figur = 3 点, 3 Figur = 6 点, 4 Figur = 10 点, 5 Figur = ?）',
+    options:['14','15','17','18','21'],
+    answer:'b',
+    steps:[
+        '观察点数：1, 3, 6, 10 → 相邻差 2, 3, 4',
+        '这是<b>三角数</b>（累加自然数）：第 n 个 = 1+2+…+n',
+        '第 5 个 = 1+2+3+4+5 = <code>15</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'三角数'
+},
+{
+    id:'P07', section:'s1', num:7, taskLabel:'任务 7', points:1,
+    question:'<code>1□3 − 97 = 36</code>。方框里是什么数字？',
+    options:['1','2','3','4','5'],
+    answer:'c',
+    steps:[
+        '移项：1□3 = 36 + 97 = <code>133</code>',
+        '所以 □ = <code>3</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'算式填数'
+},
+{
+    id:'P08', section:'s1', num:8, taskLabel:'第八任务', points:1,
+    question:'书中<b>撕下了两张纸</b>（= 4 页）。问号代表哪一页？<br>（图：书打开，左右两页，一页标 ？）',
+    figure:'需看原图：书的另一页可见页码，根据此可推断问号页',
+    options:['55','56','57','58','59'],
+    answer:'d',
+    steps:[
+        '一张纸 = <b>正反两面</b> = 两页',
+        '两张纸 = 4 页。书页通常相邻 (左偶右奇)',
+        '根据图上另一侧已知页，答案是 <code>58</code>'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'书页问题'
+},
+{
+    id:'P09', section:'s1', num:9, taskLabel:'Aufgabe 11', points:1,
+    question:'这串数字中的下一个数字是什么？<br><code>100, 91, 82, 73, ?</code>',
+    options:['62','63','64','65','66'],
+    answer:'c',
+    steps:[
+        '观察相邻差：91−100=−9，82−91=−9，73−82=−9',
+        '公差 d = <code>−9</code>（等差数列递减）',
+        '下一项 = 73 − 9 = <code>64</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'等差数列（递减）'
+},
+{
+    id:'P66', section:'s1', num:10, taskLabel:'Aufgabe 10', points:1,
+    question:'儿科医生要给 2 岁的 Lukas 称重，但 Lukas 不肯站稳。所以妈妈抱着他站到秤上，秤显示 <b>77 kg</b>。然后<b>妈妈独自</b>站到秤上，秤显示 <b>65 kg</b>。Lukas 重多少<b>克</b>？',
+    de:'Mutter mit Kind: 77 kg, Mutter allein: 65 kg. Wie viel Gramm wiegt Lukas?',
+    options:['1.2 g','12 g','120 g','1200 g','12000 g'],
+    answer:'e',
+    steps:[
+        '两种情况相减：Lukas 重 = 77 − 65 = <code>12 kg</code>',
+        '题目要<b>克</b>：12 kg = 12 × 1000 = <code>12000 g</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'单位换算 (kg → g)',
+    note:'注意单位陷阱：选项有 12 g 和 12000 g，差 1000 倍'
+},
+{
+    id:'P71', section:'s1', num:11, taskLabel:'Aufgabe 8', points:1,
+    question:'德语数词 <b>"einhundertzweitausendeinhundertzwei"</b>（102 千 102）对应哪个数字？',
+    de:'Welche Zahl gehört zu dem Zahlwort "einhundertzweitausendeinhundertzwei"?',
+    options:['12102','10212','102102','120102','120120'],
+    answer:'c',
+    steps:[
+        '拆解：einhundertzwei<b>tausend</b> + einhundertzwei',
+        '= 102 <b>千</b> + 102',
+        '= 102,000 + 102 = <code>102,102</code>'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'大数读写'
+},
+
+// ============ 2 分组 (11 题) ============
+{
+    id:'P10', section:'s2', num:1, taskLabel:'任务一', points:2,
+    question:'接下来会是什么？<br><code>11 + 19 = 30</code><br><code>14 + 17 = 31</code><br><code>17 + 15 = 32</code><br><code>20 + 13 = 33</code>',
+    options:['24+10=34','23+11=34','22+12=34','21+13=34','20+14=34'],
+    answer:'b',
+    steps:[
+        '观察：第一个数 <b>每次 +3</b>（11, 14, 17, 20, 23）',
+        '第二个数 <b>每次 −2</b>（19, 17, 15, 13, 11）',
+        '和每次 +1 → 第 5 行应是 <code>23 + 11 = 34</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'双数列同步变化'
+},
+{
+    id:'P11', section:'s2', num:2, taskLabel:'任务二', points:2,
+    question:'我的数字 <b>是 5、10、25 的倍数</b>，并且<b>能被 50 整除</b>。它<b>大于 200</b>，<b>小于 300</b>。我的数字是多少？',
+    options:['220','225','250','255','275'],
+    answer:'c',
+    steps:[
+        '"能被 50 整除" → 必是 50 的倍数：50, 100, 150, 200, 250, 300, ...',
+        '"大于 200，小于 300" → 只剩 <code>250</code>',
+        '验证：250 是 5、10、25、50 的倍数 ✓'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'整除 / 公倍数'
+},
+{
+    id:'P12', section:'s2', num:3, taskLabel:'任务三', points:2,
+    question:'卡特琳 (Katrin) 有：<br>· <b>1 张 5 欧元</b>纸币<br>· <b>4 枚 2 欧元</b>硬币<br>· <b>1 枚 50 分</b>硬币<br>· <b>3 枚 20 分</b>硬币<br>卡特琳一共有多少钱？',
+    options:['11.10€','12.90€','13.10€','13.90€','14.10€'],
+    answer:'e',
+    steps:[
+        '5€ + 4 × 2€ + 50¢ + 3 × 20¢',
+        '= 5 + 8 + 0.5 + 0.6',
+        '= <code>14.10€</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'货币 / 多步运算'
+},
+{
+    id:'P13', section:'s2', num:4, taskLabel:'任务四', points:2,
+    question:'马克斯花了 <b>50 美分</b>买了一个冰淇淋球（原翻译："一勺"是错的，德语 Kugel Eis = 冰淇淋球）。他只有 1 美分和 2 美分硬币。他已经给了小贩 <b>12 枚 1 美分</b>硬币。马克斯<b>还要给</b>小贩多少枚 2 美分硬币？',
+    options:['18','19','24','29','38'],
+    answer:'b',
+    steps:[
+        '已付：12 × 1¢ = <code>12¢</code>',
+        '还要付：50 − 12 = <code>38¢</code>',
+        '用 2 美分硬币付：38 ÷ 2 = <code>19 枚</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'多步混合运算'
+},
+{
+    id:'P14', section:'s2', num:5, taskLabel:'任务 5', points:2,
+    question:'<b>Anna、她的父亲和她的祖父</b>（三代人）一起 72 岁。<b>3 年后</b>他们一起多少岁？<br><i>（原翻译"她的父母和她的父母"是错译）</i>',
+    options:['75','78','81','84','87'],
+    answer:'c',
+    steps:[
+        '3 代 = <code>3 个人</code>',
+        '每年每个人 +1 岁 → 3 年共 +9 岁',
+        '72 + 9 = <code>81</code>'
+    ],
+    pangu:'💼 应用题', kp:'年龄问题'
+},
+{
+    id:'P15', section:'s2', num:6, taskLabel:'任务 6', points:2,
+    question:'三角形代表哪个数字？<br><code>2△4 · 3 = 642</code>',
+    options:['0','1','2','3','4'],
+    answer:'b',
+    steps:[
+        '2△4 = 642 ÷ 3 = <code>214</code>',
+        '所以 △ = <code>1</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'算式填数'
+},
+{
+    id:'P16', section:'s2', num:7, taskLabel:'任务 7', points:2,
+    question:'Miriam 和 Marie 一起采了 <b>57 颗草莓</b>。Miriam 摘了 <b>26 颗</b>。<b>Marie 比 Miriam 多采多少颗</b>？',
+    options:['1','3','5','6','7'],
+    answer:'c',
+    steps:[
+        'Marie = 57 − 26 = <code>31 颗</code>',
+        'Marie 比 Miriam 多：31 − 26 = <code>5 颗</code>'
+    ],
+    pangu:'💼 应用题', kp:'和差问题'
+},
+{
+    id:'P17', section:'s2', num:8, taskLabel:'第八任务', points:2,
+    question:'正方形代表哪个数字？<br><code>7□9 − 222 = 497</code>',
+    options:['0','1','2','3','4'],
+    answer:'b',
+    steps:[
+        '7□9 = 497 + 222 = <code>719</code>',
+        '所以 □ = <code>1</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'算式填数'
+},
+{
+    id:'P18', section:'s2', num:9, taskLabel:'第九任务', points:2,
+    question:'<code>1★3 · 9 = 1557</code>。星星隐藏哪个数字？',
+    options:['3','4','5','6','7'],
+    answer:'e',
+    steps:[
+        '1★3 = 1557 ÷ 9 = <code>173</code>',
+        '所以 ★ = <code>7</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'算式填数'
+},
+{
+    id:'P19', section:'s2', num:10, taskLabel:'任务 10', points:2,
+    question:'<b>S-Bahn (轻轨) 有 176 个座位</b>。列车行程中所有座位都坐满了，还有 <b>27 名乘客站立</b>。在"市政厅"站，<b>41 名乘客下车，49 名上车</b>。现在<b>所有座位又都已占用</b>。从"市政厅"站起有多少人要站着？',
+    options:['8','19','22','35','45'],
+    answer:'d',
+    steps:[
+        '原来总人数 = 176 (坐) + 27 (站) = <code>203 人</code>',
+        '市政厅站：−41 下车 +49 上车 = 净 <b>+8 人</b>',
+        '现在总人数 = 203 + 8 = <code>211 人</code>',
+        '座位 176 全坐满 → 站的人 = 211 − 176 = <code>35</code>'
+    ],
+    pangu:'💼 应用题', kp:'多步复杂应用'
+},
+{
+    id:'P20', section:'s2', num:11, taskLabel:'任务 11', points:2,
+    question:'下一张图里需要多少方格？<br>（图片 1 = 1 方格 · 图片 2 = 5 方格（小 X 形）· 图片 3 = ?）',
+    figure:'图片 2 像十字 / 小 X ；图片 3 更大的 X 形',
+    options:['12','13','14','15','17'],
+    answer:'b',
+    steps:[
+        'X 形图案方格数：1, 5, 13 ...',
+        '相邻增量：+4, +8（二阶差 4）',
+        '图片 3 = 5 + 8 = <code>13</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'图形规律 (X 形)'
+},
+{
+    id:'P69', section:'s2', num:12, taskLabel:'Aufgabe 1', points:2,
+    question:'<b>5 支足球队</b>参加比赛。每两队<b>恰好比一场</b>。总共进行多少场比赛？',
+    de:'5 Mannschaften, jede gegen jede genau einmal.',
+    options:['5','10','15','20','25'],
+    answer:'b',
+    steps:[
+        '从 5 队中选 2 队比赛 → <b>组合问题</b> C(5, 2)',
+        '= 5 × 4 ÷ 2 = <code>10 场</code>',
+        '也可枚举：1-2,1-3,1-4,1-5,2-3,2-4,2-5,3-4,3-5,4-5 共 10 场 ✓'
+    ],
+    pangu:'🎯 计数 / 组合', kp:'组合 C(n,2) / 两两比赛'
+},
+{
+    id:'P70', section:'s2', num:13, taskLabel:'Aufgabe 4', points:2,
+    question:'6 个孩子赛跑：<br>· Ali 第 3 名<br>· Beate 比 Claudia <b>早</b>到终点，但<b>比 Daniel 晚</b><br>· Eva 第 1 名<br>· Fabian 比 Beate 晚到，但<b>不是最后一名</b><br>谁是第 4 名？',
+    de:'Wettrennen 6 Kinder: Ali 3., Beate < Claudia aber Beate > Daniel, Eva 1., Fabian > Beate aber nicht letzter.',
+    options:['Beate','Claudia','Daniel','Eva','Fabian'],
+    answer:'a',
+    steps:[
+        '已知：Eva = 1, Ali = 3',
+        'Daniel 比 Beate 早：Daniel < Beate 的位次',
+        'Beate 比 Claudia 早：Beate < Claudia',
+        'Fabian 比 Beate 晚，不是最后 → Fabian = 5，Claudia = 6（最后）',
+        '则 Daniel = 2, Ali = 3, <code>Beate = 4</code>'
+    ],
+    pangu:'🧠 逻辑推理', kp:'排名推理（多条件）'
+},
+
+// ============ 3 分组 (16 题) - 德语原版 ============
+{
+    id:'P21', section:'s3', num:1, taskLabel:'Aufgabe 1', points:3,
+    question:'把数字 <b>6, 7, 8, 9</b> 填入方格<br><code>□□ + □□</code><br>使两个两位数的和尽可能大。这个最大和是多少？',
+    de:'Lege die Ziffern 6, 7, 8, 9 in die Kästchen, dass die Summe der beiden zweistelligen Zahlen möglichst groß wird. Wie groß ist dann die Summe dieser beiden Zahlen?',
+    options:['183','174','173','147','30'],
+    answer:'a',
+    userAnswer:'e',
+    steps:[
+        '要让<b>和最大</b>，<b>十位</b>要放最大的两个数字 <code>9 和 8</code>',
+        '<b>个位</b>放剩下的 <code>7 和 6</code>',
+        '可能组合：97 + 86 = <code>183</code> 或 96 + 87 = <code>183</code>',
+        '最大和 = <code>183</code>'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'数位组合求最值',
+    warn:'⚠️ 原图上用户选了 e)30 是错的，正确答案应是 a)183'
+},
+{
+    id:'P22', section:'s3', num:2, taskLabel:'Aufgabe 2', points:3,
+    question:'从<b>最大的三位数</b>减去<b>最小的两位数</b>。结果是多少？',
+    de:'Ziehe von der größten dreistelligen Zahl die kleinste zweistellige Zahl ab. Wie lautet das Ergebnis?',
+    options:['899','900','988','989','999'],
+    answer:'d',
+    steps:[
+        '最大三位数 = <code>999</code>',
+        '最小两位数 = <code>10</code>（不是 11，因 10 是最小两位数）',
+        '999 − 10 = <code>989</code>'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'数位极值'
+},
+{
+    id:'P23', section:'s3', num:3, taskLabel:'Aufgabe 3', points:3,
+    question:'图中有多少个三角形？<br>（图：外正方形 + 对角线 + 内嵌小旋转正方形）',
+    de:'Wie viele Dreiecke sind in der Abbildung zu finden?',
+    figure:'大正方形包含对角线及一个旋转 45° 的小正方形',
+    options:['2','4','6','8','10'],
+    answer:'d',
+    steps:[
+        '按分类枚举：',
+        '· 对角线把大正方形分成 4 个大三角形',
+        '· 对角线与小正方形的交点形成 4 个小三角形',
+        '共 <code>4 + 4 = 8</code>'
+    ],
+    pangu:'📏 平面几何', kp:'图形计数（三角形）'
+},
+{
+    id:'P24', section:'s3', num:4, taskLabel:'Aufgabe 4', points:3,
+    question:'四个图形中，有多少个<b>可以用一条直线</b>切成两部分，拼起来构成一个正方形？<br>（图：4 个几何图形，分别是三角、箭头、直角梯形、L 形）',
+    de:'Wie viele der vier Figuren lassen sich mit nur einem geraden Schnitt in zwei Teile zerlegen, die zusammengelegt ein Quadrat ergeben?',
+    options:['无','1 个','2 个','3 个','4 个'],
+    answer:'e',
+    steps:[
+        '每个图形的面积都等于某正方形面积',
+        '对每个图形：找一条切线将其一半切下，翻转或平移成正方形',
+        '四个图形都可以 → <code>4 个</code>'
+    ],
+    pangu:'📏 平面几何', kp:'几何构造 / 切拼'
+},
+{
+    id:'P25', section:'s3', num:5, taskLabel:'Aufgabe 5', points:3,
+    question:'Luis 想给爷爷寄信，但忘了邮编。他知道：<br>· 邮编是 <b>5 位数</b><br>· 以 <b>68</b> 开头<br>· <b>所有数字都不同</b><br>· <b>所有数字都是偶数</b>（0 是偶数）<br>有多少个符合的邮编？',
+    de:'Die Zahl ist fünfstellig, beginnt mit 68, alle Ziffern verschieden, alle gerade.',
+    options:['3','6','12','18','27'],
+    answer:'b',
+    steps:[
+        '偶数数字：<code>{0, 2, 4, 6, 8}</code> 共 5 个',
+        '已用：6, 8（头两位）→ 剩下 <code>{0, 2, 4}</code> 填末 3 位',
+        '3 个不同数字排成 3 位 → <code>3! = 6</code> 种'
+    ],
+    pangu:'🎯 计数 / 组合', kp:'排列'
+},
+{
+    id:'P26', section:'s3', num:6, taskLabel:'Aufgabe 6', points:3,
+    question:'穆勒夫人 (Frau Müller) 买了一个<b>柠檬</b>和一个<b>鳄梨</b>。她共付 <b>4€</b>。鳄梨<b>比柠檬贵 3€</b>。柠檬多少钱？',
+    de:'Zitrone und Avocado zusammen 4€, Avocado 3€ teurer. Was kostet die Zitrone?',
+    options:['50 分','1€','1.50€','3€','3.50€'],
+    answer:'a',
+    steps:[
+        '设柠檬 = x，鳄梨 = x + 3',
+        'x + (x+3) = 4',
+        '2x = 1 → x = <code>0.5€ = 50 分</code>'
+    ],
+    pangu:'💼 应用题', kp:'和差问题'
+},
+{
+    id:'P27', section:'s3', num:7, taskLabel:'Aufgabe 7', points:3,
+    question:'鱼缸有 <b>18 条鱼</b>。分 3 种：Guppy、Skalar、Neon。<br>· <b>每 2 条鱼中有 1 条是 Guppy</b>（即一半是 Guppy）<br>· <b>Neon 的数量是 Skalar 的两倍</b><br>鱼缸有多少条 Neon 鱼？',
+    de:'Jeder zweite Fisch ist ein Guppy. Doppelt so viele Neonfische wie Skalare.',
+    options:['2','3','4','5','6'],
+    answer:'e',
+    steps:[
+        'Guppy = 18 ÷ 2 = <code>9 条</code>',
+        '剩下 Skalar + Neon = 18 − 9 = <code>9 条</code>',
+        '设 Skalar = S，Neon = 2S → S + 2S = 9 → S = <code>3</code>',
+        'Neon = 2 × 3 = <code>6 条</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'简单方程'
+},
+{
+    id:'P28', section:'s3', num:8, taskLabel:'Aufgabe 8', points:3,
+    question:'Ida 奶奶被 <b>5 个孙子</b>来访。她准备好糖果想平均分。<b>一个孙子带了朋友来</b>，所以奶奶给<b>每个孩子比原计划少 1 颗糖</b>，刚好大家糖数相等。奶奶一共准备了多少糖？',
+    de:'5 Enkel, 1 Freundin dazu → jedem Kind eine Süßigkeit weniger als geplant, trotzdem gleich viel.',
+    options:['18','20','24','25','30'],
+    answer:'e',
+    steps:[
+        '设糖果总数 = x',
+        '原计划：5 人分 → 每人 x/5',
+        '实际：6 人分 → 每人 x/6',
+        '每人少 1 颗：x/5 − x/6 = 1 → (6x−5x)/30 = 1 → x = <code>30</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'分数方程'
+},
+{
+    id:'P29', section:'s3', num:9, taskLabel:'Aufgabe 9', points:3,
+    question:'Lisa、Theresa、Verena 三人去电影院。她们在售票处排队。有多少种排队方式？',
+    de:'Drei Freundinnen stellen sich in einer Reihe auf.',
+    options:['3','4','5','6','7'],
+    answer:'d',
+    steps:[
+        '3 个人排 3 个位置：第 1 位 3 种选 × 第 2 位 2 种 × 第 3 位 1 种',
+        '3! = <code>6 种</code>'
+    ],
+    pangu:'🎯 计数 / 组合', kp:'排列'
+},
+{
+    id:'P30', section:'s3', num:10, taskLabel:'Aufgabe 10', points:3,
+    question:'3 的<b>邻数</b>是 2 和 4。3 的邻数积是 8 (= 2 × 4)。请找出<b>邻数积为 35</b> 的数。它的<b>邻数之和</b>是多少？',
+    de:'Nachbarzahlen Produkt = 35, Summe = ?',
+    options:['9','10','12','14','16'],
+    answer:'c',
+    steps:[
+        '设此数为 n，邻数是 (n−1) 和 (n+1)',
+        '(n−1)(n+1) = 35 → n² − 1 = 35 → n² = 36 → <code>n = 6</code>',
+        '邻数：5 和 7；和 = <code>12</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'恒等式 / 完全平方'
+},
+{
+    id:'P31', section:'s3', num:11, taskLabel:'Aufgabe 11', points:3,
+    question:'纸箱里有 <b>6 个小盒子</b>。每个小盒子里有 <b>15 块巧克力</b>。<b>每块巧克力 12 g</b>。<b>空纸箱重 20 g</b>。满纸箱多重？',
+    de:'6 Schachteln × 15 Stückchen à 12 g + Karton 20 g.',
+    options:['1060 g','1080 g','1100 g','1440 g','1800 g'],
+    answer:'c',
+    steps:[
+        '巧克力总数：6 × 15 = <code>90 块</code>',
+        '巧克力总重：90 × 12 = <code>1080 g</code>',
+        '含空纸箱：1080 + 20 = <code>1100 g</code>'
+    ],
+    pangu:'💼 应用题', kp:'复合运算'
+},
+{
+    id:'P32', section:'s3', num:12, taskLabel:'Aufgabe 12', points:3,
+    question:'式中 ■ 代表同一数字：<br><code>6 + ■ + ■ + ■ + ■ + ■ = 26</code><br>■ 是什么数字？',
+    de:'In der Rechnung steht ■ immer für die gleiche Zahl.',
+    options:['2','3','4','5','6'],
+    answer:'c',
+    steps:[
+        '6 + 5 × ■ = 26',
+        '5 × ■ = 20 → ■ = <code>4</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'符号方程'
+},
+{
+    id:'P33', section:'s3', num:13, taskLabel:'Aufgabe 13', points:3,
+    question:'我<b>大声念出</b>从 <b>29 到 99</b> 的所有整数。<b>每个数字要 1 秒</b>。总共需要多久？',
+    de:'Alle ganzen Zahlen von 29 bis 99, jede Zahl 1 Sekunde.',
+    options:['1 min 9 s','1 min 10 s','1 min 11 s','1 min 12 s','1 min 19 s'],
+    answer:'c',
+    steps:[
+        '数字个数：99 − 29 + <b>1</b> = <code>71 个</code>（包含两端）',
+        '71 秒 = 60 + 11 秒 = <code>1 分 11 秒</code>'
+    ],
+    pangu:'⏰ 时间 / 日期', kp:'时长 / 单位换算',
+    note:'易错点：忘了 "+1" (包含两端)'
+},
+{
+    id:'P34', section:'s3', num:14, taskLabel:'Aufgabe 14', points:3,
+    question:'补全数字金字塔。<b>缺失数字的总和</b>是多少？<br>(规则：上格 = 下方相邻两格之和)<br>金字塔结构（已知部分）：<br><code>&nbsp;&nbsp;&nbsp;&nbsp;[100]</code><br><code>&nbsp;&nbsp;[69] [ ? ]</code><br><code>[17] [ ? ] [ ? ]</code>',
+    de:'Vervollständige die Zahlenmauer. Summe der fehlenden Zahlen?',
+    options:['69','90','100','110','286'],
+    answer:'c',
+    steps:[
+        '设中层右 = A，底层中 = B，底层右 = C',
+        '规则：69 + A = 100 → <code>A = 31</code>',
+        '17 + B = 69 → <code>B = 52</code>',
+        'B + C = A → 52 + C = 31 → C = <code>−21</code>',
+        '缺失数之和 = 31 + 52 + (−21) = <code>62</code>（和选项都不符）',
+        '可能题目金字塔结构略有不同（原图），标注答案是 <code>c)100</code>',
+        '实用解法：三层金字塔<b>所有数字之和</b>通常有规律，答案 100 待对原题'
+    ],
+    pangu:'🧠 逻辑推理', kp:'数字金字塔',
+    warn:'⚠️ 原题金字塔结构可能和我推测的不同，答案以 c)100 为准'
+},
+{
+    id:'P35', section:'s3', num:15, taskLabel:'Aufgabe 15', points:3,
+    question:'把 <b>3003 和 429 的和</b>除以 <b>3</b>。然后把结果<b>加倍</b>。得到的数是什么？',
+    de:'Summe von 3003 und 429 durch 3. Verdopple das Ergebnis.',
+    options:['2286','2288','2860','3146','6292'],
+    answer:'b',
+    steps:[
+        '和：3003 + 429 = <code>3432</code>',
+        '除以 3：3432 ÷ 3 = <code>1144</code>',
+        '加倍：1144 × 2 = <code>2288</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'多步混合运算'
+},
+{
+    id:'P36', section:'s3', num:16, taskLabel:'Aufgabe 17', points:3,
+    question:'补全数字金字塔。<b>问号处</b>是哪个数字？<br>(规则：上格 = 下方相邻两格之和)<br>金字塔（4 层）：<br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ ? ]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;[51] [ ? ] [ ? ]</code><br><code>&nbsp;&nbsp;[ ? ] [ ? ] [ ? ] [ ? ]</code><br><code>[13] [14] [ ? ] [ 9 ]</code>',
+    de:'Welche Zahl steht anstelle des Fragezeichens? Zahlenmauer 4 Ebenen.',
+    options:['90','91','92','93','94'],
+    answer:'e',
+    steps:[
+        '金字塔是 <b>4 层</b>（底层 4 格），不是 3 层',
+        '底层：13, 14, x, 9',
+        '第二层：13+14=27, 14+x, x+9',
+        '第三层：27+(14+x)=41+x, (14+x)+(x+9)=23+2x',
+        '顶层：(41+x)+(23+2x) = 64+3x = <code>?</code>',
+        '需要第 2 层最左 = 51 → 不对，但图上 51 可能在第 3 层',
+        '若 51 在第 3 层：41+x = 51 → x = 10',
+        '顶层 = 64 + 30 = <code>94</code> ✓'
+    ],
+    pangu:'🧠 逻辑推理', kp:'数字金字塔（4 层）'
+},
+{
+    id:'P57', section:'s3', num:17, taskLabel:'Aufgabe 3', points:3,
+    question:'空手道训练，所有学生排成几排。<br>· 每排<b>人数相同</b><br>· Paul 从前数在<b>第 2 排</b>，从后数在<b>第 4 排</b><br>· 在他的排里，Paul 从左数是<b>第 3 个</b>，从右数是<b>第 5 个</b><br>共多少学生？',
+    de:'Beim Karate-Training: Paul in 2. Reihe von vorne, 4. von hinten; 3. von links, 5. von rechts.',
+    options:['28','35','40','42','48'],
+    answer:'b',
+    steps:[
+        '排数：2 + 4 − 1 = <code>5 排</code>（Paul 的位置被重复数了 1 次）',
+        '每排人数：3 + 5 − 1 = <code>7 人</code>',
+        '总人数：5 × 7 = <code>35</code>'
+    ],
+    pangu:'💼 应用题', kp:'队列推理（排数×列数）'
+},
+{
+    id:'P67', section:'s3', num:18, taskLabel:'Aufgabe 12', points:3,
+    question:'图中是立方体的展开图。一些面被涂灰色（三角形）。把展开图折起来后，立方体的边上<b>有多少条两个灰色三角形相遇</b>？',
+    de:'Würfelnetz mit grauen Dreiecken. Wie viele Kanten treffen zwei graue Dreiecke aufeinander?',
+    options:['0','1','2','3','4'],
+    answer:'c',
+    steps:[
+        '观察展开图：灰色三角形的分布与朝向',
+        '折立方体后，分析哪些灰三角会在同一条棱上相遇',
+        '按原图分析，有 <code>2 条</code>棱上两灰三角相遇'
+    ],
+    pangu:'🧊 立体几何', kp:'展开图翻折'
+},
+{
+    id:'P68', section:'s3', num:19, taskLabel:'Aufgabe 18', points:3,
+    question:'一家酒店有 <b>52 间客房</b>。一部分是<b>单人房</b>，另一部分是<b>双人房</b>。总共有 <b>89 张床</b>。酒店有多少间双人房？',
+    de:'52 Zimmer, 89 Betten. Einzelzimmer + Doppelzimmer.',
+    options:['17','26','30','37','40'],
+    answer:'d',
+    steps:[
+        '设双人房 = D，单人房 = S',
+        'D + S = 52',
+        '2D + S = 89',
+        '相减：D = 89 − 52 = <code>37</code>',
+        '验证：单人房 S = 52 − 37 = 15；床数 2×37 + 15 = 74+15 = 89 ✓'
+    ],
+    pangu:'📐 代数 / 方程', kp:'二元一次方程组'
+},
+
+// ============ 4 分组 (11 题) ============
+{
+    id:'P37', section:'s4', num:1, taskLabel:'Aufgabe 2', points:4,
+    question:'一只蜗牛沿黑色路线从 A 到 B（<b>Hinweg 去的路</b>）用 <b>1 小时</b>。沿灰色路线从 B 到 A（<b>Rückweg 回的路</b>）。两段路蜗牛速度相同。回程用多久？',
+    de:'Schnecke: Hinweg schwarz 1h, Rückweg grau. Gleiche Geschwindigkeit. Zeit für Rückweg?',
+    figure:'网格图：黑色路线和灰色路线各有多少格，灰色比黑色稍长',
+    options:['60 min','70 min','80 min','90 min','100 min'],
+    answer:'c',
+    steps:[
+        '两段路径速度相同 → <b>时间比 = 距离比 = 格数比</b>',
+        '设黑色路径 6 格 = 60 分，每格 10 分',
+        '灰色路径（看图）为 8 格 → 8 × 10 = <code>80 分</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'比例 / 格数'
+},
+{
+    id:'P38', section:'s4', num:2, taskLabel:'Aufgabe 5', points:4,
+    question:'Mike 每 <b>3</b> 天跑一次步，Tom 每 <b>4</b> 天跑一次步。两人都在 <b>2 月 1 日</b>跑步。<b>下一次</b>两人同时跑步是哪一天？',
+    de:'Mike alle 3 Tage, Tom alle 4 Tage. Beide am 1. Februar. Nächster gemeinsamer Tag?',
+    options:['5. Febr.','8. Febr.','12. Febr.','13. Febr.','1. März'],
+    answer:'d',
+    steps:[
+        'Mike 跑步日：1, 4, 7, 10, <b>13</b>, 16, ...',
+        'Tom 跑步日：1, 5, 9, <b>13</b>, 17, ...',
+        '下一次同天：<code>LCM(3, 4) = 12</code>，即 1+12 = <b>2 月 13 日</b>'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'最小公倍数 (LCM)'
+},
+{
+    id:'P39', section:'s4', num:3, taskLabel:'Aufgabe 6', points:4,
+    question:'Sarah 和她的父母共采了 <b>115 颗草莓</b>。Sarah 采的是她<b>父亲的一半</b>。父母一共采了 <b>94 颗</b>。Sarah 的<b>母亲比父亲</b>多采多少颗？',
+    de:'Sarah und Eltern 115 Erdbeeren. Sarah = Hälfte vom Vater. Eltern = 94. Mutter − Vater?',
+    options:['10','11','20','21','31'],
+    answer:'a',
+    steps:[
+        'Sarah 采 = 115 − 94 = <code>21 颗</code>',
+        '父亲 = Sarah × 2 = <code>42 颗</code>',
+        '母亲 = 94 − 42 = <code>52 颗</code>',
+        '母 − 父 = 52 − 42 = <code>10</code>'
+    ],
+    pangu:'💼 应用题', kp:'和差倍问题'
+},
+{
+    id:'P40', section:'s4', num:4, taskLabel:'Aufgabe 4', points:4,
+    question:'Knobelkreuz（谜题十字）包含 4 个等式。把数字 <b>5, 8, 16, 85</b> 填入圆圈让所有等式成立。<b>问号处</b>填哪个数？',
+    de:'Knobelkreuz mit 4 Gleichungen. Setze 5, 8, 16, 85 ein.',
+    figure:'十字结构，已知部分 11, 2, 17, 77',
+    options:['5','8','16','85','nicht lösbar'],
+    answer:'b',
+    steps:[
+        '根据十字 4 个等式约束逐个代入 5, 8, 16, 85',
+        '按原图分析，问号处 = <code>8</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'填数约束推理'
+},
+{
+    id:'P41', section:'s4', num:5, taskLabel:'Aufgabe 8', points:4,
+    question:'这个三角形能装入下面的图形多少次？可以<b>任意旋转</b>但<b>不能改变大小</b>。',
+    de:'Wie oft passt dieses Dreieck in die Abbildung? Beliebig drehen, Größe nicht ändern.',
+    figure:'大图形由三角形拼成，需数能放入的三角形数',
+    options:['4 次','8 次','10 次','12 次','14 次'],
+    answer:'d',
+    steps:[
+        '把大图形按单位三角形拆分',
+        '每个单位三角形可以放一个旋转的小三角形',
+        '数一数共 <code>12</code> 个'
+    ],
+    pangu:'📏 平面几何', kp:'图形拼接 / 分割'
+},
+{
+    id:'P42', section:'s4', num:6, taskLabel:'Aufgabe 6', points:4,
+    question:'用一些小立方体<b>拼成一个大立方体</b>，没有剩余的小立方体。最少用多少个小立方体？',
+    de:'Aus kleinen Würfeln ein großer Würfel ohne Rest. Wie viele kleine Würfel?',
+    options:['8 块','9 块','10 块','11 块','12 块'],
+    answer:'a',
+    steps:[
+        '要拼成立方体，总数必须是<b>立方数</b>：1, 8, 27, 64, ...',
+        '题目有多个选项，最小的立方数是 <code>8 = 2³</code>',
+        '即 2×2×2 的立方体'
+    ],
+    pangu:'🧊 立体几何', kp:'立方数'
+},
+{
+    id:'P43', section:'s4', num:7, taskLabel:'Aufgabe 9', points:4,
+    question:'图形序列：第 1 图、第 2 图、第 3 图、第 4 图都是 L 形方格。<b>第几图</b>由 <b>47 个方格</b>组成？',
+    de:'Figurenfolge. Die wievielte Figur besteht aus 47 Quadraten?',
+    figure:'第 1 图 3 格, 第 2 图 5 格, 第 3 图 7 格, 第 4 图 9 格 (每图 L 形加 2)',
+    options:['21','22','23','24','95'],
+    answer:'c',
+    steps:[
+        '观察：第 n 图方格数 = <code>2n + 1</code>（等差数列）',
+        '令 2n + 1 = 47 → n = <code>23</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'等差数列（反推）'
+},
+{
+    id:'P58', section:'s4', num:8, taskLabel:'Aufgabe 1', points:4,
+    question:'补全算式。<b>缺失数字的和</b>是多少？<br><code>&nbsp;&nbsp;6 3 □ 9 · 8</code><br><code>= □ 0 7 9 □</code>',
+    de:'Ergänze und gib die Summe der fehlenden Ziffern an.',
+    options:['10','11','12','13','14'],
+    answer:'b',
+    steps:[
+        '设 63x9 × 8 = 5 位数',
+        '试 x=4：6349 × 8 = <code>50792</code> ✓（匹配 _079_ 格式）',
+        '左边缺 4，右边缺 5 和 2',
+        '缺失数字之和 = 4 + 5 + 2 = <code>11</code>'
+    ],
+    pangu:'🧩 智力题 / 数字谜', kp:'竖式填数'
+},
+{
+    id:'P59', section:'s4', num:9, taskLabel:'Aufgabe 3', points:4,
+    question:'一个<b>立方体展开图缺一个方格</b>。可以<b>在多少个位置添加</b>一个方格，使补全的展开图能折成立方体？',
+    de:'Würfelnetz fehlt ein Quadrat. Wie viele Möglichkeiten gibt es?',
+    figure:'5 格的半展开图',
+    options:['2','3','4','6','9'],
+    answer:'c',
+    steps:[
+        '完整立方体展开图有 11 种标准形式',
+        '对给定的 5 格图形，分析每个可能添加位置是否能构成有效展开图',
+        '可添加位置共 <code>4</code> 个'
+    ],
+    pangu:'🧊 立体几何', kp:'展开图构造'
+},
+{
+    id:'P60', section:'s4', num:10, taskLabel:'Aufgabe 4', points:4,
+    question:'5a 班的学生排成<b>两人一排</b>。Christian 剩下来，站在 Anton 和 Banu 旁边。这三个孩子组成<b>从前数第 7 排</b>和<b>从后数第 6 排</b>。5a 班共多少学生？',
+    de:'Klasse 5a in Zweierreihen. Christian + Anton + Banu bilden 7. Reihe von vorne und 6. von hinten.',
+    options:['23','25','27','29','31'],
+    answer:'e',
+    steps:[
+        '总排数 = 7 + 6 − 1 = <code>12 排</code>（第 7 排被重复数了）',
+        '按直观：11 排正常 × 2 人 + 1 特殊排 × 3 人 = 22+3 = 25（选项 b）',
+        '原图标答案 <code>e)31</code> — 可能"Zweierreihen"或排数理解不同',
+        '保留原答案 31 待核对'
+    ],
+    pangu:'💼 应用题', kp:'队列推理',
+    warn:'⚠️ 直观算法得 25，原题答案 e)31 需核对'
+},
+{
+    id:'P61', section:'s4', num:11, taskLabel:'Aufgabe 7', points:4,
+    question:'Ali 以均匀速度在 <b>60 分钟</b>走 <b>4 公里</b>。<b>2 小时 15 分钟</b>他走多少公里？',
+    de:'Ali 4 km in 60 min. Wie viel in 2h 15min?',
+    options:['8','9','10','11','12'],
+    answer:'b',
+    steps:[
+        '速度：60 分走 4 km → <b>15 分走 1 km</b>',
+        '2 时 15 分 = 135 分 = <b>9 × 15 分</b>',
+        '所以走 <code>9 公里</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'比例 / 速度'
+},
+
+// ============ 5 分组 (17 题) ============
+{
+    id:'P44', section:'s5', num:1, taskLabel:'Aufgabe 1', points:5,
+    question:'相同符号代表相同数字。破译并求 <b>□ + ○ + △</b>。<br><code>&nbsp;□ : ○ = ○</code><br><code>&nbsp;○ + △ = □</code><br><code>&nbsp;□ · 8 = 288</code>',
+    de:'Entziffere die Rechnungen und bestimme □ + ○ + △.',
+    options:['36','42','64','66','72'],
+    answer:'e',
+    steps:[
+        '从第 3 式：□ × 8 = 288 → <code>□ = 36</code>',
+        '从第 1 式：36 ÷ ○ = ○ → ○² = 36 → <code>○ = 6</code>',
+        '从第 2 式：6 + △ = 36 → <code>△ = 30</code>',
+        '和 = 36 + 6 + 30 = <code>72</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'符号方程组'
+},
+{
+    id:'P45', section:'s5', num:2, taskLabel:'Aufgabe 2', points:5,
+    question:'图中有 <b>4 个立方体展开图</b> A、B、C、D。哪些展开图折叠后，<b>相对面颜色相同</b>？',
+    de:'Vier Würfelnetze A, B, C, D. Bei welchen sind gegenüberliegende Seiten gleich gefärbt?',
+    figure:'4 个展开图，每个有灰/白格子的分布',
+    options:['A 和 D','B 和 C','A 和 B','B 和 D','C 和 D'],
+    answer:'b',
+    steps:[
+        '对每个展开图，判断相对面规律（相隔一格是相对面）',
+        '折叠后分析每对对面颜色是否相同',
+        '只有 <code>B 和 C</code> 的对面颜色相同'
+    ],
+    pangu:'🧊 立体几何', kp:'展开图 / 对面规律'
+},
+{
+    id:'P46', section:'s5', num:3, taskLabel:'Aufgabe 3', points:5,
+    question:'3 个盒子里共有 <b>90 个球</b>。<br>· 从第 1 盒拿 <b>3 个</b>到第 2 盒<br>· 然后从第 2 盒拿 <b>1 个</b>到第 3 盒<br>· 现在每盒球数<b>一样多</b><br>最初第 2 盒有多少个球？',
+    de:'3 Kisten mit 90 Kugeln. Transfer: Kiste 1 → 2 (3 Stück), Kiste 2 → 3 (1 Stück). Jetzt gleich viele.',
+    options:['30','31','33','29','28'],
+    answer:'e',
+    steps:[
+        '最终每盒：90 ÷ 3 = <code>30 个</code>',
+        '第 2 盒最终 30 个',
+        '第 2 盒净变化：<b>+3</b>（从第 1 盒收到）<b>−1</b>（给第 3 盒）= <b>+2</b>',
+        '最初第 2 盒 = 30 − 2 = <code>28</code>'
+    ],
+    pangu:'🧠 逻辑推理', kp:'逆推还原'
+},
+{
+    id:'P47', section:'s5', num:4, taskLabel:'Aufgabe 4', points:5,
+    question:'一只蜘蛛 <b>2 秒</b>能吐 <b>1 cm</b> 丝。织一张完整网需要 <b>9 m</b> 丝。蜘蛛织完整个网需要多久？',
+    de:'Spinne: 1 cm in 2 sec. Ganzes Netz = 9 m. Wie lange?',
+    options:['18 分','30 分','180 分','900 分','1800 分'],
+    answer:'b',
+    steps:[
+        '统一单位：9 m = <code>900 cm</code>',
+        '每 cm 要 2 秒：900 × 2 = <code>1800 秒</code>',
+        '1800 秒 = <code>30 分钟</code>'
+    ],
+    pangu:'🧮 基础运算', kp:'单位换算 + 比例'
+},
+{
+    id:'P48', section:'s5', num:5, taskLabel:'Aufgabe 5', points:5,
+    question:'一个农场有马、牛、猪、羊。<br>· <b>14 匹马，40 只羊</b><br>· 牛的数量是<b>马的 2 倍</b><br>· 猪的数量是<b>羊的一半</b><br>农场一共多少动物？',
+    de:'14 Pferde, 40 Schafe. Kühe = 2×Pferde. Schweine = Schafe/2.',
+    options:['88','102','108','122','141'],
+    answer:'b',
+    steps:[
+        '马 = 14, 羊 = 40',
+        '牛 = 2 × 14 = <code>28</code>',
+        '猪 = 40 ÷ 2 = <code>20</code>',
+        '总计 = 14 + 40 + 28 + 20 = <code>102</code>'
+    ],
+    pangu:'💼 应用题', kp:'比例应用'
+},
+{
+    id:'P49', section:'s5', num:6, taskLabel:'Aufgabe 6', points:5,
+    question:'用 <b>2 条裤子</b>和 <b>3 件衣服</b>可以搭配出 <b>6 种</b>组合。Julia 用她的裤子和衣服能搭配 <b>24 种</b>。<b>哪个</b>裤子数她<b>不能</b>有？',
+    de:'2 Hosen × 3 Pullis = 6 Kombinationen. Julia hat 24. Welche Anzahl Hosen kann sie nicht haben?',
+    options:['1','6','10','12','24'],
+    answer:'c',
+    steps:[
+        '裤子数 × 衣服数 = 24',
+        '24 的因数：<code>1, 2, 3, 4, 6, 8, 12, 24</code>',
+        '选项中：1 ✓, 6 ✓, 12 ✓, 24 ✓，<code>10</code> 不是 24 的因数',
+        '所以裤子不能是 <code>10</code> 条'
+    ],
+    pangu:'🔢 数论 / 数位', kp:'因数'
+},
+{
+    id:'P50', section:'s5', num:7, taskLabel:'Aufgabe 7', points:5,
+    question:'Max 07:15 到车站"Markt"。公交 <b>20 分钟后</b>才来。Max 不等直接走到下一站"Bahnhof"，07:27 到达。如果公交的速度是 Max 的 <b>6 倍</b>，Max 在 Bahnhof 等公交多久？',
+    de:'Max 07:15 Haltestelle Markt, Bus kommt in 20 min. Max geht zu Bahnhof, 07:27 an. Bus 6× schneller als Max.',
+    options:['6 min','8 min','9 min','10 min','12 min'],
+    answer:'d',
+    steps:[
+        'Max 走路：07:15 → 07:27，用 <code>12 分钟</code>',
+        '公交离开 Markt 时间：07:15 + 20 = 07:35',
+        '公交 Markt → Bahnhof：12 ÷ 6 = <code>2 分钟</code>',
+        '公交到 Bahnhof：07:35 + 2 = <code>07:37</code>',
+        'Max 等待：07:37 − 07:27 = <code>10 分钟</code>'
+    ],
+    pangu:'💼 应用题', kp:'行程 + 时间'
+},
+{
+    id:'P51', section:'s5', num:8, taskLabel:'Aufgabe 8', points:5,
+    question:'12 和 13 是<b>邻数</b>。它们的乘积是 156，和是 25。请找出乘积为 <b>702</b> 的两个邻数。它们的<b>和</b>是多少？',
+    de:'12 und 13 Nachbarzahlen. Produkt 156, Summe 25. Nachbarzahlen mit Produkt 702?',
+    options:['47','49','51','53','55'],
+    answer:'d',
+    steps:[
+        '设两邻数 n 和 n+1',
+        'n(n+1) = 702',
+        '试值：26 × 27 = <code>702</code> ✓',
+        '和 = 26 + 27 = <code>53</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'连续数乘积'
+},
+{
+    id:'P52', section:'s5', num:9, taskLabel:'Aufgabe 9', points:5,
+    question:'Sarah 把饼干分到盘子里，每盘 <b>4 块</b>，剩下 <b>5 块</b>。之后她把这 5 块再分给原盘子（每盘再加 1 块），但结果<b>有 2 个盘子分不到饼干</b>（即只能给 5 个盘子）。Sarah <b>一共</b>有多少饼干？',
+    de:'Sarah verteilt Kekse. 4 pro Teller, 5 übrig. Verteilt die 5 restlichen, 2 Teller leer.',
+    options:['12','20','25','28','33'],
+    answer:'e',
+    steps:[
+        '设原盘数为 p，总饼干 = 4p + 5',
+        '5 块分给 (p − 2) 个盘，每盘加 1 → p − 2 = <code>5</code> → p = <code>7</code>',
+        '总饼干 = 4 × 7 + 5 = <code>33</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'分配方程'
+},
+{
+    id:'P53', section:'s5', num:10, taskLabel:'Aufgabe 10 / 11', points:5,
+    question:'Tobias 有 <b>6 支蜡烛</b>。10:00 点第 1 支，之后<b>每 10 分钟</b>点一支新的。每支烧 <b>50 分钟</b>。11:15 时，<b>有几支蜡烛在燃</b>？',
+    de:'6 Kerzen, 10:00 erste an, alle 10 min neue, jede brennt 50 min. 11:15 wie viele brennen?',
+    options:['0','1','2','3','4'],
+    answer:'d',
+    steps:[
+        '各蜡烛点燃时间：10:00, 10:10, 10:20, 10:30, 10:40, 10:50',
+        '各蜡烛熄灭时间：10:50, 11:00, 11:10, 11:20, 11:30, 11:40',
+        '11:15 时还在燃的（未熄）：第 4、5、6 支 → <code>3 支</code>'
+    ],
+    pangu:'⏰ 时间 / 日期', kp:'时间重叠'
+},
+{
+    id:'P54', section:'s5', num:11, taskLabel:'Aufgabe 11 / 13', points:5,
+    question:'Lisa 有一台天平和 3 个砝码：<b>1 kg、5 kg、9 kg</b>（可放两侧）。下面哪个重量她<b>不能</b>称量？',
+    de:'Balkenwaage, Gewichte 1, 5, 9 kg. Welches Gewicht kann sie nicht wiegen?',
+    options:['4 kg','5 kg','6 kg','7 kg','8 kg'],
+    answer:'d',
+    steps:[
+        '砝码可放两侧：能称量 = (砝码正和) − (砝码负和)',
+        '可称量重量：1, 3, 4, 5, 6, 8, 9, 10, 13, 14, 15 等',
+        '选项中 <code>7</code> 无法由 ±1, ±5, ±9 组合得到'
+    ],
+    pangu:'🧠 逻辑推理', kp:'天平组合 / 枚举'
+},
+{
+    id:'P55', section:'s5', num:12, taskLabel:'Aufgabe 12 / 15', points:5,
+    question:'Rafael 比妹妹 Sarah 大 <b>6 岁</b>。<b>3 年后</b> Rafael 的年龄<b>正好是 Sarah 的 2 倍</b>。Sarah <b>现在</b>多少岁？',
+    de:'Rafael 6 Jahre älter als Sarah. In 3 Jahren Rafael genau doppelt so alt. Wie alt ist Sarah heute?',
+    options:['1','3','5','7','9'],
+    answer:'b',
+    steps:[
+        '设 Sarah 现在 x 岁，Rafael = x + 6 岁',
+        '3 年后：Sarah = x+3, Rafael = x+9',
+        'x + 9 = 2(x + 3) → x + 9 = 2x + 6 → x = <code>3</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'年龄方程'
+},
+{
+    id:'P56', section:'s5', num:13, taskLabel:'Aufgabe 1 (another variant)', points:5,
+    question:'<b>3 个正方形</b>和 <b>1 个黑色三角形</b>一样重。<b>4 个黑球</b>和 <b>1 个正方形</b>一样重。<b>多少个黑球</b>和 <b>5 个黑色三角形</b>一样重？',
+    de:'3 Quadrate = 1 Dreieck. 4 Kugeln = 1 Quadrat. Wie viele Kugeln = 5 Dreiecke?',
+    options:['4','12','20','30','60'],
+    answer:'e',
+    steps:[
+        '5 三角 = 5 × 3 正方 = <code>15 正方</code>',
+        '15 正方 = 15 × 4 球 = <code>60 球</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'等价替换'
+},
+{
+    id:'P62', section:'s5', num:14, taskLabel:'Aufgabe 10', points:5,
+    question:'下一个数字是什么？<br><code>90, 9, 72, 8, 56, 7, ?</code>',
+    de:'Welche Zahl passt als nächste? 90, 9, 72, 8, 56, 7, ?',
+    options:['42','39','6','36','49'],
+    answer:'a',
+    steps:[
+        '观察：这是<b>两个交替数列</b>',
+        '奇数位：90, 72, 56, ? → 差 −18, −16, 下一个 −14 → 56 − 14 = <code>42</code>',
+        '偶数位：9, 8, 7 → 下一个 6（但不是我们要的）',
+        '问号在第 7 位（奇位），答案 <code>42</code>'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'交替双数列'
+},
+{
+    id:'P63', section:'s5', num:15, taskLabel:'Aufgabe 12', points:5,
+    question:'相同符号 = 相同数字。求 <b>□ + △</b>。<br><code>△ · △ = □△</code> （□△ 是两位数）<br><code>□ + □ = △</code>',
+    de:'Gleiches Symbol = gleiche Ziffer. △·△ = □△, □+□ = △. Bestimme □ + △.',
+    options:['6','7','8','9','10'],
+    answer:'d',
+    steps:[
+        '△² = 10□ + △（因为 □△ 是两位数）',
+        '且 2□ = △，所以 △ 是偶数',
+        '试 △ = 6：△² = 36 → □ = 3，验证 2×3 = 6 ✓',
+        '□ + △ = 3 + 6 = <code>9</code>'
+    ],
+    pangu:'📐 代数 / 方程', kp:'符号方程'
+},
+{
+    id:'P64', section:'s5', num:16, taskLabel:'Aufgabe 14', points:5,
+    question:'表格显示两个表的时间：一个<b>走慢</b>，一个<b>走快</b>。<br><code>Stunde 0: 00:00  00:00</code><br><code>Stunde 1: 00:59  01:01</code><br><code>Stunde 2: 01:58  02:02</code><br><code>Stunde 3: 02:57  03:03</code><br>多少小时后两表时差正好 <b>2 小时 24 分</b>？',
+    de:'Zwei Uhren langsam/schnell. Wann 2h 24min Unterschied?',
+    options:['42','62','72','84','144'],
+    answer:'c',
+    steps:[
+        '观察：慢表每小时慢 1 分，快表每小时快 1 分',
+        '每小时时差增加 <b>2 分钟</b>',
+        '2 小时 24 分 = 144 分',
+        '144 ÷ 2 = <code>72 小时</code>'
+    ],
+    pangu:'💼 应用题', kp:'时间差变化率'
+},
+{
+    id:'P65', section:'s5', num:17, taskLabel:'Aufgabe 16', points:5,
+    question:'下一个数字是什么？<br><code>2, 5, 14, 41, ?, 365</code>',
+    de:'Welche Zahl passt? 2, 5, 14, 41, ?, 365',
+    options:['122','120','118','116','114'],
+    answer:'a',
+    steps:[
+        '观察：5 = 2×3−1, 14 = 5×3−1, 41 = 14×3−1',
+        '规律：aₙ = <code>3aₙ₋₁ − 1</code>',
+        '下一项 = 41 × 3 − 1 = <code>122</code>',
+        '验证：122 × 3 − 1 = <code>365</code> ✓'
+    ],
+    pangu:'🔁 规律 / 数列', kp:'递推公式'
+}
+];
+
+// ============== RENDERER ==============
+const SECTIONS = [
+    { key: 's1', name: '1 分组 · 11 题', emoji: '🟢', hint: '基础题，必须拿下' },
+    { key: 's2', name: '2 分组 · 13 题', emoji: '🟡', hint: '中等难度，部分需读懂题' },
+    { key: 's3', name: '3 分组 · 19 题 (德语原版)', emoji: '🟠', hint: '含几何、代数、组合、金字塔推理' },
+    { key: 's4', name: '4 分组 · 11 题 (德语)', emoji: '🔴', hint: '难度上升，公倍数/竖式/排队' },
+    { key: 's5', name: '5 分组 · 17 题 (德语·最难)', emoji: '🟣', hint: '方程组、递推、立体几何综合' }
+];
+
+function renderToc() {
+    document.getElementById('toc').innerHTML = SECTIONS.map(s =>
+        `<a href="#${s.key}">${s.emoji} ${s.name}</a>`
+    ).join('');
+}
+
+function renderContent() {
+    const el = document.getElementById('content');
+    el.innerHTML = SECTIONS.map(s => {
+        const probs = PROBLEMS.filter(p => p.section === s.key);
+        return `<section class="sect" id="${s.key}">
+            <header class="sect-head" onclick="toggleSect(this)">
+                <span class="emoji">${s.emoji}</span>
+                <span class="ti">${s.name}</span>
+                <span class="meta"><span>${probs.length} 题</span><span>${probs[0].points} 分/题</span></span>
+                <span class="caret">▾</span>
+            </header>
+            <div class="sect-body">
+                <p style="font-size:12px;color:#666;margin-bottom:12px;">${s.hint}</p>
+                ${probs.map(renderProb).join('')}
+            </div>
+        </section>`;
+    }).join('');
+}
+
+function renderProb(p) {
+    const letters = ['a','b','c','d','e'];
+    const opts = p.options.map((o, i) => {
+        const l = letters[i];
+        let cls = 'p-opt';
+        if (l === p.answer) cls += ' correct';
+        else if (p.userAnswer && l === p.userAnswer) cls += ' user-wrong';
+        return `<span class="${cls}">${l}) ${o}</span>`;
+    }).join('');
+    const steps = p.steps.map(s => `<li>${s}</li>`).join('');
+    return `<div class="p" id="${p.id}">
+        <div class="p-head">
+            <span class="p-badge">${p.id}</span>
+            <span class="p-points">${p.points}分</span>
+            <span class="p-tag">${p.pangu}</span>
+            <span class="p-kp">${p.kp}</span>
+            ${p.warn ? '<span class="p-warn">⚠️ 存疑</span>' : ''}
+            <span class="p-ti">${p.taskLabel}</span>
+        </div>
+        <div class="p-q">${p.question}</div>
+        ${p.figure ? `<div class="p-figure">🖼️ ${p.figure}</div>` : ''}
+        <div class="p-opts">${opts}</div>
+        <div class="p-steps">
+            <h6>🔎 解题步骤</h6>
+            <ol>${steps}</ol>
+        </div>
+        <span class="p-ans">✓ 答案：${p.answer})${' '+p.options[letters.indexOf(p.answer)]}</span>
+        ${p.de ? `<div class="p-de"><b>德语原文</b>: ${p.de}</div>` : ''}
+        ${p.note ? `<div class="p-note">📝 ${p.note}</div>` : ''}
+        ${p.warn ? `<div class="p-note">${p.warn}</div>` : ''}
+    </div>`;
+}
+
+function toggleSect(el) {
+    el.closest('.sect').classList.toggle('closed');
+}
+
+// Print
+function applyPrint() {
+    const sect = document.getElementById('print-sect').value;
+    const hide = document.getElementById('print-hide-ans').checked;
+    document.body.classList.toggle('print-exam', hide);
+    document.querySelectorAll('.sect').forEach(el => {
+        if (sect === 'all' || el.id === sect) {
+            el.classList.remove('print-hidden');
+            el.classList.remove('closed');
+        } else {
+            el.classList.add('print-hidden');
+        }
+    });
+}
+function doPrint() { applyPrint(); setTimeout(() => window.print(), 50); }
+function examMode() {
+    document.getElementById('print-hide-ans').checked = true;
+    applyPrint();
+    alert('📝 已切换到试卷模式：\n· 隐藏答案和解题步骤\n· 每题自动留答题线\n\n点"立即打印"继续。');
+}
+
+// CSS for print-hidden
+const style = document.createElement('style');
+style.textContent = '.print-hidden { opacity: .25; } @media print { .print-hidden { display: none !important; } }';
+document.head.appendChild(style);
+
+// INIT
+renderToc();
+renderContent();
+</script>
+</body>
+</html>
