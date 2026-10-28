@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>德国盘古 71 题 · 速记攻略</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --bg: #f5f7fa;
+    --card: #fff;
+    --border: #e2e6ea;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --accent: #FF6F00;   /* 攻略金黄色 */
+    --accent-dark: #E65100;
+    --purple: #6A1B9A;
+    --shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+html, body { height: 100%; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+header {
+    background: linear-gradient(135deg, #E65100, #FF8F00 50%, #FFCA28);
+    color: #fff;
+    padding: 24px 24px 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.hd-row {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    max-width: 1200px; margin: 0 auto;
+}
+header h1 { font-size: 22px; display: flex; align-items: center; gap: 10px; margin: 0; }
+header .sub {
+    font-size: 12px;
+    opacity: .95;
+    padding: 3px 10px;
+    background: rgba(255,255,255,.2);
+    border-radius: 10px;
+    font-weight: 600;
+}
+.map-switch {
+    display: flex;
+    background: rgba(0,0,0,.25);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+.map-switch a, .map-switch span {
+    padding: 6px 11px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+    color: rgba(255,255,255,.85);
+    font-weight: 500;
+    white-space: nowrap;
+}
+.map-switch .active {
+    background: rgba(255,255,255,.95);
+    color: #E65100;
+}
+
+.toc {
+    max-width: 1200px; margin: 14px auto 0;
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+}
+.toc a {
+    padding: 5px 11px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 14px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+}
+.toc a:hover { background: rgba(255,255,255,.3); }
+
+main { max-width: 1050px; margin: 0 auto; padding: 20px 24px 100px; }
+
+/* INTRO */
+.intro {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+}
+.intro h2 { font-size: 19px; margin-bottom: 8px; }
+.intro p { font-size: 14px; line-height: 1.75; color: #444; }
+.intro .highlight {
+    background: #FFF8E1; padding: 1px 7px; border-radius: 4px;
+    font-weight: 700; color: #BF360C;
+}
+
+/* CATEGORY (大类) */
+.cat {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 180px;
+}
+.cat-head {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    background: linear-gradient(135deg, #FFF3E0, #FFECB3);
+    border-bottom: 1px solid #FFCC80;
+}
+.cat-head:hover { background: linear-gradient(135deg, #FFE0B2, #FFD54F); }
+.cat-head .emoji { font-size: 28px; }
+.cat-head .ti { font-size: 18px; font-weight: 700; flex: 1; color: #BF360C; }
+.cat-head .meta { font-size: 12px; color: #4E342E; display: flex; gap: 8px; }
+.cat-head .meta span { padding: 2px 8px; background: #fff; border-radius: 10px; }
+.cat-head .caret { color: #4E342E; font-size: 14px; transition: transform .2s; }
+.cat.closed .cat-head .caret { transform: rotate(-90deg); }
+
+.cat-body { padding: 14px 20px 20px; }
+.cat.closed .cat-body { display: none; }
+
+/* TECHNIQUE */
+.tec {
+    background: #fff;
+    border: 1px solid #e8d5ec;
+    border-left: 4px solid var(--purple);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+}
+.tec-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+.tec-badge {
+    background: var(--purple);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.tec-ti {
+    font-size: 16px;
+    font-weight: 700;
+    flex: 1;
+    color: #4A148C;
+}
+.tec-count {
+    background: #FFF3E0;
+    color: #BF360C;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.sect-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    margin: 10px 0 4px;
+}
+
+.concept-box {
+    background: #f8faff;
+    border-left: 3px solid #42A5F5;
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 8px;
+}
+.concept-box .sect-title { color: #1565C0; }
+
+.signal-box {
+    background: #FFEBEE;
+    border-left: 3px solid #E53935;
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+    margin-bottom: 8px;
+}
+.signal-box .sect-title { color: #C62828; }
+.signal-box ul { list-style: none; padding: 0; margin: 4px 0; }
+.signal-box li {
+    font-size: 13px;
+    padding: 2px 0;
+    position: relative;
+    padding-left: 18px;
+}
+.signal-box li::before {
+    content: '🚨';
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+}
+
+.formula-box {
+    background: #FFF8E1;
+    border-left: 3px solid #FFA000;
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 8px;
+}
+.formula-box .sect-title {
+    color: #E65100;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+.formula-box code {
+    background: #fff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: #BF360C;
+    border: 1px solid #FFE082;
+}
+
+.mnemonic-box {
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    border-left: 3px solid #43A047;
+    padding: 10px 12px;
+    border-radius: 0 5px 5px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1B5E20;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.mnemonic-box .m-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    color: #2E7D32;
+    margin-bottom: 4px;
+}
+.mnemonic-box b { color: #BF360C; font-size: 15px; }
+
+.examples-box {
+    background: #f3e5f5;
+    border-left: 3px solid var(--purple);
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+    margin-bottom: 8px;
+}
+.examples-box .sect-title { color: #4A148C; }
+.ex-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+.ex-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    background: #fff;
+    border: 1.5px solid var(--purple);
+    color: var(--purple);
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+.ex-chip:hover { background: var(--purple); color: #fff; }
+.ex-chip .points { font-size: 10px; opacity: .7; }
+
+.worked-box {
+    background: #E3F2FD;
+    border: 1px dashed #42A5F5;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 8px;
+}
+.worked-box .ti { font-size: 12px; color: #0D47A1; font-weight: 700; margin-bottom: 4px; }
+.worked-box .q { font-size: 13px; line-height: 1.65; color: #333; margin-bottom: 6px; }
+.worked-box .q b { color: #0D47A1; }
+.worked-box .step { font-size: 12px; color: #555; margin-left: 10px; }
+.worked-box .step b { color: #BF360C; }
+
+.pangu-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #E8F5E9;
+    color: #2E7D32;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 2px 4px 2px 0;
+}
+
+/* SIGNAL TABLE */
+.signal-table {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+.signal-table h2 {
+    background: linear-gradient(135deg, #FFF3E0, #FFECB3);
+    padding: 14px 20px;
+    font-size: 17px;
+    color: #BF360C;
+    border-bottom: 1px solid #FFCC80;
+}
+.signal-table .intro-text {
+    padding: 12px 20px 6px;
+    font-size: 13px;
+    color: #666;
+}
+.signal-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.signal-table th {
+    background: #fafafa;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 12px;
+    color: #666;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+.signal-table td {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+.signal-table td.cue { color: #C62828; font-weight: 600; }
+.signal-table td.tech { color: #1B5E20; font-weight: 600; }
+.signal-table tr:hover td { background: #fffde7; }
+
+/* SURVIVAL KIT */
+.survival {
+    background: linear-gradient(135deg, #FFCDD2, #F8BBD0);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    border: 2px solid #E57373;
+}
+.survival h2 { color: #B71C1C; font-size: 17px; margin-bottom: 10px; }
+.survival ol { padding-left: 22px; }
+.survival li {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #4E342E;
+    margin-bottom: 6px;
+}
+.survival b { color: #B71C1C; }
+
+@media print {
+    @page { size: A4 portrait; margin: 12mm; }
+    html, body { height: auto !important; overflow: visible !important; background: #fff !important; font-size: 10pt !important; }
+    header { position: static !important; background: #fff !important; color: #000 !important; padding: 0 0 10px 0 !important; box-shadow: none !important; border-bottom: 2px solid #333 !important; }
+    header h1 { color: #000 !important; font-size: 14pt !important; }
+    header .sub { background: #eee !important; color: #000 !important; }
+    .map-switch, .toc { display: none !important; }
+    main { padding: 0 !important; max-width: 100% !important; }
+    .cat, .tec, .worked-box, .signal-table, .survival { page-break-inside: avoid; box-shadow: none !important; }
+    .cat.closed .cat-body { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="hd-row">
+        <h1><span>⚡</span> 71 题速记攻略</h1>
+        <span class="sub">20 核心技巧 · 识题信号 · 记忆口诀</span>
+        <div class="map-switch">
+            <a href="index.html">📐 教材</a>
+            <a href="pangu.html">🎨 盘古</a>
+            <a href="knowledge-points.html">📊 题库分析</a>
+            <a href="ak4-knowledge-expand.html">📚 AK4 教学</a>
+            <a href="german-pangu-ak34.html">🇩🇪 71 题</a>
+            <span class="active">⚡ 速记攻略</span>
+        </div>
+    </div>
+    <nav class="toc" id="toc"></nav>
+</header>
+
+<main>
+
+<div class="intro">
+    <h2>🎯 怎么用这份攻略</h2>
+    <p>
+        这份攻略是德国盘古 71 题的"<b>反向索引</b>"——不是按题目顺序讲，而是按
+        <span class="highlight">核心解题技巧</span> 重新组织。目的只有一个：
+        <b>以后看到类似题时能一眼认出"这是哪种类型，用哪个方法"</b>。
+    </p>
+    <p style="margin-top:8px">
+        每个技巧配：<b>核心概念</b> · <b>🚨 识别信号</b>（题目里出现什么词就想到这个方法）
+        · <b>📐 公式/步骤</b> · <b>💡 一句话口诀</b> · <b>🎓 71 题中的例子</b>（点击可查对应题）
+        · <b>🔗 对应盘古知识点</b>。
+    </p>
+    <p style="margin-top:8px">
+        底部还有：<span class="highlight">🚨 识题信号速查表</span>（看到 X 想 Y）和
+        <span class="highlight">📝 考前五分钟急救包</span>。
+    </p>
+</div>
+
+<div id="content"></div>
+
+<div class="signal-table" id="signals-ref">
+    <h2>🚨 识题信号速查表</h2>
+    <p class="intro-text">看到左侧的词或模式，立刻想到右侧的技巧。</p>
+    <table>
+        <thead><tr><th>看到这个 ...</th><th>就想到 ...</th><th>例子</th></tr></thead>
+        <tbody id="signals-tbody"></tbody>
+    </table>
+</div>
+
+<div class="survival">
+    <h2>📝 考前 5 分钟急救包</h2>
+    <ol>
+        <li><b>动物陷阱题</b>：问"XX 几岁"但只给动物数量 → <b>答"无法解决"</b></li>
+        <li><b>九九乘法</b>要秒答，看到 25×4 / 125×8 本能地凑成 100/1000</li>
+        <li><b>单位换算</b>必须统一才运算（1 米 = 100 cm，1 kg = 1000 g，1 小时 = 60 分 = 3600 秒）</li>
+        <li><b>最大/最小数</b>：大数字放高位（最大）或低位（最小），0 不能当首位</li>
+        <li><b>和差公式</b>：大 = (和+差)÷2，小 = (和−差)÷2</li>
+        <li><b>连续数积</b>：n(n+1) 或 (n−1)(n+1) = n²−1，用<b>试值</b>或开平方</li>
+        <li><b>公倍数</b>：几件事同时发生 → 求 LCM</li>
+        <li><b>骰子</b>：对面和 = <b>7</b>（1↔6、2↔5、3↔4）</li>
+        <li><b>展开图</b>：隔一格的两个方块是相对面</li>
+        <li><b>排列</b>：n 个人排一排 = <b>n!</b>（3! = 6, 4! = 24, 5! = 120）</li>
+        <li><b>组合</b>：两两比赛/握手 = <b>C(n,2) = n(n−1)÷2</b></li>
+        <li><b>星期几</b>：n 天后 = (起点 + n) <b>mod 7</b></li>
+        <li><b>年龄差</b>永远不变！倍数变化问题常用这个</li>
+        <li><b>倒推法</b>：从结果反推初始，+/− 翻转，×/÷ 翻转</li>
+        <li><b>画图</b>：复杂应用先画线段图/状态图，别光靠脑想</li>
+    </ol>
+</div>
+
+</main>
+
+<script>
+// ============== 20 核心解题技巧 ==============
+const TECHNIQUES = [
+
+// ===== 🧮 运算与速算 =====
+{
+    cat: '运算与速算', emoji: '🧮', slug: 'c-calc',
+    items: [
+        {
+            id: 't1', name: '配对消项 / 相邻抵消', emoji: '🤝',
+            concept: '相邻两项的差是固定值时，<b>两两配对</b>就能把长串算式化成"几对 × 常数"。',
+            signals: [
+                '题目有 <b>1 − 2 + 3 − 4 + ...</b> 这种正负交替',
+                '连续整数求和（<b>高斯求和</b>）',
+                '长串数字加减（无快捷算法时）'
+            ],
+            formula: '偶数项：Σ = (差) × 对数<br>奇数项：Σ = (差) × 对数 + 最后项 (保留符号)<br>等差连加：S = n × (首项 + 末项) ÷ 2',
+            mnemonic: '手牵手 — <b>相邻配对 → 常数 × 对数</b>',
+            examples: [
+                { id: 'P05', q: '1, 2, 4, 7, ?, 16, 22, 29, 37', note: '二阶差 1,2,3,4,5,6,7,8' },
+                { id: 'P10', q: '11+19=30, 14+17=31, ... 下一行？', note: '双数列同步变化' }
+            ],
+            panguKPs: ['pangu_calc: 配对求和', 'pangu_pattern: 等差数列']
+        },
+        {
+            id: 't2', name: '凑整速算', emoji: '🎯',
+            concept: '把算式<b>重组成整十整百</b>再算，大幅加速。',
+            signals: [
+                '算式中出现 <b>25、125、4、8、5</b> 等数',
+                '多个数相乘/相加',
+                '要求"快速"算或心算'
+            ],
+            formula: '<b>25 × 4 = 100</b>　|　<b>125 × 8 = 1000</b>　|　<b>5 × 2 = 10</b><br>其他：49+51=100，98+102=200，分配律 a×(b+c) = ab+ac',
+            mnemonic: '看到 25 找 4，看到 125 找 8 — <b>先凑后乘</b>',
+            examples: [
+                { id: 'P35', q: '(3003 + 429) ÷ 3 × 2 = ?', note: '3432÷3=1144, ×2=2288' },
+                { id: 'P12', q: '5€ + 4×2€ + 50¢ + 3×20¢ = ?', note: '14.10€' }
+            ],
+            panguKPs: ['pangu_calc: 多步混合运算']
+        },
+        {
+            id: 't3', name: '单位换算第一步', emoji: '📏',
+            concept: '算式里有<b>不同单位</b>时，<b>先全部统一到同一单位</b>再运算。统一到最小单位最保险。',
+            signals: [
+                '题目同时有 <b>m 和 cm</b>（或 kg/g、L/ml、时/分/秒）',
+                '选项单位和题干单位<b>不同</b>（陷阱提示！）',
+                '涉及度量比例'
+            ],
+            formula: '<b>长度</b>：1 km = 1000 m，1 m = 100 cm，1 cm = 10 mm<br><b>重量</b>：1 kg = 1000 g，1 吨 = 1000 kg<br><b>时间</b>：1 时 = 60 分 = 3600 秒<br><b>体积</b>：1 L = 1000 ml = 10 dl',
+            mnemonic: '<b>先换单位再算 — 单位不统一是零分陷阱</b>',
+            examples: [
+                { id: 'P03', q: 'Lea 1.21m, Thomas 矮 23cm, 多高？', note: '要换成同单位' },
+                { id: 'P47', q: '蜘蛛 1cm/2秒，9m 网要多久？', note: '9m=900cm，900×2=1800秒=30分' },
+                { id: 'P66', q: '77 kg − 65 kg = ? 克', note: '题目要克不是千克' },
+                { id: 'P33', q: '念 29 到 99 数字各 1 秒，共多久？', note: '71 秒 = 1 分 11 秒' }
+            ],
+            panguKPs: ['pangu_calc: 单位换算', 'pangu_time: 时长计算']
+        },
+        {
+            id: 't4', name: '逆推还原法', emoji: '⏪',
+            concept: '从<b>最终结果反向推</b>到起点：每步<b>翻转运算</b>（+ ↔ −，× ↔ ÷）。',
+            signals: [
+                '"<b>想了一个数</b>，加 X 再乘 Y，得到 Z"',
+                '连续几步变化后给结果，问原来是多少',
+                '盒子里的球经过多次转移'
+            ],
+            formula: '原始 →(+a)→ ... →(×b)→ 结果<br><b>倒推</b>：结果 →(÷b)→ ... →(−a)→ 原始',
+            mnemonic: '从结尾往前走 — <b>+变−, ×变÷</b>',
+            examples: [
+                { id: 'P46', q: '3 盒 90 球，第2盒净变+2，起始多少？', note: '30−2=28' }
+            ],
+            panguKPs: ['pangu_calc: 逆推还原', 'pangu_logic: 倒推']
+        }
+    ]
+},
+
+// ===== 🔢 数论与数位 =====
+{
+    cat: '数论与数位', emoji: '🔢', slug: 'c-number',
+    items: [
+        {
+            id: 't5', name: '数位分析 (多位数拆开)', emoji: '🔡',
+            concept: '把<b>多位数拆成位的组合</b>：abc = 100a + 10b + c。这样<b>每一位都能作为代数变量</b>。',
+            signals: [
+                '题目涉及"<b>多位数</b>"的构造或分析',
+                '"数字和"、"反转数"、"回文数"',
+                '算式中有<b>方框□</b>代表未知数字'
+            ],
+            formula: '三位数 abc = <code>100a + 10b + c</code><br>四位数 abcd = <code>1000a + 100b + 10c + d</code><br><b>反转数</b>：abc + cba = 101(a+c) + 20b<br><b>回文数</b>：三位 aba 共 9×10 = 90 个',
+            mnemonic: '<b>多位数 = 位值 × 位数之和</b>',
+            examples: [
+                { id: 'P21', q: '6,7,8,9 组成两位数求最大和', note: '97+86=183，大数放十位' },
+                { id: 'P22', q: '最大三位数 − 最小两位数', note: '999 − 10 = 989' },
+                { id: 'P08', q: '书中撕下 2 张（4 页），问号哪页？', note: '页码推理' }
+            ],
+            panguKPs: ['pangu_number: 数位组合', 'pangu_number: 回文数']
+        },
+        {
+            id: 't6', name: '整除规则速查', emoji: '➗',
+            concept: '不用做除法就能判断能否整除：<b>看末位或数字和</b>。',
+            signals: [
+                '"能被 X 整除"、"是 X 的倍数"',
+                '"数字和"类问题',
+                '要构造能被某数整除的数'
+            ],
+            formula: '<b>2</b>：末位偶数（0,2,4,6,8）<br><b>5</b>：末位 0 或 5<br><b>10</b>：末位 0<br><b>3</b>：数字和能被 3 整除<br><b>9</b>：数字和能被 9 整除<br><b>4</b>：末两位能被 4 整除<br><b>11</b>：奇位和 − 偶位和 能被 11 整除',
+            mnemonic: '<b>2 看末位，3 看数字和，5 看末 0 或 5</b>',
+            examples: [
+                { id: 'P11', q: '5、10、25 的倍数 + 被 50 整除 + 200-300', note: '只能是 250' }
+            ],
+            panguKPs: ['pangu_number: 整除性', 'pangu_number: 数字和']
+        },
+        {
+            id: 't7', name: '最小公倍数 LCM', emoji: '🔁',
+            concept: '两件事<b>按不同周期发生</b>，下一次同时发生的时刻 = 最小公倍数 (LCM)。',
+            signals: [
+                '"<b>每 X 天 / 小时 / 次</b> 做一件事"',
+                '"两人同时开始"，问下次同时在何时',
+                '"周期循环"、"同一天"'
+            ],
+            formula: 'LCM(a, b) = a × b ÷ GCD(a, b)<br>常见：LCM(3, 4) = 12，LCM(2, 3) = 6，LCM(4, 6) = 12<br><b>互质</b>时 LCM = 直接相乘',
+            mnemonic: '"<b>每</b> X 天" + "<b>每</b> Y 天" + "<b>同天</b>" → <b>LCM</b>',
+            examples: [
+                { id: 'P38', q: 'Mike 每 3 天，Tom 每 4 天跑步，下次同天？', note: 'LCM(3,4)=12 → 2 月 13 日' }
+            ],
+            panguKPs: ['pangu_number: 最小公倍数']
+        },
+        {
+            id: 't8', name: '因数枚举 (积定因数求和)', emoji: '🧩',
+            concept: '已知两数<b>乘积</b>，列出所有<b>因数对</b>再筛选。',
+            signals: [
+                '"<b>两数积</b>为 X"',
+                '"几件物品搭配出 N 种组合"',
+                '"长宽积 = 面积，求长 + 宽"'
+            ],
+            formula: '若 ab = N，则 a 是 N 的因数<br>24 的因数：1, 2, 3, 4, 6, 8, 12, 24<br>36 的因数：1, 2, 3, 4, 6, 9, 12, 18, 36',
+            mnemonic: '"<b>积 = X</b>" → <b>列因数对</b> → 看哪对满足条件',
+            examples: [
+                { id: 'P49', q: '裤子 × 衣服 = 24 种组合，哪个裤数不行？', note: '10 不是 24 因数' }
+            ],
+            panguKPs: ['pangu_number: 因数倍数']
+        }
+    ]
+},
+
+// ===== 📐 代数思维 =====
+{
+    cat: '代数思维', emoji: '📐', slug: 'c-algebra',
+    items: [
+        {
+            id: 't9', name: '和差公式', emoji: '➕',
+            concept: '已知两数的<b>和</b>与<b>差</b>，直接求两数。',
+            signals: [
+                '"两人<b>一共</b> X"（和）+ "一人比另一人<b>多</b> Y"（差）',
+                '"<b>共 X</b> 元"+"<b>比 Y 多</b>"'
+            ],
+            formula: '大数 = <code>(和 + 差) ÷ 2</code><br>小数 = <code>(和 − 差) ÷ 2</code>',
+            mnemonic: '<b>大加小减都除 2</b>',
+            examples: [
+                { id: 'P02', q: 'Ali 10 + Anna 多 5 = 15，一起 25', note: '直接套公式' },
+                { id: 'P14', q: '祖孙 3 人共 72 岁，3 年后共多少？', note: '每人 +3 → 共 +9 → 81' },
+                { id: 'P16', q: 'Miriam + Marie = 57，Miriam = 26，Marie − Miriam = ?', note: '31 − 26 = 5' },
+                { id: 'P26', q: '柠檬 + 鳄梨 = 4€，鳄梨比柠檬贵 3€', note: '柠檬 = (4−3)÷2 = 50 分' }
+            ],
+            panguKPs: ['pangu_app: 和差问题', 'pangu_calc: 和差']
+        },
+        {
+            id: 't10', name: '鸡兔同笼 / 二元方程', emoji: '🐔',
+            concept: '两种物品，两个总量（<b>头数</b>和<b>脚数</b>），求各几只。<b>假设法</b>或<b>二元方程</b>。',
+            signals: [
+                '"<b>共 N 头</b>" + "<b>共 M 脚</b>"',
+                '两种车辆（2 轮 + 3 轮）',
+                '两种房型（单人 + 双人），总房 + 总床'
+            ],
+            formula: '设兔 = x，鸡 = y：x + y = 头，4x + 2y = 脚<br>解：<b>兔 = (脚 − 2×头) ÷ 2</b>，鸡 = 头 − 兔<br>或<b>假设法</b>：全是鸡 → 多出的脚数 ÷ 2 = 兔子数',
+            mnemonic: '假设全是鸡 — <b>多出的脚 ÷ 2 = 兔</b>',
+            examples: [
+                { id: 'P68', q: '酒店 52 房 89 床，双人房几间？', note: '2D+S=89, D+S=52 → D=37' }
+            ],
+            panguKPs: ['pangu_algebra: 鸡兔同笼', 'pangu_algebra: 一元/二元方程']
+        },
+        {
+            id: 't11', name: '连续数积 (完全平方)', emoji: '🟰',
+            concept: '两个<b>相邻整数</b>的积很常见：n(n+1) 或 (n−1)(n+1) = <b>n² − 1</b>。',
+            signals: [
+                '"<b>邻数积</b>"或"连续数积"',
+                '乘积 ≈ 某个数的平方附近',
+                '"相差 1 或 2 的两数乘积"'
+            ],
+            formula: '<b>连续两数</b>：n(n+1) → 试值：n² ≈ 积，猜根号附近<br><b>隔 1 的两数</b>：(n−1)(n+1) = n² − 1<br>常见积：6×7=42, 7×8=56, 8×9=72, 9×10=90, 10×11=110, 20×21=420, 25×26=650, 26×27=702',
+            mnemonic: '<b>试值靠近积的平方根</b>，猜几个相邻数一试',
+            examples: [
+                { id: 'P30', q: '邻数积 35，邻数和', note: '(n−1)(n+1)=35 → n²=36 → n=6 → 和 12' },
+                { id: 'P51', q: '邻数积 702，邻数和', note: '26×27=702 → 和 53' }
+            ],
+            panguKPs: ['pangu_algebra: 完全平方', 'pangu_algebra: 连续数']
+        },
+        {
+            id: 't12', name: '符号方程 (字母 / 符号代同数)', emoji: '🔣',
+            concept: '相同符号 = 相同数字。<b>从约束最强的方程入手</b>，逐个确定。',
+            signals: [
+                '算式中有 <b>□ △ ○ ★ ■ ♥ ♠</b> 等符号',
+                '"字母运算"、"同形代同数"',
+                '"竖式填数字"'
+            ],
+            formula: '<b>方法</b>：<br>1. 找<b>唯一确定</b>的方程（如 □ × 8 = 288 → □ = 36）<br>2. 代入其他方程求其他符号<br>3. <b>竖式</b>要注意从个位进位推理',
+            mnemonic: '<b>先解唯一的，再代入其他</b>',
+            examples: [
+                { id: 'P07', q: '1□3 − 97 = 36', note: '1□3 = 133 → □=3' },
+                { id: 'P15', q: '2△4 · 3 = 642', note: '2△4 = 214 → △=1' },
+                { id: 'P17', q: '7□9 − 222 = 497', note: '7□9 = 719 → □=1' },
+                { id: 'P18', q: '1★3 · 9 = 1557', note: '1★3 = 173 → ★=7' },
+                { id: 'P32', q: '6 + 5×■ = 26', note: '■=4' },
+                { id: 'P44', q: '□:○=○, ○+△=□, □·8=288', note: '从 □·8=288 入手' },
+                { id: 'P63', q: '△² = □△, 2□ = △', note: '△=6, □=3' }
+            ],
+            panguKPs: ['pangu_puzzle: 字母运算', 'pangu_puzzle: 符号方程']
+        },
+        {
+            id: 't13', name: '年龄问题 (差永不变)', emoji: '🎂',
+            concept: '两人的<b>年龄差永远不变</b>。n 年后两人都 +n 岁。',
+            signals: [
+                '"X 比 Y 大 N 岁"',
+                '"N 年后"或"N 年前"',
+                '"X 年龄是 Y 的几倍"'
+            ],
+            formula: '设当前小的 = x，大的 = x + d<br><b>倍数关系</b>（n 年后大是小的 k 倍）：<br>(x+d+n) = k(x+n)<br>→ x = (d − n(k−1)) ÷ (k−1)',
+            mnemonic: '<b>年龄差 d 永不变</b> — n 年后两人都 +n',
+            examples: [
+                { id: 'P14', q: '3 人共 72 岁，3 年后共?', note: '每人 +3 → +9 → 81' },
+                { id: 'P55', q: 'Rafael 比 Sarah 大 6，3 年后 Rafael 是 Sarah 2 倍', note: 'Sarah 现 3 岁' }
+            ],
+            panguKPs: ['pangu_app: 年龄问题', 'pangu_algebra: 年龄方程']
+        },
+        {
+            id: 't14', name: '分配 / 均分问题', emoji: '🍰',
+            concept: '把总量按某种关系分给几个人。<b>设未知数，列等式</b>。',
+            signals: [
+                '"<b>每人几个</b>"（均分）',
+                '"分到 X 个盘子"',
+                '"按比例分"',
+                '"剩下 X 个"'
+            ],
+            formula: '<b>均分</b>：总量 ÷ 人数 = 一份<br><b>按比例</b>（例如 1:2:3）：总量 ÷ 份数 = 一份<br><b>有剩余</b>：总量 = 一份 × 人数 + 剩余',
+            mnemonic: '<b>总量 ÷ 份数 = 一份值</b>',
+            examples: [
+                { id: 'P01', q: '42 蛋 ÷ 6 个/盒', note: '7 盒' },
+                { id: 'P39', q: 'Sarah 父母 115 莓，Sarah = 父一半，父母 94', note: 'Sarah=21，父=42，母=52' },
+                { id: 'P48', q: '14 马 + 40 羊 + 牛=2×马 + 猪=羊/2', note: '14+40+28+20=102' },
+                { id: 'P52', q: '4 块/盘剩 5 → 5 块分到 (p−2) 盘', note: 'p=7, 共 33' },
+                { id: 'P28', q: '5 孙 + 1 朋友 = 每人少 1 糖', note: 'x/5−x/6=1, x=30' }
+            ],
+            panguKPs: ['pangu_app: 分配问题', 'pangu_algebra: 分数方程']
+        }
+    ]
+},
+
+// ===== 🔁 规律与数列 =====
+{
+    cat: '规律与数列', emoji: '🔁', slug: 'c-pattern',
+    items: [
+        {
+            id: 't15', name: '等差 / 等比数列基础', emoji: '📈',
+            concept: '相邻两项的<b>差</b>固定 = 等差；<b>比</b>固定 = 等比。',
+            signals: [
+                '"数列中下一个数是..."',
+                '"图形序列第 N 图"',
+                '"第 N 项是..."'
+            ],
+            formula: '<b>等差</b>：aₙ = a₁ + (n−1)d<br>前 n 项和 Sₙ = n(a₁+aₙ)/2 = n(2a₁+(n−1)d)/2<br><b>等比</b>：aₙ = a₁ × rⁿ⁻¹',
+            mnemonic: '相邻先看<b>差</b>，差不行看<b>比</b>',
+            examples: [
+                { id: 'P06', q: '1,3,6,10,? 第 5 图点数', note: '三角数：1+2+3+4+5=15' },
+                { id: 'P09', q: '100,91,82,73,? 下一项', note: '等差 d=−9 → 64' },
+                { id: 'P43', q: 'L 形图第几张用 47 格？', note: '2n+1=47 → n=23' }
+            ],
+            panguKPs: ['pangu_pattern: 等差数列', 'pangu_pattern: 图形规律']
+        },
+        {
+            id: 't16', name: '二阶差 / 多层规律', emoji: '🪜',
+            concept: '一阶差（相邻差）不规律时，<b>看差的差</b>（二阶差）。',
+            signals: [
+                '相邻差不恒定',
+                '"<b>加速增加</b>"的数列',
+                '斐波那契、平方数、三角数'
+            ],
+            formula: '一阶差：Δaₙ = aₙ₊₁ − aₙ<br>二阶差：Δ²aₙ = Δaₙ₊₁ − Δaₙ<br><b>常见特殊数列</b>：<br>· 三角数 1, 3, 6, 10, 15 ...<br>· 平方数 1, 4, 9, 16, 25 ...<br>· 斐波那契 1, 1, 2, 3, 5, 8 ...',
+            mnemonic: '<b>一阶不行看二阶</b>，二阶不行看乘法关系',
+            examples: [
+                { id: 'P05', q: '1, 2, 4, 7, ?, 16, 22, 29, 37', note: '差为 1,2,3,...（二阶差 1）' },
+                { id: 'P65', q: '2, 5, 14, 41, ?, 365', note: 'aₙ = 3aₙ₋₁ − 1 → 122' },
+                { id: 'P43', q: '图形序列点数', note: '每图加等差增量' }
+            ],
+            panguKPs: ['pangu_pattern: 递推数列', 'pangu_pattern: 二阶差']
+        },
+        {
+            id: 't17', name: '双数列 / 奇偶位分开', emoji: '⚡',
+            concept: '一个序列实际是<b>两个交错数列</b>。<b>按奇偶位分开看</b>。',
+            signals: [
+                '数值<b>忽大忽小</b>来回跳',
+                '"交替出现"',
+                '相邻差变化很乱'
+            ],
+            formula: '把序列 a₁, a₂, a₃, a₄, ... 拆成：<br><b>奇位</b>：a₁, a₃, a₅, ... (独立规律)<br><b>偶位</b>：a₂, a₄, a₆, ... (另一独立规律)',
+            mnemonic: '<b>来回跳 → 奇偶分开</b>',
+            examples: [
+                { id: 'P10', q: '11+19,14+17,17+15,20+13,...', note: '第一数 +3，第二数 −2' },
+                { id: 'P62', q: '90, 9, 72, 8, 56, 7, ?', note: '奇位 90,72,56 → 42' },
+                { id: 'P20', q: '图片 1,5,13,? 方格', note: '+4, +8, +12 → 25? / 13' }
+            ],
+            panguKPs: ['pangu_pattern: 交替数列']
+        }
+    ]
+},
+
+// ===== 🎯 计数与组合 =====
+{
+    cat: '计数与组合', emoji: '🎯', slug: 'c-count',
+    items: [
+        {
+            id: 't18', name: '排列 vs 组合', emoji: '🎲',
+            concept: '<b>排列</b>：顺序重要（排队、密码）；<b>组合</b>：顺序不重要（选法、比赛）。',
+            signals: [
+                '"<b>多少种排队方式</b>"→ 排列',
+                '"<b>两两比赛/握手</b>" → 组合',
+                '"<b>选 K 个</b>" → 组合',
+                '"<b>N 人排一行</b>" → 排列 n!'
+            ],
+            formula: '<b>排列</b>：n! = n × (n−1) × ... × 1<br>3!=6, 4!=24, 5!=120<br><b>组合</b>：C(n,k) = n! / (k!(n−k)!)<br>C(n,2) = n(n−1)/2 — 两两比赛/握手',
+            mnemonic: '<b>排队用 n!，比赛选 2 用 C(n,2)</b>',
+            examples: [
+                { id: 'P29', q: '3 人排队', note: '3! = 6' },
+                { id: 'P25', q: '5 位数以 68 开头全不同偶数', note: '剩 3 位用 {0,2,4} → 3! = 6' },
+                { id: 'P69', q: '5 队两两比赛', note: 'C(5,2) = 10 场' }
+            ],
+            panguKPs: ['pangu_count: 排列', 'pangu_count: 组合']
+        },
+        {
+            id: 't19', name: '容斥 / 枚举 (限制条件)', emoji: '🔍',
+            concept: '有<b>多个条件约束</b>时，<b>画表</b>或<b>按条件枚举</b>再筛选。',
+            signals: [
+                '"<b>至少取 N 个</b>才能保证..."（鸽巢）',
+                '"<b>满足条件 1 且 2 且 3</b>"',
+                '"<b>不能是...</b>"（排除）',
+                '多条件逻辑推理'
+            ],
+            formula: '<b>鸽巢原理</b>：N+1 物放 N 个巢 → 至少 1 个巢有 ≥2 物<br><b>容斥</b>：|A∪B| = |A| + |B| − |A∩B|<br><b>枚举剪枝</b>：从约束最严的开始',
+            mnemonic: '<b>多条件 → 画表 → 从最严的入手</b>',
+            examples: [
+                { id: 'P54', q: '砝码 1,5,9 kg，哪个重量不能称？', note: '枚举可称：1,3,4,5,6,8,9,10,13,14,15' },
+                { id: 'P70', q: '6 人赛跑谁第 4？', note: '多条件推理 → Beate' },
+                { id: 'P60', q: '5a 班排队', note: '排数×列数' }
+            ],
+            panguKPs: ['pangu_logic: 鸽巢原理', 'pangu_logic: 匹配推理']
+        }
+    ]
+},
+
+// ===== 📏 几何 =====
+{
+    cat: '几何 (平面 + 立体)', emoji: '📏', slug: 'c-geom',
+    items: [
+        {
+            id: 't20', name: '图形计数不漏不重', emoji: '△',
+            concept: '"<b>图中有几个三角形/正方形</b>" 要<b>按大小分类</b>枚举。',
+            signals: [
+                '"图中有几个三角形？"',
+                '"图中有几个正方形？"',
+                '复合图形计数'
+            ],
+            formula: '<b>策略</b>：按边长分类<br>· 边长 1 的几个？<br>· 边长 2 的几个？<br>· ...<br>· 整个也要数（最大的）<br><b>公式</b>：n×n 网格里正方形总数 = 1²+2²+...+n²',
+            mnemonic: '<b>按大小分类数，别光靠眼</b>',
+            examples: [
+                { id: 'P23', q: '图中几个三角形？（含内嵌小正方形）', note: '8 个' },
+                { id: 'P41', q: '小三角能装入大图几次？', note: '12 次' }
+            ],
+            panguKPs: ['pangu_geom: 图形计数', 'pangu_count: 图形计数']
+        },
+        {
+            id: 't21', name: '立体展开图与骰子', emoji: '🧊',
+            concept: '立方体<b>展开图有 11 种</b>。看展开图判断相对面、相邻面要有一套规则。',
+            signals: [
+                '"展开图能折成立方体吗？"',
+                '"骰子相对面"',
+                '"涂色后对面颜色"'
+            ],
+            formula: '<b>骰子铁律</b>：对面和 = <b>7</b>（1↔6、2↔5、3↔4）<br><b>展开图</b>：相隔一格共一行/列的方块 → <b>相对面</b><br><b>相邻面</b>：共享一条边的方块<br><b>切割涂色</b>：n×n×n 中：角 8，棱 12(n−2)，面 6(n−2)²，内 (n−2)³',
+            mnemonic: '<b>对面和 7，隔格相对，相邻共边</b>',
+            examples: [
+                { id: 'P45', q: '4 个展开图哪两个相对面同色？', note: 'B 和 C' },
+                { id: 'P59', q: '展开图缺一格，加哪里能构成？', note: '4 个位置' },
+                { id: 'P67', q: '折起后几条边两灰三角相遇？', note: '2 条' },
+                { id: 'P42', q: '最少几个小立方拼成大立方？', note: '2³ = 8' }
+            ],
+            panguKPs: ['pangu_solid: 展开图', 'pangu_solid: 骰子问题']
+        }
+    ]
+},
+
+// ===== 🧠 读题与陷阱 =====
+{
+    cat: '读题与陷阱', emoji: '🧠', slug: 'c-logic',
+    items: [
+        {
+            id: 't22', name: '陷阱题识别', emoji: '🚨',
+            concept: '题目给一堆<b>和问题无关的信息</b>，答案是"<b>无法解决</b>"。',
+            signals: [
+                '"农民几岁"但只给动物数量',
+                '"船长几岁"但只给船的尺寸',
+                '"开车的人几岁"但只给路况',
+                '题目信息与问题<b>完全不相关</b>'
+            ],
+            formula: '<b>警觉</b>：读完题目后问自己"题目给的信息能推出问题要求的吗？"<br>如果能 → 认真做；如果<b>完全不能</b> → 答"<b>无法解决</b>"',
+            mnemonic: '<b>动物和年龄 — 没关系！</b>',
+            examples: [
+                { id: 'P04', q: '牧羊人 18 白羊 4 黑羊 1 牧羊犬，几岁？', note: '陷阱题 → 无法解决' }
+            ],
+            panguKPs: ['pangu_logic: 陷阱题', 'pangu_puzzle: 脑筋急转弯']
+        },
+        {
+            id: 't23', name: '多步应用 + 画图', emoji: '📊',
+            concept: '复杂应用<b>先画图或流程图</b>，再分步计算。',
+            signals: [
+                '题目有<b>多个场景/步骤</b>',
+                '涉及<b>时间/位置/数量</b>的多次变化',
+                '需要跟踪多个变量'
+            ],
+            formula: '<b>步骤</b>：<br>1. 读题三遍，划关键信息<br>2. 画<b>线段图</b>（距离/数量）或<b>流程图</b>（时间）<br>3. 分段计算，每步可验证<br>4. 最后核对单位与答案是否合理',
+            mnemonic: '<b>复杂题先画图再算</b>',
+            examples: [
+                { id: 'P19', q: 'S-Bahn 176 座 + 27 站，-41 +49，几人站？', note: '203 → 211 → 站 35 人' },
+                { id: 'P50', q: 'Max 走路 vs 公交，等多久？', note: '公交 2 分到 Bahnhof，Max 等 10 分' },
+                { id: 'P64', q: '两表快慢，差 2h24min 需几小时？', note: '每小时差 2 分 → 144/2 = 72 小时' },
+                { id: 'P60', q: '5a 班排队推人数', note: '排数 × 列数 + 特殊排' },
+                { id: 'P57', q: 'Karate 班队推总人数', note: '5 排 × 7 人 = 35' }
+            ],
+            panguKPs: ['pangu_app: 多步应用', 'pangu_app: 复杂推理']
+        },
+        {
+            id: 't24', name: '等价替换 (单位转换)', emoji: '🔄',
+            concept: '题目给出<b>多个物品之间的换算关系</b>，<b>一步步替换</b>到目标单位。',
+            signals: [
+                '"X 个 A = Y 个 B"（物品等价）',
+                '"3 苹果 = 2 梨 = ?"',
+                '"砝码天平"类',
+                '"等式链"'
+            ],
+            formula: '<b>方法</b>：找换算链<br>A = k×B，B = m×C → A = km×C<br><b>陷阱</b>：注意比例方向（谁等于谁）',
+            mnemonic: '<b>一环接一环，直到目标单位</b>',
+            examples: [
+                { id: 'P56', q: '3 方块=1 三角，4 球=1 方块，5 三角=? 球', note: '15 方块 = 60 球' }
+            ],
+            panguKPs: ['pangu_algebra: 等价替换', 'pangu_app: 比例']
+        },
+        {
+            id: 't25', name: '时间与时钟', emoji: '⏰',
+            concept: '时间问题的核心：<b>统一单位</b>（时/分/秒）或用<b>模运算</b>（星期几）。',
+            signals: [
+                '"<b>多少小时/分钟/秒</b>"',
+                '"<b>星期几</b>"（周期型）',
+                '"<b>时针分针夹角</b>"',
+                '"<b>蜡烛/漏斗/钟表</b>" 匀速问题'
+            ],
+            formula: '<b>星期几</b>：n 天后 = (起点 + n) mod 7<br><b>时针</b>：30°/时 = 0.5°/分<br><b>分针</b>：6°/分<br><b>夹角</b>：|30H − 5.5M|<br><b>蜡烛</b>：剩余长度 ÷ 速度 = 剩余时间',
+            mnemonic: '<b>统一单位，mod 7 定星期，画图算夹角</b>',
+            examples: [
+                { id: 'P33', q: '念 29-99 每数 1 秒，共?', note: '71 秒 = 1 分 11 秒' },
+                { id: 'P53', q: '6 蜡烛每 10 分点新，烧 50 分，11:15 几支燃？', note: '第 4,5,6 支 → 3 支' },
+                { id: 'P50', q: 'Max 走路 + 公交等候', note: '时刻相减' }
+            ],
+            panguKPs: ['pangu_time: 时长计算', 'pangu_time: 周期型']
+        }
+    ]
+}
+
+];
+
+// ============== SIGNALS TABLE DATA ==============
+const SIGNALS = [
+    { cue: '"<b>每</b> X 天...<b>每</b> Y 天...<b>同天</b>"', tech: '最小公倍数 LCM', ex: 'P38' },
+    { cue: '"<b>多少种排队方式</b>"', tech: '排列 n!', ex: 'P29, P25' },
+    { cue: '"<b>两两比赛/握手</b>"', tech: '组合 C(n,2) = n(n−1)/2', ex: 'P69' },
+    { cue: '"<b>一共</b> X" + "<b>多</b> Y"', tech: '和差公式', ex: 'P02, P14, P26' },
+    { cue: '"<b>共 N 头</b>" + "<b>共 M 脚</b>"', tech: '鸡兔同笼 / 二元方程', ex: 'P68' },
+    { cue: '"<b>邻数积</b>" / 相邻数乘积', tech: '完全平方 (n²−1)', ex: 'P30, P51' },
+    { cue: '算式有 <b>□ △ ○ ★</b> 等符号', tech: '符号方程', ex: 'P07, P15, P17, P18, P32, P44' },
+    { cue: '"<b>N 年后 / 前</b>" + 年龄', tech: '年龄差不变', ex: 'P14, P55' },
+    { cue: '"<b>想了一个数</b>...得到 X"', tech: '逆推还原', ex: 'P46' },
+    { cue: '"<b>图中几个三角形/正方形</b>"', tech: '分类枚举 (按大小/方向)', ex: 'P23, P41' },
+    { cue: '"<b>展开图</b>" + 立方体', tech: '隔格相对面规则', ex: 'P45, P59, P67' },
+    { cue: '"<b>骰子</b>"', tech: '对面和 7', ex: 'P45' },
+    { cue: '"<b>星期几</b>"（n 天后）', tech: '(起 + n) mod 7', ex: '-' },
+    { cue: '"<b>多个数字放入方框</b>"求最大/最小', tech: '数位分析，大数字放高位', ex: 'P21, P22' },
+    { cue: '"<b>动物数量</b>"+"<b>几岁</b>"', tech: '陷阱题 → 无法解决', ex: 'P04' },
+    { cue: '"数列 X, Y, Z, ?"（忽大忽小）', tech: '奇偶位分开看', ex: 'P10, P62, P20' },
+    { cue: '"<b>连续加减</b>" / "<b>1−2+3−4...</b>"', tech: '配对消项', ex: 'P05' },
+    { cue: '算式有 <b>25, 4</b> 或 <b>125, 8</b>', tech: '凑整速算', ex: 'P12, P35' },
+    { cue: '题目有<b>不同单位</b>（m & cm）', tech: '单位换算第一步', ex: 'P03, P47, P66' },
+    { cue: '"<b>平均分</b>" / "<b>每人几个</b>"', tech: '总量 ÷ 份数 = 一份', ex: 'P01, P39' },
+    { cue: '"<b>N 蜡烛每 X 分点新...</b>"', tech: '时间重叠分析', ex: 'P53' },
+    { cue: '"<b>砝码可两侧放</b>"', tech: '枚举 ± 组合', ex: 'P54' },
+    { cue: '"<b>第 N 图</b>" / "<b>图形序列</b>"', tech: '找图形规律 (差/比/位置)', ex: 'P06, P43, P20' },
+    { cue: '"<b>最多/最少 X 次保证</b>"', tech: '鸽巢原理', ex: '-' }
+];
+
+// ============== RENDERING ==============
+function renderToc() {
+    document.getElementById('toc').innerHTML = TECHNIQUES.map(c =>
+        `<a href="#${c.slug}">${c.emoji} ${c.cat}</a>`
+    ).join('') + `<a href="#signals-ref">🚨 速查表</a>`;
+}
+
+function renderContent() {
+    const el = document.getElementById('content');
+    el.innerHTML = TECHNIQUES.map(c => `
+        <section class="cat" id="${c.slug}">
+            <header class="cat-head" onclick="toggleCat(this)">
+                <span class="emoji">${c.emoji}</span>
+                <span class="ti">${c.cat}</span>
+                <span class="meta"><span>${c.items.length} 技巧</span></span>
+                <span class="caret">▾</span>
+            </header>
+            <div class="cat-body">
+                ${c.items.map(renderTec).join('')}
+            </div>
+        </section>
+    `).join('');
+}
+
+function renderTec(t) {
+    const sigs = t.signals.map(s => `<li>${s}</li>`).join('');
+    const kps = t.panguKPs.map(k => `<span class="pangu-tag">${k}</span>`).join('');
+    const chips = t.examples.map(e =>
+        `<a class="ex-chip" href="german-pangu-ak34.html#${e.id}" target="_blank">
+            ${e.id} <span class="points">· ${e.note}</span>
+        </a>`
+    ).join('');
+    return `<div class="tec" id="${t.id}">
+        <div class="tec-head">
+            <span class="tec-badge">${t.emoji} ${t.id.toUpperCase()}</span>
+            <span class="tec-ti">${t.name}</span>
+            <span class="tec-count">${t.examples.length} 例题</span>
+        </div>
+        <div class="concept-box">
+            <div class="sect-title">📖 核心概念</div>
+            ${t.concept}
+        </div>
+        <div class="signal-box">
+            <div class="sect-title">🚨 识别信号 (题目里出现这些就想到这个方法)</div>
+            <ul>${sigs}</ul>
+        </div>
+        <div class="formula-box">
+            <div class="sect-title">📐 公式 / 步骤</div>
+            ${t.formula}
+        </div>
+        <div class="mnemonic-box">
+            <span class="m-label">💡 一句话口诀</span>
+            ${t.mnemonic}
+        </div>
+        <div class="examples-box">
+            <div class="sect-title">🎓 对应 71 题中的例子</div>
+            <div class="ex-chips">${chips}</div>
+        </div>
+        <div style="margin-top:4px;">
+            <span class="sect-title" style="color:#2E7D32;">🔗 关联盘古知识点</span>
+            <div style="margin-top:3px;">${kps}</div>
+        </div>
+    </div>`;
+}
+
+function renderSignals() {
+    document.getElementById('signals-tbody').innerHTML = SIGNALS.map(s => `
+        <tr>
+            <td class="cue">${s.cue}</td>
+            <td class="tech">${s.tech}</td>
+            <td>${s.ex}</td>
+        </tr>
+    `).join('');
+}
+
+function toggleCat(el) { el.closest('.cat').classList.toggle('closed'); }
+
+renderToc();
+renderContent();
+renderSignals();
+</script>
+</body>
+</html>

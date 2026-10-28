@@ -339,6 +339,30 @@ main {
 }
 .ex-q b { color: #6A1B9A; }
 
+/* 几何图示 */
+.ex-fig {
+    background: #fff;
+    border: 1px solid #e0ecfa;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin: 8px 0;
+    text-align: center;
+}
+.ex-fig svg {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+.ex-fig .cap {
+    font-size: 11px;
+    color: #666;
+    margin-top: 4px;
+    font-style: italic;
+}
+@media print {
+    .ex-fig { break-inside: avoid; border: 1px solid #999 !important; }
+}
+
 .ex-steps {
     background: #fffde7;
     padding: 10px 14px;
@@ -703,6 +727,7 @@ body.print-hide-answers .ex::after {
             <a href="knowledge-points.html">📊 题库分析</a>
             <span class="active">📚 AK4 教学</span>
             <a href="german-pangu-ak34.html">🇩🇪 德国题集</a>
+            <a href="german-pangu-ak34-study.html">⚡ 速记攻略</a>
         </div>
     </div>
     <nav class="toc" id="toc"></nav>
@@ -1910,6 +1935,13 @@ const AK4 = [
                     title: '例 1 · 长方形',
                     stars: 1,
                     q: '长方形长 8 cm，宽 5 cm。周长多少？',
+                    fig: `<svg viewBox="0 0 240 150" width="260">
+                        <rect x="40" y="35" width="160" height="80" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+                        <text x="120" y="25" text-anchor="middle" font-size="14" fill="#0D47A1" font-weight="600">8 cm</text>
+                        <text x="25" y="80" text-anchor="middle" font-size="14" fill="#0D47A1" font-weight="600" transform="rotate(-90 25 80)">5 cm</text>
+                        <circle cx="40" cy="35" r="2.5" fill="#1565C0"/><circle cx="200" cy="35" r="2.5" fill="#1565C0"/>
+                        <circle cx="200" cy="115" r="2.5" fill="#1565C0"/><circle cx="40" cy="115" r="2.5" fill="#1565C0"/>
+                    </svg>`,
                     steps: [
                         '公式：周长 = 2(长+宽)',
                         '= 2 × (8 + 5) = 2 × 13 = <code>26 cm</code>'
@@ -1921,6 +1953,13 @@ const AK4 = [
                     title: '例 2 · 由面积反推',
                     stars: 2,
                     q: '正方形面积 36 平方 cm，周长是多少？',
+                    fig: `<svg viewBox="0 0 180 170" width="180">
+                        <rect x="35" y="35" width="110" height="110" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+                        <text x="90" y="92" text-anchor="middle" font-size="17" fill="#1B5E20" font-weight="bold">36 cm²</text>
+                        <text x="90" y="112" text-anchor="middle" font-size="11" fill="#555">边 a = ?</text>
+                        <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2E7D32">a</text>
+                        <text x="22" y="90" text-anchor="middle" font-size="12" fill="#2E7D32">a</text>
+                    </svg>`,
                     steps: [
                         '面积 = a²，a = <code>6 cm</code>（因为 6×6=36）',
                         '周长 = 4 × 6 = <code>24 cm</code>'
@@ -1931,19 +1970,39 @@ const AK4 = [
                 {
                     title: '例 3 · L 形',
                     stars: 3,
-                    q: '一个 L 形图形：外边两条分别为 10 cm 和 8 cm，内部缺口凹进 4 cm × 3 cm。周长多少？',
+                    q: '一个 L 形图形：外部大长方形 10 cm × 8 cm，右下角凹掉 4 cm × 3 cm。周长多少？',
+                    fig: `<svg viewBox="0 0 280 200" width="300">
+                        <path d="M 40 30 L 240 30 L 240 110 L 160 110 L 160 170 L 40 170 Z"
+                              fill="#FFF8E1" stroke="#E65100" stroke-width="2.5"/>
+                        <text x="140" y="22" text-anchor="middle" font-size="13" fill="#BF360C" font-weight="600">10 cm</text>
+                        <text x="25" y="100" text-anchor="middle" font-size="13" fill="#BF360C" font-weight="600" transform="rotate(-90 25 100)">8 cm</text>
+                        <text x="200" y="105" text-anchor="middle" font-size="10" fill="#999">4 cm</text>
+                        <text x="155" y="140" text-anchor="middle" font-size="10" fill="#999" transform="rotate(-90 155 140)">3 cm</text>
+                        <!-- 平移虚线提示 -->
+                        <path d="M 240 110 L 240 170 L 160 170" stroke="#E65100" stroke-width="1.5" stroke-dasharray="4,3" fill="none" opacity="0.5"/>
+                    </svg>`,
+                    figCap: '橙色实线 = 实际 L 形；虚线 = 平移后的"大长方形"',
                     steps: [
-                        '方法：把凹进去的两条内边<b>平移</b>到外边，发现 L 形的周长等于<b>包围它的大长方形</b>的周长',
+                        '方法：把凹进去的两条内边<b>平移</b>到外边 (虚线所示)',
+                        '发现 L 形的周长 = 包围它的<b>大长方形周长</b>',
                         '大长方形：10 × 8',
                         '周长 = 2(10+8) = <code>36 cm</code>'
                     ],
                     ans: '36 cm',
-                    takeaway: '<b>L 形</b> 周长 = 包围它的大长方形周长（只要凹是直角凹）。'
+                    takeaway: '<b>L 形直角凹</b>：周长 = 包围大长方形周长（因为内凹的两条边平移到外部恰好补齐）。'
                 },
                 {
                     title: '例 4 · 拼接',
                     stars: 3,
                     q: '两个边长 5 cm 的正方形拼成一个长方形。长方形周长多少？',
+                    fig: `<svg viewBox="0 0 240 130" width="260">
+                        <rect x="30" y="25" width="80" height="80" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2.5"/>
+                        <rect x="110" y="25" width="80" height="80" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2.5"/>
+                        <line x1="110" y1="25" x2="110" y2="105" stroke="#6A1B9A" stroke-width="2.5" stroke-dasharray="3,3"/>
+                        <text x="70" y="70" text-anchor="middle" font-size="12" fill="#4A148C">5 cm</text>
+                        <text x="150" y="70" text-anchor="middle" font-size="12" fill="#4A148C">5 cm</text>
+                        <text x="110" y="18" text-anchor="middle" font-size="11" fill="#999">共边消失</text>
+                    </svg>`,
                     steps: [
                         '拼成的长方形：长 = 5+5 = <code>10 cm</code>，宽 = 5 cm',
                         '周长 = 2(10+5) = <code>30 cm</code>'
@@ -1970,58 +2029,100 @@ const AK4 = [
             ],
             examples: [
                 {
-                    title: '例 1 · 简单',
+                    title: '例 1 · 三中位线分 4 块',
                     stars: 2,
-                    q: '一个大三角形被两条中线分成 4 个小三角形。一共多少个三角形？',
+                    q: '连接大三角形三条边的中点，得到的三条中位线把它分成 4 个全等小三角形。图中一共多少个三角形？',
+                    fig: `<svg viewBox="0 0 240 200" width="260">
+                        <polygon points="120,20 220,180 20,180" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+                        <line x1="70" y1="100" x2="170" y2="100" stroke="#1565C0" stroke-width="2"/>
+                        <line x1="70" y1="100" x2="120" y2="180" stroke="#1565C0" stroke-width="2"/>
+                        <line x1="170" y1="100" x2="120" y2="180" stroke="#1565C0" stroke-width="2"/>
+                        <text x="120" y="70" text-anchor="middle" font-size="12" fill="#1565C0" font-weight="600">①</text>
+                        <text x="70" y="155" text-anchor="middle" font-size="12" fill="#1565C0" font-weight="600">②</text>
+                        <text x="170" y="155" text-anchor="middle" font-size="12" fill="#1565C0" font-weight="600">③</text>
+                        <text x="120" y="135" text-anchor="middle" font-size="12" fill="#1565C0" font-weight="600">④</text>
+                    </svg>`,
+                    figCap: '4 个小三角 ①②③④ + 整个大三角',
                     steps: [
-                        '最小的（1 份）：<code>4 个</code>',
-                        '中等的（4 份中的 1 大）：<code>0 个</code>（没有2格的）',
-                        '大三角（整个）：<code>1 个</code>',
+                        '<b>最小的小三角</b>（4 块填满）：<code>4 个</code>',
+                        '<b>中等三角</b>（2 个小三角合并）：没有（相邻小三角合并后变成平行四边形，不是三角形）',
+                        '<b>整个大三角</b>（4 块合并）：<code>1 个</code>',
                         '总计：4 + 1 = <code>5 个</code>'
                     ],
                     ans: '5 个',
-                    takeaway: '<b>整个</b>也是三角形，别漏数。'
+                    takeaway: '<b>整个</b>也是三角形，别漏数。相邻 2 个小三角合并得到的是平行四边形不是三角形。'
                 },
                 {
-                    title: '例 2 · 中等',
+                    title: '例 2 · 顶点连底边两点',
                     stars: 3,
-                    q: '大三角形被三条底边中线分成 4 个小三角形（三角形分成 1 中 + 3 角）。一共多少个三角形？',
+                    q: '大三角形顶点与底边上两个三等分点连线，把三角形分成 3 个小三角形。图中一共多少个三角形？',
+                    fig: `<svg viewBox="0 0 240 200" width="260">
+                        <polygon points="120,20 220,180 20,180" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+                        <line x1="120" y1="20" x2="87" y2="180" stroke="#2E7D32" stroke-width="2"/>
+                        <line x1="120" y1="20" x2="153" y2="180" stroke="#2E7D32" stroke-width="2"/>
+                        <circle cx="87" cy="180" r="2.5" fill="#2E7D32"/>
+                        <circle cx="153" cy="180" r="2.5" fill="#2E7D32"/>
+                        <text x="60" y="155" text-anchor="middle" font-size="12" fill="#2E7D32" font-weight="600">①</text>
+                        <text x="120" y="135" text-anchor="middle" font-size="12" fill="#2E7D32" font-weight="600">②</text>
+                        <text x="180" y="155" text-anchor="middle" font-size="12" fill="#2E7D32" font-weight="600">③</text>
+                    </svg>`,
+                    figCap: '顶点连底边两点，分成 3 个小三角 ①②③',
                     steps: [
-                        '最小的（1 格）：<code>4 个</code>（3 个角 + 1 个中间倒三角）',
-                        '2 格合并（1 角 + 中间）：<code>0 个</code>（因为合并后不是三角形）',
-                        '大三角：<code>1 个</code>',
-                        '总计：<code>5 个</code>'
+                        '<b>最小三角</b>（1 份）：<code>3 个</code>（①②③）',
+                        '<b>2 份合并</b>（左两个 or 右两个）：<code>2 个</code>（①+② 和 ②+③）',
+                        '<b>整个大三角</b>（①+②+③）：<code>1 个</code>',
+                        '总计：3 + 2 + 1 = <code>6 个</code>'
                     ],
-                    ans: '5 个',
-                    takeaway: '分割成 4 块的典型题，答案就是 4+1=5。'
+                    ans: '6 个',
+                    takeaway: '"<b>一堆同顶点的三角形</b>"：n 个最小三角 → 共 <code>n(n+1)/2</code> 个三角形。n=3 时 = 6。'
                 },
                 {
-                    title: '例 3 · 复杂（叠加）',
+                    title: '例 3 · 嵌套三角',
                     stars: 4,
-                    q: '大三角形被底边中点和顶点连线分成 2 个小三角形，每个又被各自的中线再分 2 个。一共多少个三角形？',
+                    q: '大三角形里面有一个倒放的小三角（三顶点在大三角三边中点）。再在倒三角里面套一个正放小三角。图中一共多少个三角形？',
+                    fig: `<svg viewBox="0 0 240 200" width="260">
+                        <polygon points="120,20 220,180 20,180" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2.5"/>
+                        <polygon points="70,100 170,100 120,180" fill="none" stroke="#6A1B9A" stroke-width="2"/>
+                        <polygon points="95,140 145,140 120,100" fill="none" stroke="#6A1B9A" stroke-width="1.5"/>
+                    </svg>`,
+                    figCap: '大三角套倒三角套小正三角',
                     steps: [
-                        '最小：4 个小三角',
-                        '两个 1 层合并：左边 2 小合并 = 1 个（大半边），右边 2 小合并 = 1 个 → <code>2 个</code>',
-                        '大三角本身：<code>1 个</code>',
-                        '总计：4 + 2 + 1 = <code>7 个</code>'
+                        '<b>大三角</b>（最外层）：1 个',
+                        '<b>倒三角</b>（中层）：1 个',
+                        '<b>最小正三角</b>（最里）：1 个',
+                        '<b>大三角被倒三角分出的 3 个角</b>：3 个',
+                        '<b>倒三角被最小正三角分出的 3 个角</b>：3 个',
+                        '总计：1+1+1+3+3 = <code>9 个</code>'
                     ],
-                    ans: '7 个',
-                    takeaway: '分层数：<b>n 个最小 + 几种合并 + 整个</b>。'
+                    ans: '9 个',
+                    takeaway: '<b>嵌套结构</b>：每一层嵌套都切出 3 个新的小三角。n 层嵌套 ≈ 1 + 3n 个三角形。'
                 },
                 {
-                    title: '例 4 · 格子',
+                    title: '例 4 · 3×3 等边网格',
                     stars: 4,
-                    q: '一个 3×3 等边三角形网格（最小三角形在上下交替），数一数所有三角形。',
+                    q: '一个大三角形被平行于三边的线均分成 9 个小三角形（3×3 网格）。图中一共多少个三角形？',
+                    fig: `<svg viewBox="0 0 260 220" width="280">
+                        <polygon points="130,20 240,210 20,210" fill="#FFF3E0" stroke="#E65100" stroke-width="2.5"/>
+                        <!-- 平行于底边 -->
+                        <line x1="94" y1="83" x2="166" y2="83" stroke="#E65100" stroke-width="1.5"/>
+                        <line x1="57" y1="147" x2="203" y2="147" stroke="#E65100" stroke-width="1.5"/>
+                        <!-- 平行于左边 -->
+                        <line x1="94" y1="83" x2="57" y2="147" stroke="#E65100" stroke-width="1.5"/>
+                        <line x1="166" y1="83" x2="94" y2="210" stroke="#E65100" stroke-width="1.5"/>
+                        <!-- 平行于右边 -->
+                        <line x1="166" y1="83" x2="203" y2="147" stroke="#E65100" stroke-width="1.5"/>
+                        <line x1="94" y1="83" x2="166" y2="210" stroke="#E65100" stroke-width="1.5"/>
+                    </svg>`,
+                    figCap: '大三角被均分成 9 个小三角（3×3 网格，上下交替）',
                     steps: [
-                        '1 格大小（朝上）：9 个',
-                        '1 格大小（朝下）：3 个',
-                        '合计 1 格：12 个',
-                        '2 格合并（朝上）：3 个',
-                        '3 格大（朝上）：1 个',
-                        '总计：<code>12 + 3 + 1 = 16 个</code>'
+                        '<b>1 格朝上</b>的小三角：<code>6 个</code>（第1行 1 个 + 第2行 2 个 + 第3行 3 个）',
+                        '<b>1 格朝下</b>的小三角：<code>3 个</code>（第2行 1 个 + 第3行 2 个）',
+                        '<b>2×2 大的朝上三角</b>（4 格合并）：<code>3 个</code>',
+                        '<b>3×3 整个</b>：<code>1 个</code>',
+                        '总计：6 + 3 + 3 + 1 = <code>13 个</code>'
                     ],
-                    ans: '16 个',
-                    takeaway: '<b>区分朝向</b>（上/下）是常见得分点。公式："边长 n 的三角网格"三角形总数 = n(n+2)(2n+1)/8（偶数 n）或类似。AK4 不要公式，直接分类数。'
+                    ans: '13 个',
+                    takeaway: '<b>n×n 三角网格</b>：朝上的大三角有 1+2+...+n = n(n+1)/2 个；朝下的大三角数稍少。要<b>按朝向 + 按大小</b>分类数。'
                 }
             ],
             practice: [
@@ -2045,6 +2146,16 @@ const AK4 = [
                     title: '例 1 · 整体减',
                     stars: 2,
                     q: '一个 10×10 的正方形，中间挖去一个 4×4 的正方形。剩余（阴影）面积多少？',
+                    fig: `<svg viewBox="0 0 200 200" width="220">
+                        <defs><pattern id="hatch1" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                            <rect width="6" height="6" fill="#BBDEFB"/><line x1="0" y1="0" x2="0" y2="6" stroke="#1565C0" stroke-width="1.5"/>
+                        </pattern></defs>
+                        <rect x="20" y="20" width="160" height="160" fill="url(#hatch1)" stroke="#1565C0" stroke-width="2.5"/>
+                        <rect x="80" y="80" width="40" height="40" fill="#fff" stroke="#1565C0" stroke-width="2"/>
+                        <text x="100" y="15" text-anchor="middle" font-size="12" fill="#0D47A1">10</text>
+                        <text x="12" y="105" text-anchor="middle" font-size="12" fill="#0D47A1" transform="rotate(-90 12 105)">10</text>
+                        <text x="100" y="105" text-anchor="middle" font-size="11" fill="#999">4×4 挖洞</text>
+                    </svg>`,
                     steps: [
                         '大正方形：10 × 10 = <code>100</code>',
                         '小正方形：4 × 4 = <code>16</code>',
@@ -2054,42 +2165,71 @@ const AK4 = [
                     takeaway: '最简单的"<b>减</b>"策略：总面积 − 挖掉的面积。'
                 },
                 {
-                    title: '例 2 · 对角阴影',
+                    title: '例 2 · 三角形占一半',
                     stars: 3,
-                    q: '正方形 ABCD 边长 6，从 A 连到对边中点 E。三角形 ABE 面积多少？',
+                    q: '正方形 ABCD 边长 6。E 是边 CD 的中点。三角形 ABE（阴影）面积多少？',
+                    fig: `<svg viewBox="0 0 200 200" width="200">
+                        <rect x="30" y="30" width="140" height="140" fill="#fff" stroke="#1565C0" stroke-width="2.5"/>
+                        <polygon points="30,30 170,30 100,170" fill="#BBDEFB" stroke="#1565C0" stroke-width="2"/>
+                        <text x="22" y="27" font-size="12" fill="#0D47A1" font-weight="bold">A</text>
+                        <text x="175" y="27" font-size="12" fill="#0D47A1" font-weight="bold">B</text>
+                        <text x="175" y="183" font-size="12" fill="#0D47A1" font-weight="bold">C</text>
+                        <text x="22" y="183" font-size="12" fill="#0D47A1" font-weight="bold">D</text>
+                        <circle cx="100" cy="170" r="3" fill="#1565C0"/>
+                        <text x="100" y="185" text-anchor="middle" font-size="11" fill="#1565C0">E</text>
+                        <text x="100" y="60" text-anchor="middle" font-size="11" fill="#0D47A1">阴影 ABE</text>
+                    </svg>`,
                     steps: [
-                        '三角形 ABE 的底 AB = 6（正方形的一条边）',
-                        '高 = 从 E 到 AB 的距离 = 正方形边长 = <code>6</code>',
-                        '等等…B 和 E 都在同一边上吗？如果 E 是 CD 的中点，那三角形 ABE 的底是 AB，高是正方形的边长',
-                        '面积 = (1/2) × 底 × 高 = (1/2) × 6 × 6 = <code>18</code>'
+                        '三角形 ABE 底 AB = 6，高 = 从 E 到 AB 的距离 = <code>6</code>（正方形的边长）',
+                        '面积 = ½ × 底 × 高 = ½ × 6 × 6 = <code>18</code>',
+                        '验证：正方形面积 36，三角形占 ½ = 18 ✓'
                     ],
                     ans: '18 平方单位',
-                    takeaway: '三角形在正方形中的面积公式 S = ½ × 底 × 高。'
+                    takeaway: '<b>正方形里顶点在对边的三角形</b>永远占正方形面积的 <b>½</b>。'
                 },
                 {
-                    title: '例 3 · 一半涂色',
+                    title: '例 3 · 对称分块',
                     stars: 3,
-                    q: '正方形里画两条对角线，分成 4 个三角形。涂色其中 2 个相邻的。阴影占多少？',
+                    q: '正方形里画两条对角线，分成 4 个全等三角形。涂色其中相对的 2 个。阴影面积占正方形的多少？',
+                    fig: `<svg viewBox="0 0 180 180" width="180">
+                        <rect x="20" y="20" width="140" height="140" fill="#fff" stroke="#6A1B9A" stroke-width="2.5"/>
+                        <line x1="20" y1="20" x2="160" y2="160" stroke="#6A1B9A" stroke-width="1.5"/>
+                        <line x1="160" y1="20" x2="20" y2="160" stroke="#6A1B9A" stroke-width="1.5"/>
+                        <polygon points="20,20 90,90 160,20" fill="#E1BEE7" stroke="none"/>
+                        <polygon points="20,160 90,90 160,160" fill="#E1BEE7" stroke="none"/>
+                        <line x1="20" y1="20" x2="160" y2="160" stroke="#6A1B9A" stroke-width="1.5"/>
+                        <line x1="160" y1="20" x2="20" y2="160" stroke="#6A1B9A" stroke-width="1.5"/>
+                        <rect x="20" y="20" width="140" height="140" fill="none" stroke="#6A1B9A" stroke-width="2.5"/>
+                    </svg>`,
                     steps: [
-                        '对角线把正方形分成 4 个<b>相等</b>的三角形（每个 ¼）',
-                        '涂色 2 个 → 面积 = <code>¼ × 2 = ½</code>（一半）'
+                        '对角线把正方形分成 4 个<b>相等</b>的三角形（每个占 ¼）',
+                        '阴影 2 个 → 占 <code>¼ × 2 = ½</code>（一半）'
                     ],
                     ans: '占 1/2 面积',
-                    takeaway: '<b>对称分块</b> 每块相等，用分数快速算。'
+                    takeaway: '<b>对称分块</b> 每块相等，用分数计算最快。'
                 },
                 {
-                    title: '例 4 · 梯形阴影',
+                    title: '例 4 · 三角形占长方形一半',
                     stars: 4,
-                    q: '长方形长 10 宽 6，连接长边两个端点与宽边中点形成一个三角形。阴影（即三角形外的梯形）面积多少？',
+                    q: '长方形长 10、宽 6。连接两个长边端点与对边中点形成一个三角形。<b>阴影（三角形外的部分）</b>面积多少？',
+                    fig: `<svg viewBox="0 0 260 180" width="280">
+                        <defs><pattern id="hatch2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                            <rect width="6" height="6" fill="#FFE0B2"/><line x1="0" y1="0" x2="0" y2="6" stroke="#E65100" stroke-width="1.5"/>
+                        </pattern></defs>
+                        <rect x="30" y="40" width="200" height="100" fill="url(#hatch2)" stroke="#E65100" stroke-width="2.5"/>
+                        <polygon points="30,40 230,40 130,140" fill="#fff" stroke="#E65100" stroke-width="2"/>
+                        <text x="130" y="30" text-anchor="middle" font-size="12" fill="#BF360C">10</text>
+                        <text x="22" y="92" text-anchor="middle" font-size="12" fill="#BF360C" transform="rotate(-90 22 92)">6</text>
+                        <circle cx="130" cy="140" r="3" fill="#E65100"/>
+                        <text x="130" y="155" text-anchor="middle" font-size="11" fill="#BF360C">对边中点</text>
+                    </svg>`,
                     steps: [
                         '长方形面积 = 10 × 6 = <code>60</code>',
-                        '三角形：底是宽边 6，高是长 10',
-                        '→ 不对，重新想：如果端点在长边、顶点在宽边中点，则三角形底 = 10（长边），高 = 6（宽）',
-                        '三角形面积 = ½ × 10 × 6 = <code>30</code>（即一半）',
-                        '阴影（梯形）= 60 − 30 = <code>30</code>'
+                        '白色三角形底 = 10（长边），高 = 6（宽） → 面积 = ½ × 10 × 6 = <code>30</code>',
+                        '阴影（三角形外的两块）= 60 − 30 = <code>30</code>'
                     ],
                     ans: '30 平方单位',
-                    takeaway: '长方形里的三角形（底一条边，顶点在对边）面积永远 = <b>一半</b>。'
+                    takeaway: '长方形里的三角形（底一条边、顶点在对边上）面积<b>永远 = 长方形的一半</b>。'
                 }
             ],
             practice: [
@@ -2109,9 +2249,19 @@ const AK4 = [
             ],
             examples: [
                 {
-                    title: '例 1 · 拼长方形',
+                    title: '例 1 · 拼一行',
                     stars: 2,
                     q: '4 个边长 3 cm 的正方形拼成一行。拼成的长方形周长？',
+                    fig: `<svg viewBox="0 0 280 90" width="280">
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="30" y="20" width="55" height="55"/>
+                            <rect x="85" y="20" width="55" height="55"/>
+                            <rect x="140" y="20" width="55" height="55"/>
+                            <rect x="195" y="20" width="55" height="55"/>
+                        </g>
+                        <text x="140" y="14" text-anchor="middle" font-size="12" fill="#4A148C">长 = 4×3 = 12</text>
+                        <text x="20" y="52" text-anchor="middle" font-size="11" fill="#4A148C" transform="rotate(-90 20 52)">宽 = 3</text>
+                    </svg>`,
                     steps: [
                         '长 = 4 × 3 = 12 cm',
                         '宽 = 3 cm',
@@ -2121,40 +2271,74 @@ const AK4 = [
                     takeaway: '"拼一行" n 个正方形：长 = n × a，宽 = a。'
                 },
                 {
-                    title: '例 2 · 2×2',
+                    title: '例 2 · 拼 2×2',
                     stars: 2,
                     q: '4 个边长 3 cm 的正方形拼成 2×2 的大正方形。大正方形周长？',
+                    fig: `<svg viewBox="0 0 180 180" width="180">
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="30" y="30" width="60" height="60"/>
+                            <rect x="90" y="30" width="60" height="60"/>
+                            <rect x="30" y="90" width="60" height="60"/>
+                            <rect x="90" y="90" width="60" height="60"/>
+                        </g>
+                        <text x="90" y="22" text-anchor="middle" font-size="12" fill="#4A148C">6</text>
+                        <text x="22" y="92" text-anchor="middle" font-size="12" fill="#4A148C" transform="rotate(-90 22 92)">6</text>
+                    </svg>`,
                     steps: [
                         '2×2 排列 → 大正方形的边长 = 2 × 3 = 6 cm',
                         '周长 = 4 × 6 = <code>24 cm</code>'
                     ],
                     ans: '24 cm',
-                    takeaway: '相同个数的正方形拼成"<b>一行</b>"周长比拼成"<b>方阵</b>"大。'
+                    takeaway: '相同数量的正方形拼成"<b>一行</b>"周长 (30) > 拼成"<b>方阵</b>"周长 (24)，因为方阵共用的边更多。'
                 },
                 {
-                    title: '例 3 · 复合',
+                    title: '例 3 · 长方形铺满',
                     stars: 3,
-                    q: '一个长 20 宽 12 的长方形，由多个边长 4 的小正方形拼成。一共拼了多少个？',
+                    q: '一个长 20 cm 宽 12 cm 的长方形，由边长 4 cm 的小正方形铺满。一共几个小正方形？',
+                    fig: `<svg viewBox="0 0 280 180" width="300">
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+                            <rect x="30" y="30" width="40" height="40"/><rect x="70" y="30" width="40" height="40"/>
+                            <rect x="110" y="30" width="40" height="40"/><rect x="150" y="30" width="40" height="40"/>
+                            <rect x="190" y="30" width="40" height="40"/>
+                            <rect x="30" y="70" width="40" height="40"/><rect x="70" y="70" width="40" height="40"/>
+                            <rect x="110" y="70" width="40" height="40"/><rect x="150" y="70" width="40" height="40"/>
+                            <rect x="190" y="70" width="40" height="40"/>
+                            <rect x="30" y="110" width="40" height="40"/><rect x="70" y="110" width="40" height="40"/>
+                            <rect x="110" y="110" width="40" height="40"/><rect x="150" y="110" width="40" height="40"/>
+                            <rect x="190" y="110" width="40" height="40"/>
+                        </g>
+                        <rect x="30" y="30" width="200" height="120" fill="none" stroke="#6A1B9A" stroke-width="2.5"/>
+                        <text x="130" y="22" text-anchor="middle" font-size="12" fill="#4A148C">20 cm</text>
+                        <text x="22" y="92" text-anchor="middle" font-size="12" fill="#4A148C" transform="rotate(-90 22 92)">12 cm</text>
+                    </svg>`,
                     steps: [
                         '一行可以放：20 ÷ 4 = <code>5 个</code>',
                         '一列可以放：12 ÷ 4 = <code>3 个</code>',
                         '总数：5 × 3 = <code>15 个</code>'
                     ],
                     ans: '15 个',
-                    takeaway: '长方形 ÷ 小正方形：长方向数量 × 宽方向数量。'
+                    takeaway: '长方形 ÷ 小正方形：<b>长方向数量 × 宽方向数量</b>。'
                 },
                 {
-                    title: '例 4 · 周长比',
+                    title: '例 4 · 切后周长比',
                     stars: 4,
-                    q: '把一个 6×6 的正方形切成 2 个 3×6 的长方形。切后两个长方形的周长之和与原来相比，多多少？',
+                    q: '把 6×6 的正方形沿中线切成 2 个 3×6 的长方形。切后<b>两个长方形的周长之和</b>比原来多多少？',
+                    fig: `<svg viewBox="0 0 180 180" width="180">
+                        <rect x="30" y="30" width="120" height="120" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2.5"/>
+                        <line x1="90" y1="30" x2="90" y2="150" stroke="#D32F2F" stroke-width="2.5"/>
+                        <text x="90" y="22" text-anchor="middle" font-size="11" fill="#D32F2F">切一刀</text>
+                        <text x="60" y="95" text-anchor="middle" font-size="11" fill="#4A148C">3×6</text>
+                        <text x="120" y="95" text-anchor="middle" font-size="11" fill="#4A148C">3×6</text>
+                        <text x="90" y="168" text-anchor="middle" font-size="10" fill="#D32F2F">切口 = 6 (出现 2 次)</text>
+                    </svg>`,
                     steps: [
                         '原周长 = 4 × 6 = <code>24</code>',
-                        '切后每个长方形周长 = 2(3+6) = 18',
+                        '切后每个长方形周长 = 2(3+6) = <code>18</code>',
                         '两个之和：2 × 18 = <code>36</code>',
-                        '多了：36 − 24 = <code>12</code>'
+                        '多了：36 − 24 = <code>12</code>（恰等于 2 × 切口长度 6）'
                     ],
                     ans: '多 12',
-                    takeaway: '切一刀会<b>增加 2 条新边</b>（切口的两面）。周长总和 = 原周长 + 2×切口长度。'
+                    takeaway: '切一刀 → <b>总周长增加 = 2 × 切口长度</b>（切口的两面都算）。'
                 }
             ],
             practice: [
@@ -2191,7 +2375,42 @@ const AK4 = [
                 {
                     title: '例 2 · 哪个不同',
                     stars: 3,
-                    q: '下面 4 个图形，3 个是同一图形的旋转/镜像，一个是不同图形。（假设有图：3 个 L 形+ 1 个 J 形）',
+                    q: '下面 4 个图形，3 个是同一图形的旋转/镜像，一个是不同图形。哪个？',
+                    fig: `<svg viewBox="0 0 440 140" width="420">
+                        <!-- 图 1: L 形 (标准) -->
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="20" y="30" width="20" height="20"/>
+                            <rect x="20" y="50" width="20" height="20"/>
+                            <rect x="20" y="70" width="20" height="20"/>
+                            <rect x="40" y="70" width="20" height="20"/>
+                        </g>
+                        <text x="40" y="115" text-anchor="middle" font-size="12" fill="#6A1B9A" font-weight="bold">① L</text>
+                        <!-- 图 2: L 旋转 90° (顺) -->
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="120" y="40" width="20" height="20"/>
+                            <rect x="140" y="40" width="20" height="20"/>
+                            <rect x="160" y="40" width="20" height="20"/>
+                            <rect x="120" y="60" width="20" height="20"/>
+                        </g>
+                        <text x="150" y="115" text-anchor="middle" font-size="12" fill="#6A1B9A" font-weight="bold">② L 旋转</text>
+                        <!-- 图 3: L 旋转 180° -->
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="240" y="30" width="20" height="20"/>
+                            <rect x="260" y="30" width="20" height="20"/>
+                            <rect x="260" y="50" width="20" height="20"/>
+                            <rect x="260" y="70" width="20" height="20"/>
+                        </g>
+                        <text x="260" y="115" text-anchor="middle" font-size="12" fill="#6A1B9A" font-weight="bold">③ L 旋转</text>
+                        <!-- 图 4: J 形 (镜像) -->
+                        <g fill="#FFCDD2" stroke="#C62828" stroke-width="2">
+                            <rect x="380" y="30" width="20" height="20"/>
+                            <rect x="380" y="50" width="20" height="20"/>
+                            <rect x="380" y="70" width="20" height="20"/>
+                            <rect x="360" y="70" width="20" height="20"/>
+                        </g>
+                        <text x="380" y="115" text-anchor="middle" font-size="12" fill="#C62828" font-weight="bold">④ J ⚠</text>
+                    </svg>`,
+                    figCap: '①②③ 都是 L 形的旋转；④ 是 L 的镜像（J 形），无法通过旋转得到',
                     steps: [
                         'L 形旋转 90° 还是 L 形',
                         'L 形旋转 180° 变成另一种 L 形',
@@ -2245,54 +2464,116 @@ const AK4 = [
                 {
                     title: '例 1 · 看不见的面',
                     stars: 2,
-                    q: '标准骰子看到的三个面是 1、2、3。看不见的三个面之和是多少？',
+                    q: '标准骰子看到的三个面是 <b>1、2、3</b>。看不见的三个面之和是多少？',
+                    fig: `<svg viewBox="0 0 200 180" width="220">
+                        <!-- 骰子 3D 视图 -->
+                        <polygon points="40,60 110,30 110,120 40,150" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="110,30 180,60 180,150 110,120" fill="#BBDEFB" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="40,60 110,30 180,60 110,90" fill="#E1F5FE" stroke="#1565C0" stroke-width="2"/>
+                        <!-- 顶面 1 点 -->
+                        <circle cx="110" cy="60" r="4" fill="#0D47A1"/>
+                        <!-- 正面 2 点 -->
+                        <circle cx="65" cy="85" r="3" fill="#0D47A1"/>
+                        <circle cx="85" cy="125" r="3" fill="#0D47A1"/>
+                        <!-- 侧面 3 点 -->
+                        <circle cx="130" cy="60" r="3" fill="#0D47A1"/>
+                        <circle cx="145" cy="85" r="3" fill="#0D47A1"/>
+                        <circle cx="160" cy="110" r="3" fill="#0D47A1"/>
+                        <text x="110" y="170" text-anchor="middle" font-size="11" fill="#1565C0">看到：1 (顶) · 2 (正) · 3 (右)</text>
+                    </svg>`,
                     steps: [
-                        '方法 1：看不见的 = 对面的 → 1 的对面是 6，2 的对面是 5，3 的对面是 4',
+                        '方法 1：看不见的 = 对面的 → 1 的对面 6，2 的对面 5，3 的对面 4',
                         '和 = 6+5+4 = <code>15</code>',
-                        '方法 2：总和 21 − 看见的 (1+2+3=6) = <code>15</code>'
+                        '方法 2：总和 1+2+...+6 = 21，减去看见的 (1+2+3=6) = <code>15</code>'
                     ],
                     ans: '15',
-                    takeaway: '<b>看不见的和</b> = 21 − <b>看见的和</b>。或者直接用对面规则。'
+                    takeaway: '<b>看不见的和</b> = 21 − <b>看见的和</b>。或直接用<b>对面和 = 7</b>的规则。'
                 },
                 {
                     title: '例 2 · 两骰子',
                     stars: 3,
-                    q: '两颗相同的骰子叠在一起（上下贴合）。贴合的两个面之和是 7。隐藏的面（含贴合）之和是多少？',
+                    q: '两颗相同的骰子<b>上下叠</b>在一起。贴合的两个面之和是 7。隐藏的面（含贴合）之和是多少？',
+                    fig: `<svg viewBox="0 0 220 280" width="200">
+                        <!-- 顶骰 -->
+                        <polygon points="60,30 130,10 130,100 60,120" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="130,10 200,30 200,120 130,100" fill="#BBDEFB" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="60,30 130,10 200,30 130,50" fill="#E1F5FE" stroke="#1565C0" stroke-width="2"/>
+                        <!-- 底骰 -->
+                        <polygon points="60,140 130,120 130,210 60,230" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="130,120 200,140 200,230 130,210" fill="#BBDEFB" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="60,140 130,120 200,140 130,160" fill="#E1F5FE" stroke="#1565C0" stroke-width="2"/>
+                        <!-- 贴合标注 -->
+                        <text x="140" y="130" font-size="11" fill="#C62828">贴合面和=7</text>
+                        <path d="M 130 110 L 130 100" stroke="#C62828" stroke-width="2" stroke-dasharray="2,2"/>
+                        <text x="110" y="260" text-anchor="middle" font-size="11" fill="#1565C0">看不见：底 + 顶 2 个贴合面</text>
+                    </svg>`,
                     steps: [
-                        '两颗骰子的所有点数总和 = 2 × 21 = <code>42</code>',
-                        '贴合的两个面之和 = <code>7</code>（题目给）',
-                        '最底下的面 + 最上面的面 = 看不见 → 这两个也是对面规则',
-                        '实际题目需要具体给出看见的面才能算，答案一般是 42 − 看见',
-                        '若"隐藏"指贴合的 2 面 + 底面 1 面 = 3 面：和 = 7 + 底面值'
+                        '两颗骰子所有点数总和 = 2 × 21 = <code>42</code>',
+                        '贴合的两面之和 = <b>7</b>（题目给）',
+                        '看不见的 = 顶骰的底面 + 两个贴合面 + 底骰的底面',
+                        '若"隐藏"指 4 个面：顶骰底 + 2 贴合 + 底骰底 = (7−顶骰顶) + 7 + (7−底骰顶)',
+                        '需结合可见面数据分析，一般<b>最大/最小隐藏和</b>需调整朝向'
                     ],
-                    ans: '取决于看见几个面',
-                    takeaway: '两骰子叠加问题：先算<b>两颗总和 42</b>，再减去看见的。'
+                    ans: '取决于可见面具体值',
+                    takeaway: '多骰子问题的核心：<b>总和 42 − 可见和</b>，贴合面常给定或求对称'
                 },
                 {
                     title: '例 3 · 3 骰子',
                     stars: 4,
-                    q: '3 颗骰子水平排成一行。相邻两骰子贴合的面之和都是 7。整列能看见的点数之和最大是多少？',
+                    q: '3 颗骰子<b>水平排成一行</b>。相邻两骰子贴合的面之和都是 7。整列能看见的点数之和<b>最大</b>是多少？',
+                    fig: `<svg viewBox="0 0 400 160" width="400">
+                        <!-- 三骰子横排 -->
+                        <g stroke="#1565C0" stroke-width="2">
+                            <!-- 骰 1 -->
+                            <polygon points="20,50 60,30 60,120 20,140" fill="#E3F2FD"/>
+                            <polygon points="60,30 100,50 100,140 60,120" fill="#BBDEFB"/>
+                            <polygon points="20,50 60,30 100,50 60,70" fill="#E1F5FE"/>
+                            <!-- 骰 2 -->
+                            <polygon points="140,50 180,30 180,120 140,140" fill="#E3F2FD"/>
+                            <polygon points="180,30 220,50 220,140 180,120" fill="#BBDEFB"/>
+                            <polygon points="140,50 180,30 220,50 180,70" fill="#E1F5FE"/>
+                            <!-- 骰 3 -->
+                            <polygon points="260,50 300,30 300,120 260,140" fill="#E3F2FD"/>
+                            <polygon points="300,30 340,50 340,140 300,120" fill="#BBDEFB"/>
+                            <polygon points="260,50 300,30 340,50 300,70" fill="#E1F5FE"/>
+                        </g>
+                        <!-- 贴合标注 -->
+                        <text x="120" y="80" text-anchor="middle" font-size="10" fill="#C62828">贴合=7</text>
+                        <text x="240" y="80" text-anchor="middle" font-size="10" fill="#C62828">贴合=7</text>
+                        <text x="170" y="155" text-anchor="middle" font-size="10" fill="#999">4 个贴合面不可见</text>
+                    </svg>`,
                     steps: [
-                        '贴合的面 = 中间 2 组 × 2 面 = <code>4 面</code>，和 = 2 × 7 = 14',
-                        '可见面 = 总 18 面 − 4 贴合 = <code>14 面</code>',
-                        '总点数 = 3 × 21 = 63',
-                        '可见和 = 63 − 14 = <code>49</code>',
-                        '但要<b>最大</b>可见，可以旋转骰子让底面是小数字（1）、顶面是大数字（6）',
-                        '每颗骰子贴合+旋转后，顶 + 底 = 7，可见面（4 面）最大 = 21 − 7 = 14',
-                        '3 颗总可见 = 3 × 14 − 贴合 = 不行，重新想'
+                        '3 颗骰子总点数 = 3 × 21 = <code>63</code>',
+                        '不可见面 = <b>4 个贴合面</b> + <b>两端骰子的底面</b>',
+                        '贴合面和 = 2 × 7 = <code>14</code>',
+                        '每颗骰子"顶面 + 底面" = 7（对面关系），3 颗 → <code>21</code>',
+                        '最大可见和 = 63 − 14（贴合）− 底面',
+                        '底面想小 → 顶面想大 → 3 颗顶面各 6 → 底面各 1，底面和 = 3',
+                        '最大可见 = 63 − 14 − 3 = <code>46</code> （一个常见答案变形）'
                     ],
-                    ans: '约 49（具体看题目图示）',
-                    takeaway: '多骰子问题关键：<b>总 − 不可见</b>。贴合面可以互相抵消。'
+                    ans: '约 46（具体看朝向）',
+                    takeaway: '<b>最大可见</b> 要让底面点数尽量小（即把 1 转到底）'
                 },
                 {
                     title: '例 4 · 对面给值',
                     stars: 3,
-                    q: '骰子某一面是 2，它的对面是什么？',
+                    q: '骰子某一面是 <b>2</b>，它的对面是什么？',
+                    fig: `<svg viewBox="0 0 200 160" width="180">
+                        <polygon points="40,50 100,30 100,120 40,140" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="100,30 160,50 160,140 100,120" fill="#BBDEFB" stroke="#1565C0" stroke-width="2"/>
+                        <polygon points="40,50 100,30 160,50 100,70" fill="#E1F5FE" stroke="#1565C0" stroke-width="2"/>
+                        <!-- 正面显示 2 点 -->
+                        <circle cx="60" cy="80" r="4" fill="#0D47A1"/>
+                        <circle cx="85" cy="115" r="4" fill="#0D47A1"/>
+                        <text x="100" y="155" text-anchor="middle" font-size="12" fill="#1565C0">正面 = 2</text>
+                        <text x="130" y="100" text-anchor="middle" font-size="20" fill="#C62828" font-weight="bold">?</text>
+                        <text x="130" y="118" text-anchor="middle" font-size="9" fill="#999">背面</text>
+                    </svg>`,
                     steps: [
-                        '对面规则：2 + x = 7 → x = <code>5</code>'
+                        '对面规则：2 + x = <b>7</b> → x = <code>5</code>'
                     ],
                     ans: '5',
-                    takeaway: '最基础的"7 的秘密"：<b>给一面猜对面</b>。'
+                    takeaway: '最基础的"<b>对面和 = 7</b>"规则：给一面立刻猜对面。'
                 }
             ],
             practice: [
@@ -2316,50 +2597,117 @@ const AK4 = [
                     title: '例 1 · 相对面',
                     stars: 2,
                     q: '一个十字展开图：中间一行有 A、B、C、D 四个方块相连，B 的上方是 E，B 的下方是 F。折成立方体后，E 的相对面是哪个？',
+                    fig: `<svg viewBox="0 0 320 240" width="320">
+                        <g fill="#E8F5E9" stroke="#2E7D32" stroke-width="2">
+                            <!-- 中间一行 A B C D -->
+                            <rect x="40" y="100" width="60" height="60"/>
+                            <rect x="100" y="100" width="60" height="60"/>
+                            <rect x="160" y="100" width="60" height="60"/>
+                            <rect x="220" y="100" width="60" height="60"/>
+                            <!-- B 上方 E -->
+                            <rect x="100" y="40" width="60" height="60"/>
+                            <!-- B 下方 F -->
+                            <rect x="100" y="160" width="60" height="60"/>
+                        </g>
+                        <text x="70" y="135" text-anchor="middle" font-size="20" fill="#1B5E20" font-weight="bold">A</text>
+                        <text x="130" y="135" text-anchor="middle" font-size="20" fill="#1B5E20" font-weight="bold">B</text>
+                        <text x="190" y="135" text-anchor="middle" font-size="20" fill="#1B5E20" font-weight="bold">C</text>
+                        <text x="250" y="135" text-anchor="middle" font-size="20" fill="#1B5E20" font-weight="bold">D</text>
+                        <text x="130" y="75" text-anchor="middle" font-size="20" fill="#1B5E20" font-weight="bold">E</text>
+                        <text x="130" y="195" text-anchor="middle" font-size="20" fill="#1B5E20" font-weight="bold">F</text>
+                        <text x="160" y="235" text-anchor="middle" font-size="11" fill="#999">十字形标准展开</text>
+                    </svg>`,
                     steps: [
-                        '展开图：E 在 B 的上面，F 在 B 的下面，B 周围四个方块',
-                        'E 和 F 都挨着 B，所以 E 和 F 是上下相对 → <b>E 的对面是 F</b>',
-                        '验证：十字图中隔一格的方块互为对面'
+                        'E 和 B 共边、F 和 B 共边 → 折起来 E 和 F 都挨着 B',
+                        '展开图中 <b>E 和 F 隔了一格 (B)</b> → 折起来是 <b>对面</b>',
+                        '所以 E 的对面是 <code>F</code>'
                     ],
                     ans: 'F',
-                    takeaway: '十字展开图：<b>中间列的头尾两格</b>一定对面；<b>水平行的头尾</b>也对面。'
+                    takeaway: '<b>隔一格</b>共一行/列 = <b>相对面</b>。十字展开图的中列头尾（E 和 F）、水平行头尾（A 和 C 或 B 和 D）都互为对面。'
                 },
                 {
                     title: '例 2 · 能否折成',
                     stars: 3,
-                    q: '六个方格排成一行（1-2-3-4-5-6），能折成立方体吗？',
+                    q: '六个方格排成<b>一行</b>（1-2-3-4-5-6），能折成立方体吗？',
+                    fig: `<svg viewBox="0 0 360 90" width="340">
+                        <g fill="#FFEBEE" stroke="#C62828" stroke-width="2">
+                            <rect x="20" y="20" width="50" height="50"/>
+                            <rect x="70" y="20" width="50" height="50"/>
+                            <rect x="120" y="20" width="50" height="50"/>
+                            <rect x="170" y="20" width="50" height="50"/>
+                            <rect x="220" y="20" width="50" height="50"/>
+                            <rect x="270" y="20" width="50" height="50"/>
+                        </g>
+                        <text x="45" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#B71C1C">1</text>
+                        <text x="95" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#B71C1C">2</text>
+                        <text x="145" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#B71C1C">3</text>
+                        <text x="195" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#B71C1C">4</text>
+                        <text x="245" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#B71C1C">5</text>
+                        <text x="295" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#B71C1C">6</text>
+                        <text x="170" y="85" text-anchor="middle" font-size="11" fill="#C62828">一行 6 格，折不起来</text>
+                    </svg>`,
                     steps: [
-                        '一行 6 格是<b>不能</b>折成立方体的',
-                        '立方体有 6 面，展开图有 6 个方格没错，但<b>排列必须符合折叠规则</b>',
-                        '一行 6 格折起来会重叠（1 盖到 4，2 盖到 5...）'
+                        '虽然 6 格数对，但<b>一直线超过 4 格</b> → 不能',
+                        '若尝试折：第 5 格会重叠第 2 格，第 6 格会重叠第 3 格',
+                        '立方体展开图<b>最长直线 ≤ 4 格</b>'
                     ],
                     ans: '不能',
-                    takeaway: '立方体展开图<b>最长的直线不超过 4 格</b>。超过 4 格就折不起来。'
+                    takeaway: '<b>最长直线 ≤ 4 格</b>（否则两端会重叠）'
                 },
                 {
-                    title: '例 3 · 11 种之一',
+                    title: '例 3 · 11 种之一（T 字）',
                     stars: 3,
-                    q: 'T 字形：中间一行 3 格，顶部中间格的上方再加 3 格竖排。能折成立方体吗？',
+                    q: 'T 字形：中间一行 3 格，中间格上方再加 3 格竖排。<b>能</b>折成立方体吗？',
+                    fig: `<svg viewBox="0 0 240 230" width="200">
+                        <g fill="#E8F5E9" stroke="#2E7D32" stroke-width="2">
+                            <!-- 竖排 3 格 -->
+                            <rect x="90" y="20" width="50" height="50"/>
+                            <rect x="90" y="70" width="50" height="50"/>
+                            <rect x="90" y="120" width="50" height="50"/>
+                            <!-- 横行左右 2 格（加上中间已有的，共 3 格） -->
+                            <rect x="40" y="170" width="50" height="50"/>
+                            <rect x="90" y="170" width="50" height="50"/>
+                            <rect x="140" y="170" width="50" height="50"/>
+                        </g>
+                        <text x="115" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">共 6 格 ✓</text>
+                    </svg>`,
                     steps: [
-                        '数一下：3（横）+ 3（竖，但共享 1 格）= 共 <code>5 格</code>，不够 6 格',
-                        '展开图必须正好 <b>6 格</b>方能折成立方体',
-                        '5 格 → 不能'
+                        '数格子：竖排 3 + 横行 3，中间共享 1 格 → 共 <code>5 + ? 格</code>',
+                        '标准 T 字：3 竖 + 2 横 = 5 格 ✗（不够）',
+                        '若扩展为 "3 竖 + 3 横共享一格 = 共 5 格" → 不够 6',
+                        '若 T 字共 6 格（右图所示）→ <b>是</b> 11 种标准展开之一'
                     ],
-                    ans: '不能',
+                    ans: '若共 6 格则能，共 5 格则不能',
                     takeaway: '先数<b>方格数 = 6 吗？</b>再判断排列。'
                 },
                 {
-                    title: '例 4 · 标数',
+                    title: '例 4 · 标数相对面',
                     stars: 4,
-                    q: '展开图是十字形，中间十字 4 格、上下各 1 格，标注 A（上）、B（下）、C（左）、D（中）、E（右右）、F（最右）。折起后 C 的相对面？',
+                    q: '十字展开图，中间十字 4 格、上下各 1 格，标注 A（上）、B（下）、C（左）、D（中左）、E（中右）、F（最右）。折起后 <b>C 的相对面</b>是哪个？',
+                    fig: `<svg viewBox="0 0 340 230" width="320">
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="100" y="30" width="55" height="55"/>
+                            <rect x="40" y="85" width="55" height="55"/>
+                            <rect x="100" y="85" width="55" height="55"/>
+                            <rect x="155" y="85" width="55" height="55"/>
+                            <rect x="210" y="85" width="55" height="55"/>
+                            <rect x="100" y="140" width="55" height="55"/>
+                        </g>
+                        <text x="128" y="63" text-anchor="middle" font-size="20" font-weight="bold" fill="#4A148C">A</text>
+                        <text x="68" y="118" text-anchor="middle" font-size="20" font-weight="bold" fill="#4A148C">C</text>
+                        <text x="128" y="118" text-anchor="middle" font-size="20" font-weight="bold" fill="#4A148C">D</text>
+                        <text x="183" y="118" text-anchor="middle" font-size="20" font-weight="bold" fill="#4A148C">E</text>
+                        <text x="238" y="118" text-anchor="middle" font-size="20" font-weight="bold" fill="#4A148C">F</text>
+                        <text x="128" y="173" text-anchor="middle" font-size="20" font-weight="bold" fill="#4A148C">B</text>
+                    </svg>`,
                     steps: [
-                        '中间行：C-D-E-F（4 格共线）',
-                        'C 和 E 相隔一格 → <b>对面</b>',
-                        'D 和 F 相隔一格 → 对面',
-                        'A 和 B 上下相对（通过 D）→ 对面'
+                        '中间横行：C-D-E-F (4 格共线)',
+                        'C 和 E <b>隔一格 (D)</b> → <b>相对面</b> ✓',
+                        'D 和 F 隔一格 → 对面',
+                        'A 和 B 上下相对（通过中间 D）→ 对面'
                     ],
                     ans: 'E',
-                    takeaway: '<b>水平行的隔一格</b> 互为对面。记"隔一相对"。'
+                    takeaway: '<b>水平行隔一格</b>互为对面。"隔一相对" 口诀。'
                 }
             ],
             practice: [
@@ -2382,31 +2730,122 @@ const AK4 = [
                 {
                     title: '例 1 · 一列',
                     stars: 2,
-                    q: '3 个相同小立方体叠成一列（竖直）。三视图分别是什么？',
+                    q: '3 个相同小立方体<b>竖直叠成一列</b>。三视图分别是什么样？',
+                    fig: `<svg viewBox="0 0 340 220" width="340">
+                        <!-- 实际形体 -->
+                        <g font-size="11" fill="#333">
+                            <text x="50" y="18" text-anchor="middle" font-weight="bold">形体</text>
+                            <g fill="#FFF3E0" stroke="#E65100" stroke-width="2">
+                                <rect x="30" y="30" width="40" height="40"/>
+                                <rect x="30" y="70" width="40" height="40"/>
+                                <rect x="30" y="110" width="40" height="40"/>
+                            </g>
+                        </g>
+                        <!-- 正视 -->
+                        <g font-size="11" fill="#333">
+                            <text x="130" y="18" text-anchor="middle" font-weight="bold">正视</text>
+                            <g fill="#E3F2FD" stroke="#1565C0" stroke-width="2">
+                                <rect x="110" y="30" width="40" height="40"/>
+                                <rect x="110" y="70" width="40" height="40"/>
+                                <rect x="110" y="110" width="40" height="40"/>
+                            </g>
+                        </g>
+                        <!-- 左视 -->
+                        <g font-size="11" fill="#333">
+                            <text x="210" y="18" text-anchor="middle" font-weight="bold">左视</text>
+                            <g fill="#E8F5E9" stroke="#2E7D32" stroke-width="2">
+                                <rect x="190" y="30" width="40" height="40"/>
+                                <rect x="190" y="70" width="40" height="40"/>
+                                <rect x="190" y="110" width="40" height="40"/>
+                            </g>
+                        </g>
+                        <!-- 俯视 -->
+                        <g font-size="11" fill="#333">
+                            <text x="290" y="18" text-anchor="middle" font-weight="bold">俯视</text>
+                            <rect x="270" y="70" width="40" height="40" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2"/>
+                        </g>
+                    </svg>`,
                     steps: [
-                        '正视：<code>1 × 3</code>的竖排长方形（3 格高、1 格宽）',
-                        '左视：也是 <code>1 × 3</code> 竖排',
-                        '俯视：<code>1 格</code>正方形（只看到顶面）'
+                        '正视：从前面看到 <code>1 × 3</code> 竖排',
+                        '左视：从左侧看也是 <code>1 × 3</code> 竖排（遮挡关系）',
+                        '俯视：从上方看只看到<b>顶面</b>，是 <code>1 格</code>正方形'
                     ],
-                    ans: '正和左都是 1×3 竖排；俯视是单个格',
-                    takeaway: '<b>一列</b>堆叠：正左都是竖排；俯视是单格。'
+                    ans: '正、左视都是 1×3 竖排；俯视是单个格',
+                    takeaway: '<b>竖直一列</b>堆叠：正、左视都显示叠的层数；俯视只有单格（上方视角）。'
                 },
                 {
                     title: '例 2 · L 形',
                     stars: 3,
-                    q: '底层是 1×3 的三个小立方体排一行，第二层只有最右边加一个方块。三视图？',
+                    q: '底层是 1×3 的三个小立方体排一行，<b>第二层只有最右边加一个方块</b>。三视图？',
+                    fig: `<svg viewBox="0 0 460 180" width="440">
+                        <!-- 形体 -->
+                        <text x="60" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">形体</text>
+                        <g fill="#FFF3E0" stroke="#E65100" stroke-width="2">
+                            <rect x="20" y="100" width="30" height="30"/>
+                            <rect x="50" y="100" width="30" height="30"/>
+                            <rect x="80" y="100" width="30" height="30"/>
+                            <rect x="80" y="70" width="30" height="30"/>
+                        </g>
+                        <!-- 正视 L 形横 -->
+                        <text x="180" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">正视</text>
+                        <g fill="#E3F2FD" stroke="#1565C0" stroke-width="2">
+                            <rect x="140" y="100" width="30" height="30"/>
+                            <rect x="170" y="100" width="30" height="30"/>
+                            <rect x="200" y="100" width="30" height="30"/>
+                            <rect x="200" y="70" width="30" height="30"/>
+                        </g>
+                        <!-- 左视 2 格竖排 -->
+                        <text x="290" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">左视</text>
+                        <g fill="#E8F5E9" stroke="#2E7D32" stroke-width="2">
+                            <rect x="275" y="100" width="30" height="30"/>
+                            <rect x="275" y="70" width="30" height="30"/>
+                        </g>
+                        <!-- 俯视 3 格 -->
+                        <text x="400" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">俯视</text>
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="355" y="100" width="30" height="30"/>
+                            <rect x="385" y="100" width="30" height="30"/>
+                            <rect x="415" y="100" width="30" height="30"/>
+                        </g>
+                    </svg>`,
                     steps: [
                         '正视：底部 3 格 + 右上 1 格 = <code>L 形（横）</code>',
-                        '左视：底部 1 格 + 上面 1 格 = <code>2 格竖排</code>（因为左边看过去 3 排都挡成一个 1 格）',
-                        '俯视：<code>3 格一行</code>（看到底层的三个顶面）'
+                        '左视：底部 1 格 + 上面 1 格 = <code>2 格竖排</code>（3 列都挡在同一位置）',
+                        '俯视：<code>3 格一行</code>（最顶层每列的俯视投影）'
                     ],
                     ans: '正视 L 形、左视 2 格竖、俯视 3 格一行',
-                    takeaway: '<b>有一些方块往上多叠</b>：俯视图只看最顶层<b>每列</b>有没有方块，不管叠几层。'
+                    takeaway: '<b>俯视图</b>只关心每列是否有方块（不管叠几层）'
                 },
                 {
                     title: '例 3 · 反推',
                     stars: 4,
-                    q: '正视图是 2×2 正方形，俯视图是 2×2 正方形。至少需要几个小方块？',
+                    q: '正视图是 2×2 正方形，俯视图是 2×2 正方形。<b>至少</b>需要几个小方块？',
+                    fig: `<svg viewBox="0 0 320 180" width="300">
+                        <!-- 正视 -->
+                        <text x="55" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">正视 2×2</text>
+                        <g fill="#E3F2FD" stroke="#1565C0" stroke-width="2">
+                            <rect x="25" y="60" width="30" height="30"/>
+                            <rect x="55" y="60" width="30" height="30"/>
+                            <rect x="25" y="90" width="30" height="30"/>
+                            <rect x="55" y="90" width="30" height="30"/>
+                        </g>
+                        <!-- 俯视 -->
+                        <text x="175" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">俯视 2×2</text>
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2">
+                            <rect x="145" y="60" width="30" height="30"/>
+                            <rect x="175" y="60" width="30" height="30"/>
+                            <rect x="145" y="90" width="30" height="30"/>
+                            <rect x="175" y="90" width="30" height="30"/>
+                        </g>
+                        <!-- 可能的最简形体 -->
+                        <text x="275" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">最少 4 块</text>
+                        <g fill="#FFF3E0" stroke="#E65100" stroke-width="2">
+                            <rect x="235" y="90" width="25" height="25"/>
+                            <rect x="265" y="60" width="25" height="25"/>
+                            <rect x="235" y="60" width="25" height="25" fill="none" stroke-dasharray="2,2"/>
+                            <rect x="265" y="90" width="25" height="25" fill="none" stroke-dasharray="2,2"/>
+                        </g>
+                    </svg>`,
                     steps: [
                         '正视是 2×2 → 从正面看是 2 列 × 2 行',
                         '俯视是 2×2 → 从上面看是 2 列 × 2 行',
@@ -2442,6 +2881,48 @@ const AK4 = [
                     title: '例 1 · 3×3×3',
                     stars: 3,
                     q: '一个 3×3×3 立方体，表面涂红，切成 27 个小块。各涂了几面的小方块各多少？',
+                    fig: `<svg viewBox="0 0 260 240" width="240">
+                        <!-- 3x3x3 立方体 等距投影 -->
+                        <defs>
+                            <pattern id="redFace" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <rect width="40" height="40" fill="#FFCDD2"/>
+                            </pattern>
+                        </defs>
+                        <!-- 顶面 (3x3 格) -->
+                        <g stroke="#C62828" stroke-width="1.5">
+                            <polygon points="40,70 130,30 220,70 130,110" fill="#EF9A9A"/>
+                            <!-- 顶面网格 -->
+                            <line x1="70" y1="57" x2="160" y2="97"/>
+                            <line x1="100" y1="44" x2="190" y2="84"/>
+                            <line x1="70" y1="97" x2="160" y2="57"/>
+                            <line x1="100" y1="110" x2="190" y2="70"/>
+                        </g>
+                        <!-- 左面 (正面 3x3) -->
+                        <g stroke="#C62828" stroke-width="1.5">
+                            <polygon points="40,70 130,110 130,210 40,170" fill="#E57373"/>
+                            <line x1="70" y1="83" x2="70" y2="183"/>
+                            <line x1="100" y1="97" x2="100" y2="197"/>
+                            <line x1="40" y1="103" x2="130" y2="143"/>
+                            <line x1="40" y1="137" x2="130" y2="177"/>
+                        </g>
+                        <!-- 右面 3x3 -->
+                        <g stroke="#C62828" stroke-width="1.5">
+                            <polygon points="130,110 220,70 220,170 130,210" fill="#EF5350"/>
+                            <line x1="160" y1="97" x2="160" y2="197"/>
+                            <line x1="190" y1="84" x2="190" y2="184"/>
+                            <line x1="220" y1="103" x2="130" y2="143"/>
+                            <line x1="220" y1="137" x2="130" y2="177"/>
+                        </g>
+                        <!-- 标注角/棱/面 -->
+                        <circle cx="40" cy="70" r="4" fill="#1565C0"/>
+                        <text x="18" y="68" font-size="10" fill="#1565C0">角</text>
+                        <circle cx="100" cy="44" r="3.5" fill="#2E7D32"/>
+                        <text x="105" y="42" font-size="10" fill="#2E7D32">棱</text>
+                        <circle cx="100" cy="140" r="3.5" fill="#6A1B9A"/>
+                        <text x="105" y="138" font-size="10" fill="#6A1B9A">面</text>
+                        <text x="130" y="230" text-anchor="middle" font-size="11" fill="#333">红面在外，白色是内部 1 块</text>
+                    </svg>`,
+                    figCap: '角 8 (蓝) · 棱 12 (绿) · 面心 6 (紫) · 内部 1 (白)',
                     steps: [
                         'n = 3',
                         '3 面（角）：<code>8</code>',
@@ -2457,6 +2938,41 @@ const AK4 = [
                     title: '例 2 · 4×4×4',
                     stars: 4,
                     q: '4×4×4 的立方体表面涂色后切开，各涂几面各多少？',
+                    fig: `<svg viewBox="0 0 260 240" width="240">
+                        <!-- 顶面 4x4 -->
+                        <g stroke="#C62828" stroke-width="1.5">
+                            <polygon points="40,70 130,30 220,70 130,110" fill="#EF9A9A"/>
+                            <!-- 顶面网格 4 等分 -->
+                            <line x1="62.5" y1="60" x2="152.5" y2="100"/>
+                            <line x1="85" y1="50" x2="175" y2="90"/>
+                            <line x1="107.5" y1="40" x2="197.5" y2="80"/>
+                            <line x1="62.5" y1="100" x2="152.5" y2="60"/>
+                            <line x1="85" y1="90" x2="175" y2="50"/>
+                            <line x1="107.5" y1="80" x2="197.5" y2="40"/>
+                        </g>
+                        <!-- 左面 4x4 -->
+                        <g stroke="#C62828" stroke-width="1.5">
+                            <polygon points="40,70 130,110 130,210 40,170" fill="#E57373"/>
+                            <line x1="62.5" y1="80" x2="62.5" y2="180"/>
+                            <line x1="85" y1="90" x2="85" y2="190"/>
+                            <line x1="107.5" y1="100" x2="107.5" y2="200"/>
+                            <line x1="40" y1="95" x2="130" y2="135"/>
+                            <line x1="40" y1="120" x2="130" y2="160"/>
+                            <line x1="40" y1="145" x2="130" y2="185"/>
+                        </g>
+                        <!-- 右面 4x4 -->
+                        <g stroke="#C62828" stroke-width="1.5">
+                            <polygon points="130,110 220,70 220,170 130,210" fill="#EF5350"/>
+                            <line x1="152.5" y1="100" x2="152.5" y2="200"/>
+                            <line x1="175" y1="90" x2="175" y2="190"/>
+                            <line x1="197.5" y1="80" x2="197.5" y2="180"/>
+                            <line x1="130" y1="135" x2="220" y2="95"/>
+                            <line x1="130" y1="160" x2="220" y2="120"/>
+                            <line x1="130" y1="185" x2="220" y2="145"/>
+                        </g>
+                        <text x="130" y="230" text-anchor="middle" font-size="11" fill="#333">n=4 → 8/24/24/8（对称）</text>
+                    </svg>`,
+                    figCap: '每条棱中间 n−2=2 块；每面中间 (n−2)²=4 块；内部 (n−2)³=8 块',
                     steps: [
                         'n = 4',
                         '3 面：<code>8</code>',
@@ -2472,6 +2988,27 @@ const AK4 = [
                     title: '例 3 · 反推',
                     stars: 4,
                     q: '一个大立方体切块后，涂 1 面的方块有 24 个。这个大立方体是几×几×几？',
+                    fig: `<svg viewBox="0 0 300 160" width="280">
+                        <!-- 公式反推示意 -->
+                        <rect x="10" y="20" width="280" height="60" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5" rx="4"/>
+                        <text x="150" y="45" text-anchor="middle" font-size="13" fill="#E65100" font-weight="bold">1 面涂色数 = 6·(n−2)² = 24</text>
+                        <text x="150" y="68" text-anchor="middle" font-size="13" fill="#1565C0">(n−2)² = 4  →  n−2 = 2  →  n = 4</text>
+                        <!-- 示意面 (1 个面)  -->
+                        <g stroke="#C62828" stroke-width="1.5" fill="#EF9A9A">
+                            <rect x="100" y="95" width="100" height="50"/>
+                        </g>
+                        <g stroke="#1565C0" stroke-width="1" fill="none">
+                            <line x1="125" y1="95" x2="125" y2="145"/>
+                            <line x1="150" y1="95" x2="150" y2="145"/>
+                            <line x1="175" y1="95" x2="175" y2="145"/>
+                            <line x1="100" y1="120" x2="200" y2="120"/>
+                        </g>
+                        <!-- 高亮中间 4 格 -->
+                        <rect x="125" y="95" width="50" height="25" fill="#FFEB3B" fill-opacity="0.5"/>
+                        <rect x="125" y="120" width="50" height="25" fill="#FFEB3B" fill-opacity="0.5"/>
+                        <text x="150" y="135" text-anchor="middle" font-size="10" fill="#333">一面有 4 个"面心"</text>
+                    </svg>`,
+                    figCap: '每面中间有 (n−2)² = 4 块只涂 1 面 → 6 面共 24 块',
                     steps: [
                         '1 面方块数 = 6(n−2)² = 24',
                         '(n−2)² = 4，n−2 = 2，n = <code>4</code>'
@@ -2510,6 +3047,54 @@ const AK4 = [
                     title: '例 2 · 补齐长方体',
                     stars: 3,
                     q: '现有 10 个小方块堆成的形体，要补成 3×3×2 的长方体。还需几个？',
+                    fig: `<svg viewBox="0 0 320 180" width="300">
+                        <!-- 已有 10 块 (橙) -->
+                        <g>
+                            <text x="60" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">已有 10 块</text>
+                            <!-- 底层 3x3 = 9 -->
+                            <g fill="#FFE0B2" stroke="#E65100" stroke-width="1.5">
+                                <rect x="20" y="100" width="18" height="18"/>
+                                <rect x="38" y="100" width="18" height="18"/>
+                                <rect x="56" y="100" width="18" height="18"/>
+                                <rect x="30" y="90" width="18" height="18"/>
+                                <rect x="48" y="90" width="18" height="18"/>
+                                <rect x="66" y="90" width="18" height="18"/>
+                                <rect x="40" y="80" width="18" height="18"/>
+                                <rect x="58" y="80" width="18" height="18"/>
+                                <rect x="76" y="80" width="18" height="18"/>
+                            </g>
+                            <!-- 上层 1 块 -->
+                            <rect x="40" y="62" width="18" height="18" fill="#FFE0B2" stroke="#E65100" stroke-width="1.5"/>
+                        </g>
+                        <!-- 目标 3x3x2 = 18 -->
+                        <g>
+                            <text x="220" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">目标 3×3×2 = 18</text>
+                            <g fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5">
+                                <!-- 下层 -->
+                                <rect x="170" y="100" width="18" height="18"/>
+                                <rect x="188" y="100" width="18" height="18"/>
+                                <rect x="206" y="100" width="18" height="18"/>
+                                <rect x="180" y="90" width="18" height="18"/>
+                                <rect x="198" y="90" width="18" height="18"/>
+                                <rect x="216" y="90" width="18" height="18"/>
+                                <rect x="190" y="80" width="18" height="18"/>
+                                <rect x="208" y="80" width="18" height="18"/>
+                                <rect x="226" y="80" width="18" height="18"/>
+                                <!-- 上层 -->
+                                <rect x="170" y="60" width="18" height="18"/>
+                                <rect x="188" y="60" width="18" height="18"/>
+                                <rect x="206" y="60" width="18" height="18"/>
+                                <rect x="180" y="50" width="18" height="18"/>
+                                <rect x="198" y="50" width="18" height="18"/>
+                                <rect x="216" y="50" width="18" height="18"/>
+                                <rect x="190" y="40" width="18" height="18"/>
+                                <rect x="208" y="40" width="18" height="18"/>
+                                <rect x="226" y="40" width="18" height="18"/>
+                            </g>
+                        </g>
+                        <text x="130" y="150" text-anchor="middle" font-size="14" fill="#C62828" font-weight="bold">需补 18 − 10 = 8</text>
+                    </svg>`,
+                    figCap: '补全 = 目标体积 − 已有数',
                     steps: [
                         '目标体积：3 × 3 × 2 = <code>18</code>',
                         '需要补：18 − 10 = <code>8</code>'
@@ -2521,6 +3106,38 @@ const AK4 = [
                     title: '例 3 · 阶梯',
                     stars: 3,
                     q: '一个"阶梯"形：底层 1×5 一行，上面层每层少 1 块（4、3、2、1）。一共多少方块？',
+                    fig: `<svg viewBox="0 0 220 180" width="200">
+                        <g fill="#FFE0B2" stroke="#E65100" stroke-width="1.5">
+                            <!-- 第 1 层: 5 块 -->
+                            <rect x="20" y="130" width="25" height="25"/>
+                            <rect x="45" y="130" width="25" height="25"/>
+                            <rect x="70" y="130" width="25" height="25"/>
+                            <rect x="95" y="130" width="25" height="25"/>
+                            <rect x="120" y="130" width="25" height="25"/>
+                            <!-- 第 2 层: 4 块 -->
+                            <rect x="20" y="105" width="25" height="25"/>
+                            <rect x="45" y="105" width="25" height="25"/>
+                            <rect x="70" y="105" width="25" height="25"/>
+                            <rect x="95" y="105" width="25" height="25"/>
+                            <!-- 第 3 层: 3 块 -->
+                            <rect x="20" y="80" width="25" height="25"/>
+                            <rect x="45" y="80" width="25" height="25"/>
+                            <rect x="70" y="80" width="25" height="25"/>
+                            <!-- 第 4 层: 2 块 -->
+                            <rect x="20" y="55" width="25" height="25"/>
+                            <rect x="45" y="55" width="25" height="25"/>
+                            <!-- 第 5 层: 1 块 -->
+                            <rect x="20" y="30" width="25" height="25"/>
+                        </g>
+                        <!-- 标注 -->
+                        <text x="165" y="47" font-size="11" fill="#333">1</text>
+                        <text x="165" y="72" font-size="11" fill="#333">2</text>
+                        <text x="165" y="97" font-size="11" fill="#333">3</text>
+                        <text x="165" y="122" font-size="11" fill="#333">4</text>
+                        <text x="165" y="147" font-size="11" fill="#333">5</text>
+                        <text x="110" y="175" text-anchor="middle" font-size="12" fill="#C62828" font-weight="bold">1+2+3+4+5 = 15</text>
+                    </svg>`,
+                    figCap: '阶梯求和：1+2+⋯+n = n(n+1)/2',
                     steps: [
                         '每层：5 + 4 + 3 + 2 + 1 = <code>15</code>'
                     ],
@@ -2531,16 +3148,49 @@ const AK4 = [
                     title: '例 4 · 看不见',
                     stars: 4,
                     q: '一个形体从前面看是 3×3 正方形，从左面看是 3×3 正方形，从上面看也是 3×3 正方形。最多有多少方块？最少呢？',
+                    fig: `<svg viewBox="0 0 360 180" width="340">
+                        <!-- 三视图：都是 3x3 -->
+                        <g font-size="11" fill="#333">
+                            <text x="40" y="18" text-anchor="middle" font-weight="bold">正视 3×3</text>
+                            <g fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5">
+                                <rect x="15" y="30" width="20" height="20"/><rect x="35" y="30" width="20" height="20"/><rect x="55" y="30" width="20" height="20"/>
+                                <rect x="15" y="50" width="20" height="20"/><rect x="35" y="50" width="20" height="20"/><rect x="55" y="50" width="20" height="20"/>
+                                <rect x="15" y="70" width="20" height="20"/><rect x="35" y="70" width="20" height="20"/><rect x="55" y="70" width="20" height="20"/>
+                            </g>
+                            <text x="130" y="18" text-anchor="middle" font-weight="bold">左视 3×3</text>
+                            <g fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5">
+                                <rect x="105" y="30" width="20" height="20"/><rect x="125" y="30" width="20" height="20"/><rect x="145" y="30" width="20" height="20"/>
+                                <rect x="105" y="50" width="20" height="20"/><rect x="125" y="50" width="20" height="20"/><rect x="145" y="50" width="20" height="20"/>
+                                <rect x="105" y="70" width="20" height="20"/><rect x="125" y="70" width="20" height="20"/><rect x="145" y="70" width="20" height="20"/>
+                            </g>
+                            <text x="220" y="18" text-anchor="middle" font-weight="bold">俯视 3×3</text>
+                            <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+                                <rect x="195" y="30" width="20" height="20"/><rect x="215" y="30" width="20" height="20"/><rect x="235" y="30" width="20" height="20"/>
+                                <rect x="195" y="50" width="20" height="20"/><rect x="215" y="50" width="20" height="20"/><rect x="235" y="50" width="20" height="20"/>
+                                <rect x="195" y="70" width="20" height="20"/><rect x="215" y="70" width="20" height="20"/><rect x="235" y="70" width="20" height="20"/>
+                            </g>
+                        </g>
+                        <!-- 最大/最少 -->
+                        <text x="40" y="130" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">最多</text>
+                        <text x="40" y="150" text-anchor="middle" font-size="18" fill="#C62828" font-weight="bold">27</text>
+                        <text x="40" y="168" text-anchor="middle" font-size="10" fill="#999">填满 3³</text>
+                        <text x="220" y="130" text-anchor="middle" font-size="11" fill="#2E7D32" font-weight="bold">最少</text>
+                        <text x="220" y="150" text-anchor="middle" font-size="18" fill="#2E7D32" font-weight="bold">9</text>
+                        <text x="220" y="168" text-anchor="middle" font-size="10" fill="#999">三条正交对角线</text>
+                        <text x="310" y="100" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">结论</text>
+                        <text x="310" y="130" text-anchor="middle" font-size="11" fill="#1565C0">最多 27</text>
+                        <text x="310" y="150" text-anchor="middle" font-size="11" fill="#2E7D32">最少 9</text>
+                    </svg>`,
+                    figCap: '三视图都是 3×3 → 每行每列每层至少 1 块；可以巧妙共用',
                     steps: [
-                        '<b>最多</b>：填满 3×3×3 = <code>27</code> 个',
-                        '<b>最少</b>：三个视图都要是 3×3 实心的，需要在每个方向都有方块对应每一行每一列',
-                        '最少数：3×3 俯视要求每一列至少 1 个 → 最少 9 个（铺底层）',
-                        '但正视和左视都要 3×3 → 每一列每一行每一层都要有方块',
-                        '最少 = <code>9 块</code>（底层铺满，上层空；但那样正视和左视只是 3×1）',
-                        '实际最少约 9-11，具体画图'
+                        '<b>最多</b>：填满 3×3×3 = <code>27</code> 个方块',
+                        '<b>最少</b>：三视图都要显示 3×3 实心 → 俯视的 9 格每格都要有方块',
+                        '只要 9 个方块放成"三条正交对角线"（每层 3 个，位置错开）就能让',
+                        '俯视 3×3 ✓、正视 3×3 ✓、左视 3×3 ✓',
+                        '最少 = <code>9 块</code>'
                     ],
-                    ans: '最多 27，最少约 11',
-                    takeaway: '<b>最多/最少</b> 看方块能否"合并共用"位置。'
+                    ans: '最多 27，最少 9',
+                    takeaway: '<b>最多/最少</b>：最少让每个"投影格"只用 1 块方块共用。'
                 }
             ],
             practice: [
@@ -2804,6 +3454,23 @@ const AK4 = [
                     title: '例 1 · 1×1 格',
                     stars: 2,
                     q: '2×2 方格里一共有多少正方形？',
+                    fig: `<svg viewBox="0 0 220 120" width="200">
+                        <!-- 2x2 网格 -->
+                        <g stroke="#1565C0" stroke-width="2" fill="none">
+                            <rect x="20" y="20" width="80" height="80"/>
+                            <line x1="60" y1="20" x2="60" y2="100"/>
+                            <line x1="20" y1="60" x2="100" y2="60"/>
+                        </g>
+                        <!-- 右侧标注 -->
+                        <text x="140" y="40" font-size="12" fill="#1565C0">1×1 : 4 个</text>
+                        <text x="140" y="60" font-size="12" fill="#C62828">2×2 : 1 个</text>
+                        <text x="140" y="85" font-size="14" fill="#333" font-weight="bold">共 5 个</text>
+                        <!-- 高亮 1x1 -->
+                        <rect x="20" y="20" width="40" height="40" fill="#E3F2FD" fill-opacity="0.4"/>
+                        <!-- 整个高亮 -->
+                        <rect x="20" y="20" width="80" height="80" fill="none" stroke="#C62828" stroke-width="2.5" stroke-dasharray="3,3"/>
+                    </svg>`,
+                    figCap: '4 个小 1×1 + 1 个大 2×2 = 5',
                     steps: [
                         '1×1 小的：<code>4 个</code>',
                         '2×2 大的（整个）：<code>1 个</code>',
@@ -2816,6 +3483,27 @@ const AK4 = [
                     title: '例 2 · 3×3',
                     stars: 3,
                     q: '3×3 方格一共多少正方形？',
+                    fig: `<svg viewBox="0 0 300 160" width="280">
+                        <!-- 3x3 网格 -->
+                        <g stroke="#1565C0" stroke-width="2" fill="none">
+                            <rect x="20" y="20" width="120" height="120"/>
+                            <line x1="60" y1="20" x2="60" y2="140"/>
+                            <line x1="100" y1="20" x2="100" y2="140"/>
+                            <line x1="20" y1="60" x2="140" y2="60"/>
+                            <line x1="20" y1="100" x2="140" y2="100"/>
+                        </g>
+                        <!-- 高亮示例 2x2 -->
+                        <rect x="20" y="20" width="80" height="80" fill="#E8F5E9" fill-opacity="0.5" stroke="#2E7D32" stroke-width="2"/>
+                        <!-- 高亮 3x3 虚线 -->
+                        <rect x="20" y="20" width="120" height="120" fill="none" stroke="#C62828" stroke-width="2.5" stroke-dasharray="4,3"/>
+                        <!-- 右侧标注 -->
+                        <text x="170" y="40" font-size="12" fill="#1565C0">1×1 : 3² = <tspan font-weight="bold">9</tspan></text>
+                        <text x="170" y="60" font-size="12" fill="#2E7D32">2×2 : 2² = <tspan font-weight="bold">4</tspan></text>
+                        <text x="170" y="80" font-size="12" fill="#C62828">3×3 : 1² = <tspan font-weight="bold">1</tspan></text>
+                        <line x1="170" y1="90" x2="290" y2="90" stroke="#333"/>
+                        <text x="170" y="110" font-size="14" fill="#333" font-weight="bold">共 14 个</text>
+                    </svg>`,
+                    figCap: 'n×n 方格的正方形数 = 1² + 2² + … + n²',
                     steps: [
                         '1×1：9 个',
                         '2×2：4 个（左上、右上、左下、右下）',
@@ -2829,6 +3517,34 @@ const AK4 = [
                     title: '例 3 · 长方形',
                     stars: 4,
                     q: '2×2 方格里共多少<b>长方形</b>（包括正方形）？',
+                    fig: `<svg viewBox="0 0 320 160" width="300">
+                        <!-- 2x2 基础网格 -->
+                        <g stroke="#1565C0" stroke-width="2" fill="none">
+                            <rect x="20" y="30" width="80" height="80"/>
+                            <line x1="60" y1="30" x2="60" y2="110"/>
+                            <line x1="20" y1="70" x2="100" y2="70"/>
+                        </g>
+                        <!-- 1x2 横 示例 -->
+                        <rect x="130" y="30" width="80" height="40" fill="#E8F5E9" fill-opacity="0.5" stroke="#2E7D32" stroke-width="2"/>
+                        <g stroke="#2E7D32" stroke-width="1.5" fill="none">
+                            <rect x="130" y="30" width="80" height="80"/>
+                            <line x1="170" y1="30" x2="170" y2="110"/>
+                            <line x1="130" y1="70" x2="210" y2="70"/>
+                        </g>
+                        <text x="170" y="130" text-anchor="middle" font-size="11" fill="#2E7D32" font-weight="bold">1×2 横</text>
+                        <!-- 2x1 竖 示例 -->
+                        <rect x="240" y="30" width="40" height="80" fill="#F3E5F5" fill-opacity="0.5" stroke="#6A1B9A" stroke-width="2"/>
+                        <g stroke="#6A1B9A" stroke-width="1.5" fill="none">
+                            <rect x="240" y="30" width="80" height="80"/>
+                            <line x1="280" y1="30" x2="280" y2="110"/>
+                            <line x1="240" y1="70" x2="320" y2="70"/>
+                        </g>
+                        <text x="280" y="130" text-anchor="middle" font-size="11" fill="#6A1B9A" font-weight="bold">2×1 竖</text>
+                        <text x="60" y="130" text-anchor="middle" font-size="11" fill="#1565C0" font-weight="bold">基本</text>
+                        <!-- 统计 -->
+                        <text x="160" y="150" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">1×1: 4 · 1×2: 2 · 2×1: 2 · 2×2: 1 → 共 9</text>
+                    </svg>`,
+                    figCap: '长方形计数 = 选 2 条横线 × 选 2 条竖线 = C(3,2)×C(3,2) = 9',
                     steps: [
                         '1×1：4 个',
                         '1×2 横着：2 个（两行各 1 个）',
@@ -3059,6 +3775,34 @@ const AK4 = [
                     title: '例 1 · 三角数',
                     stars: 2,
                     q: '第 1 图 1 个三角形，第 2 图 3 个（底层 2 + 顶层 1），第 3 图 6 个。第 5 图多少个？',
+                    fig: `<svg viewBox="0 0 420 140" width="400">
+                        <!-- 第 1 图 -->
+                        <text x="35" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 1 图 (1)</text>
+                        <polygon points="25,100 45,100 35,82" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5"/>
+                        <!-- 第 2 图 (3 个: 底 2 + 顶 1) -->
+                        <text x="110" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 2 图 (3)</text>
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+                            <polygon points="85,100 105,100 95,82"/>
+                            <polygon points="105,100 125,100 115,82"/>
+                            <polygon points="95,82 115,82 105,64"/>
+                        </g>
+                        <!-- 第 3 图 (6) -->
+                        <text x="200" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 3 图 (6)</text>
+                        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+                            <polygon points="165,100 185,100 175,82"/>
+                            <polygon points="185,100 205,100 195,82"/>
+                            <polygon points="205,100 225,100 215,82"/>
+                            <polygon points="175,82 195,82 185,64"/>
+                            <polygon points="195,82 215,82 205,64"/>
+                            <polygon points="185,64 205,64 195,46"/>
+                        </g>
+                        <!-- 规律推导 -->
+                        <text x="330" y="40" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">三角数</text>
+                        <text x="330" y="60" text-anchor="middle" font-size="11" fill="#1565C0">1, 3, 6, 10, 15</text>
+                        <text x="330" y="80" text-anchor="middle" font-size="11" fill="#1565C0">增量 +2, +3, +4, +5</text>
+                        <text x="330" y="105" text-anchor="middle" font-size="14" fill="#C62828" font-weight="bold">第 5 图 = 15</text>
+                    </svg>`,
+                    figCap: '三角数 Tₙ = n(n+1)/2',
                     steps: [
                         '每张图的增量：1, 2, 3, 4...',
                         '第 n 图数量 = 1+2+3+...+n',
@@ -3071,6 +3815,38 @@ const AK4 = [
                     title: '例 2 · 等差图形',
                     stars: 2,
                     q: '第 1 图 3 根火柴，第 2 图 5 根，第 3 图 7 根。第 10 图？',
+                    fig: `<svg viewBox="0 0 420 130" width="400">
+                        <!-- 第 1 图: 1 个三角 (3 根火柴) -->
+                        <text x="55" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 1 图 (3 根)</text>
+                        <g stroke="#E65100" stroke-width="3" stroke-linecap="round">
+                            <line x1="30" y1="90" x2="80" y2="90"/>
+                            <line x1="30" y1="90" x2="55" y2="40"/>
+                            <line x1="80" y1="90" x2="55" y2="40"/>
+                        </g>
+                        <!-- 第 2 图: 2 三角并排 (5 根) -->
+                        <text x="160" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 2 图 (5 根)</text>
+                        <g stroke="#E65100" stroke-width="3" stroke-linecap="round">
+                            <line x1="110" y1="90" x2="210" y2="90"/>
+                            <line x1="110" y1="90" x2="135" y2="40"/>
+                            <line x1="160" y1="90" x2="135" y2="40"/>
+                            <line x1="160" y1="90" x2="185" y2="40"/>
+                            <line x1="210" y1="90" x2="185" y2="40"/>
+                        </g>
+                        <!-- 第 3 图: 3 三角 (7 根) -->
+                        <text x="290" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 3 图 (7 根)</text>
+                        <g stroke="#E65100" stroke-width="3" stroke-linecap="round">
+                            <line x1="240" y1="90" x2="340" y2="90"/>
+                            <line x1="240" y1="90" x2="265" y2="40"/>
+                            <line x1="290" y1="90" x2="265" y2="40"/>
+                            <line x1="290" y1="90" x2="315" y2="40"/>
+                            <line x1="340" y1="90" x2="315" y2="40"/>
+                            <line x1="315" y1="40" x2="340" y2="90"/>
+                        </g>
+                        <!-- 规律 -->
+                        <text x="385" y="60" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">+2</text>
+                        <text x="385" y="80" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">a₁₀=21</text>
+                    </svg>`,
+                    figCap: '等差 d=2 → aₙ = 2n+1',
                     steps: [
                         '等差数列：3, 5, 7, ... d = 2',
                         '通项：aₙ = 3 + (n−1) × 2',
@@ -3083,6 +3859,30 @@ const AK4 = [
                     title: '例 3 · 边数',
                     stars: 3,
                     q: '第 1 图 1 个正方形（4 根火柴），每张图在上一张右边再接一个正方形（共享一条边）。第 5 图用几根？',
+                    fig: `<svg viewBox="0 0 420 130" width="400">
+                        <!-- 第 1 图 -->
+                        <text x="55" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 1 图 (4)</text>
+                        <g stroke="#E65100" stroke-width="3" stroke-linecap="round" fill="none">
+                            <rect x="30" y="45" width="50" height="50"/>
+                        </g>
+                        <!-- 第 2 图: 2 并排 (7) -->
+                        <text x="140" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 2 图 (7)</text>
+                        <g stroke="#E65100" stroke-width="3" stroke-linecap="round" fill="none">
+                            <rect x="105" y="45" width="50" height="50"/>
+                            <rect x="155" y="45" width="50" height="50"/>
+                        </g>
+                        <!-- 第 3 图: 3 并排 (10) -->
+                        <text x="275" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 3 图 (10)</text>
+                        <g stroke="#E65100" stroke-width="3" stroke-linecap="round" fill="none">
+                            <rect x="225" y="45" width="50" height="50"/>
+                            <rect x="275" y="45" width="50" height="50"/>
+                            <rect x="325" y="45" width="50" height="50"/>
+                        </g>
+                        <!-- 规律 -->
+                        <text x="400" y="60" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">+3</text>
+                        <text x="400" y="80" text-anchor="middle" font-size="10" fill="#1565C0">3n+1</text>
+                    </svg>`,
+                    figCap: '每接 1 个方格多 3 根 → 第 n 图 = 3n+1',
                     steps: [
                         '第 1 图：4 根',
                         '每多一个正方形，共享 1 条边，所以多 <code>3</code> 根（上下右三条）',
@@ -3096,6 +3896,29 @@ const AK4 = [
                     title: '例 4 · 平方规律',
                     stars: 4,
                     q: '第 1 图 1 个点，第 2 图 4 个点（2×2），第 3 图 9 个点（3×3）。第 10 图多少点？',
+                    fig: `<svg viewBox="0 0 420 140" width="400">
+                        <!-- 第 1 图 1 点 -->
+                        <text x="30" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 1 (1)</text>
+                        <circle cx="30" cy="80" r="5" fill="#1565C0"/>
+                        <!-- 第 2 图 2x2=4 -->
+                        <text x="100" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 2 (4)</text>
+                        <g fill="#1565C0">
+                            <circle cx="85" cy="65" r="5"/><circle cx="115" cy="65" r="5"/>
+                            <circle cx="85" cy="95" r="5"/><circle cx="115" cy="95" r="5"/>
+                        </g>
+                        <!-- 第 3 图 3x3=9 -->
+                        <text x="200" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">第 3 (9)</text>
+                        <g fill="#1565C0">
+                            <circle cx="170" cy="50" r="5"/><circle cx="200" cy="50" r="5"/><circle cx="230" cy="50" r="5"/>
+                            <circle cx="170" cy="80" r="5"/><circle cx="200" cy="80" r="5"/><circle cx="230" cy="80" r="5"/>
+                            <circle cx="170" cy="110" r="5"/><circle cx="200" cy="110" r="5"/><circle cx="230" cy="110" r="5"/>
+                        </g>
+                        <!-- 规律 -->
+                        <text x="340" y="55" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">aₙ = n²</text>
+                        <text x="340" y="80" text-anchor="middle" font-size="11" fill="#1565C0">1, 4, 9, 16, 25…</text>
+                        <text x="340" y="105" text-anchor="middle" font-size="14" fill="#C62828" font-weight="bold">a₁₀ = 100</text>
+                    </svg>`,
+                    figCap: '方阵点数 = n²',
                     steps: [
                         '规律：第 n 图 = n²',
                         '第 10 图 = 10² = <code>100</code>'
@@ -4261,6 +5084,7 @@ function renderEx(e, i) {
             <span class="ex-title">${e.title||''}</span>
         </div>
         <div class="ex-q">📄 ${q}</div>
+        ${e.fig ? `<div class="ex-fig">${e.fig}${e.figCap?`<div class="cap">${e.figCap}</div>`:''}</div>` : ''}
         <div class="ex-steps">
             <h6>🔎 解题步骤</h6>
             <ol>${steps}</ol>
