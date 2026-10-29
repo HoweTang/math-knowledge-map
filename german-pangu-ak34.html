@@ -252,6 +252,23 @@ main { max-width: 1000px; margin: 0 auto; padding: 20px 24px 100px; }
     text-align: center;
     font-style: italic;
 }
+.p-figure.svg {
+    background: #fff;
+    border: 1px solid #e2e6ea;
+    padding: 10px 10px 6px;
+    font-style: normal;
+}
+.p-figure.svg svg { max-width: 100%; height: auto; }
+.p-figure.svg .cap {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+}
+@media print {
+    .p-figure.svg { border: 1px solid #999; break-inside: avoid; }
+}
 
 .p-opts {
     display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0;
@@ -512,6 +529,42 @@ const PROBLEMS = [
 {
     id:'P06', section:'s1', num:6, taskLabel:'任务 6', points:1,
     question:'第五个图形由多少点组成？<br>（1 Figur = 1 点, 2 Figur = 3 点, 3 Figur = 6 点, 4 Figur = 10 点, 5 Figur = ?）',
+    figure:`<svg viewBox="0 0 460 140" width="440">
+        <!-- Fig 1: 1 点 -->
+        <text x="30" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">1 (1)</text>
+        <circle cx="30" cy="110" r="5" fill="#1565C0"/>
+        <!-- Fig 2: 3 点 (底 2 顶 1) -->
+        <text x="90" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">2 (3)</text>
+        <g fill="#1565C0">
+            <circle cx="80" cy="110" r="5"/><circle cx="100" cy="110" r="5"/>
+            <circle cx="90" cy="90" r="5"/>
+        </g>
+        <!-- Fig 3: 6 点 -->
+        <text x="170" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">3 (6)</text>
+        <g fill="#1565C0">
+            <circle cx="150" cy="110" r="5"/><circle cx="170" cy="110" r="5"/><circle cx="190" cy="110" r="5"/>
+            <circle cx="160" cy="90" r="5"/><circle cx="180" cy="90" r="5"/>
+            <circle cx="170" cy="70" r="5"/>
+        </g>
+        <!-- Fig 4: 10 点 -->
+        <text x="260" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">4 (10)</text>
+        <g fill="#1565C0">
+            <circle cx="230" cy="110" r="5"/><circle cx="250" cy="110" r="5"/><circle cx="270" cy="110" r="5"/><circle cx="290" cy="110" r="5"/>
+            <circle cx="240" cy="90" r="5"/><circle cx="260" cy="90" r="5"/><circle cx="280" cy="90" r="5"/>
+            <circle cx="250" cy="70" r="5"/><circle cx="270" cy="70" r="5"/>
+            <circle cx="260" cy="50" r="5"/>
+        </g>
+        <!-- Fig 5: ? -->
+        <text x="380" y="20" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">5 (?)</text>
+        <g fill="#C62828">
+            <circle cx="340" cy="110" r="5"/><circle cx="360" cy="110" r="5"/><circle cx="380" cy="110" r="5"/><circle cx="400" cy="110" r="5"/><circle cx="420" cy="110" r="5"/>
+            <circle cx="350" cy="90" r="5"/><circle cx="370" cy="90" r="5"/><circle cx="390" cy="90" r="5"/><circle cx="410" cy="90" r="5"/>
+            <circle cx="360" cy="70" r="5"/><circle cx="380" cy="70" r="5"/><circle cx="400" cy="70" r="5"/>
+            <circle cx="370" cy="50" r="5"/><circle cx="390" cy="50" r="5"/>
+            <circle cx="380" cy="30" r="5"/>
+        </g>
+    </svg>`,
+    figCap:'三角数 Tₙ = 1+2+…+n，T₅ = 15',
     options:['14','15','17','18','21'],
     answer:'b',
     steps:[
@@ -535,7 +588,25 @@ const PROBLEMS = [
 {
     id:'P08', section:'s1', num:8, taskLabel:'第八任务', points:1,
     question:'书中<b>撕下了两张纸</b>（= 4 页）。问号代表哪一页？<br>（图：书打开，左右两页，一页标 ？）',
-    figure:'需看原图：书的另一页可见页码，根据此可推断问号页',
+    figure:`<svg viewBox="0 0 320 180" width="300">
+        <!-- 书页 (左右两页, 中间书脊) -->
+        <g stroke="#8D6E63" stroke-width="2" fill="#FFF8E1">
+            <!-- 左页 -->
+            <path d="M20 30 L150 30 L150 160 L20 160 Z"/>
+            <!-- 右页 -->
+            <path d="M170 30 L300 30 L300 160 L170 160 Z"/>
+        </g>
+        <!-- 书脊 -->
+        <line x1="160" y1="30" x2="160" y2="160" stroke="#5D4037" stroke-width="3"/>
+        <!-- 左页页码 (已撕前的下一页, 右侧奇数) 示例 54 -->
+        <text x="30" y="155" font-size="12" fill="#333" font-weight="bold">54</text>
+        <text x="140" y="155" font-size="12" fill="#333" font-weight="bold">55</text>
+        <!-- 右页: 撕掉 2 张后露出的新一对, 左 ? / 右 59 -->
+        <text x="180" y="155" font-size="18" fill="#C62828" font-weight="bold">?</text>
+        <text x="285" y="155" font-size="12" fill="#333" font-weight="bold">59</text>
+        <text x="160" y="20" text-anchor="middle" font-size="11" fill="#333">撕下两张 (4 页: 55/56/57/58)</text>
+    </svg>`,
+    figCap:'一张纸 = 正反 2 页；左偶右奇 → ? = 58',
     options:['55','56','57','58','59'],
     answer:'d',
     steps:[
@@ -705,7 +776,44 @@ const PROBLEMS = [
 {
     id:'P20', section:'s2', num:11, taskLabel:'任务 11', points:2,
     question:'下一张图里需要多少方格？<br>（图片 1 = 1 方格 · 图片 2 = 5 方格（小 X 形）· 图片 3 = ?）',
-    figure:'图片 2 像十字 / 小 X ；图片 3 更大的 X 形',
+    figure:`<svg viewBox="0 0 360 160" width="340">
+        <!-- 图 1: 1 格 -->
+        <text x="40" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">图 1 (1)</text>
+        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+            <rect x="30" y="80" width="20" height="20"/>
+        </g>
+        <!-- 图 2: X 形 5 格 -->
+        <text x="140" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">图 2 (5)</text>
+        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+            <rect x="110" y="60" width="20" height="20"/>
+            <rect x="150" y="60" width="20" height="20"/>
+            <rect x="130" y="80" width="20" height="20"/>
+            <rect x="110" y="100" width="20" height="20"/>
+            <rect x="150" y="100" width="20" height="20"/>
+        </g>
+        <!-- 图 3: X 形 13 格 -->
+        <text x="260" y="20" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">图 3 (?)</text>
+        <g fill="#FFCDD2" stroke="#C62828" stroke-width="1.5">
+            <!-- 外 4 角 -->
+            <rect x="210" y="40" width="20" height="20"/>
+            <rect x="290" y="40" width="20" height="20"/>
+            <rect x="210" y="120" width="20" height="20"/>
+            <rect x="290" y="120" width="20" height="20"/>
+            <!-- 对角线延伸 -->
+            <rect x="230" y="60" width="20" height="20"/>
+            <rect x="270" y="60" width="20" height="20"/>
+            <rect x="230" y="100" width="20" height="20"/>
+            <rect x="270" y="100" width="20" height="20"/>
+            <!-- 中心 X -->
+            <rect x="250" y="80" width="20" height="20"/>
+            <!-- 继续外延 2 格 -->
+            <rect x="190" y="20" width="20" height="20"/>
+            <rect x="310" y="20" width="20" height="20"/>
+            <rect x="190" y="140" width="20" height="20"/>
+            <rect x="310" y="140" width="20" height="20"/>
+        </g>
+    </svg>`,
+    figCap:'X 形方格: 1, 5, 13, 25... 二阶差 +4, +8, +12 → 图 3 = 13',
     options:['12','13','14','15','17'],
     answer:'b',
     steps:[
@@ -778,7 +886,16 @@ const PROBLEMS = [
     id:'P23', section:'s3', num:3, taskLabel:'Aufgabe 3', points:3,
     question:'图中有多少个三角形？<br>（图：外正方形 + 对角线 + 内嵌小旋转正方形）',
     de:'Wie viele Dreiecke sind in der Abbildung zu finden?',
-    figure:'大正方形包含对角线及一个旋转 45° 的小正方形',
+    figure:`<svg viewBox="0 0 160 160" width="160">
+        <!-- 外大正方形 -->
+        <rect x="20" y="20" width="120" height="120" fill="none" stroke="#1565C0" stroke-width="2"/>
+        <!-- 两条对角线 -->
+        <line x1="20" y1="20" x2="140" y2="140" stroke="#1565C0" stroke-width="2"/>
+        <line x1="140" y1="20" x2="20" y2="140" stroke="#1565C0" stroke-width="2"/>
+        <!-- 内嵌旋转小正方形 (四条边中点) -->
+        <polygon points="80,20 140,80 80,140 20,80" fill="rgba(243,229,245,0.6)" stroke="#6A1B9A" stroke-width="2"/>
+    </svg>`,
+    figCap:'外大正方形+两条对角线+连接四边中点的小正方形',
     options:['2','4','6','8','10'],
     answer:'d',
     steps:[
@@ -793,6 +910,21 @@ const PROBLEMS = [
     id:'P24', section:'s3', num:4, taskLabel:'Aufgabe 4', points:3,
     question:'四个图形中，有多少个<b>可以用一条直线</b>切成两部分，拼起来构成一个正方形？<br>（图：4 个几何图形，分别是三角、箭头、直角梯形、L 形）',
     de:'Wie viele der vier Figuren lassen sich mit nur einem geraden Schnitt in zwei Teile zerlegen, die zusammengelegt ein Quadrat ergeben?',
+    figure:`<svg viewBox="0 0 420 110" width="400">
+        <!-- A 直角三角形 -->
+        <polygon points="20,90 100,90 20,30" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+        <text x="60" y="105" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">A</text>
+        <!-- B 箭头 -->
+        <polygon points="130,60 170,30 170,45 210,45 210,75 170,75 170,90" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+        <text x="170" y="105" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">B</text>
+        <!-- C 直角梯形 -->
+        <polygon points="230,90 310,90 310,30 270,30" fill="#FFF3E0" stroke="#E65100" stroke-width="2"/>
+        <text x="270" y="105" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">C</text>
+        <!-- D L 形 -->
+        <polygon points="330,30 370,30 370,60 400,60 400,90 330,90" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2"/>
+        <text x="370" y="105" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">D</text>
+    </svg>`,
+    figCap:'A 三角、B 箭头、C 直角梯形、D L 形',
     options:['无','1 个','2 个','3 个','4 个'],
     answer:'e',
     steps:[
@@ -923,6 +1055,26 @@ const PROBLEMS = [
     id:'P34', section:'s3', num:14, taskLabel:'Aufgabe 14', points:3,
     question:'补全数字金字塔。<b>缺失数字的总和</b>是多少？<br>(规则：上格 = 下方相邻两格之和)<br>金字塔结构（已知部分）：<br><code>&nbsp;&nbsp;&nbsp;&nbsp;[100]</code><br><code>&nbsp;&nbsp;[69] [ ? ]</code><br><code>[17] [ ? ] [ ? ]</code>',
     de:'Vervollständige die Zahlenmauer. Summe der fehlenden Zahlen?',
+    figure:`<svg viewBox="0 0 260 160" width="240">
+        <g font-size="14" font-weight="bold" text-anchor="middle">
+            <!-- 顶层 100 -->
+            <rect x="100" y="20" width="60" height="35" fill="#FFF3E0" stroke="#E65100" stroke-width="2"/>
+            <text x="130" y="43" fill="#E65100">100</text>
+            <!-- 中层 69, ? -->
+            <rect x="65" y="60" width="60" height="35" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="95" y="83" fill="#1565C0">69</text>
+            <rect x="135" y="60" width="60" height="35" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="165" y="83" fill="#C62828">?</text>
+            <!-- 底层 17, ?, ? -->
+            <rect x="30" y="100" width="60" height="35" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="60" y="123" fill="#1565C0">17</text>
+            <rect x="100" y="100" width="60" height="35" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="130" y="123" fill="#C62828">?</text>
+            <rect x="170" y="100" width="60" height="35" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="200" y="123" fill="#C62828">?</text>
+        </g>
+    </svg>`,
+    figCap:'3 层金字塔：上格 = 下方相邻两格之和',
     options:['69','90','100','110','286'],
     answer:'c',
     steps:[
@@ -954,6 +1106,40 @@ const PROBLEMS = [
     id:'P36', section:'s3', num:16, taskLabel:'Aufgabe 17', points:3,
     question:'补全数字金字塔。<b>问号处</b>是哪个数字？<br>(规则：上格 = 下方相邻两格之和)<br>金字塔（4 层）：<br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ ? ]</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;[51] [ ? ] [ ? ]</code><br><code>&nbsp;&nbsp;[ ? ] [ ? ] [ ? ] [ ? ]</code><br><code>[13] [14] [ ? ] [ 9 ]</code>',
     de:'Welche Zahl steht anstelle des Fragezeichens? Zahlenmauer 4 Ebenen.',
+    figure:`<svg viewBox="0 0 320 200" width="300">
+        <g font-size="12" font-weight="bold" text-anchor="middle">
+            <!-- 顶层 ? -->
+            <rect x="130" y="20" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="155" y="40" fill="#C62828">?</text>
+            <!-- 第3层 51, ?, ? -->
+            <rect x="80" y="55" width="50" height="30" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="105" y="75" fill="#1565C0">51</text>
+            <rect x="130" y="55" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="155" y="75" fill="#C62828">?</text>
+            <rect x="180" y="55" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="205" y="75" fill="#C62828">?</text>
+            <!-- 第2层 ?, ?, ?, ? -->
+            <rect x="55" y="90" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="80" y="110" fill="#C62828">?</text>
+            <rect x="105" y="90" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="130" y="110" fill="#C62828">?</text>
+            <rect x="155" y="90" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="180" y="110" fill="#C62828">?</text>
+            <rect x="205" y="90" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="230" y="110" fill="#C62828">?</text>
+            <!-- 底层 13, 14, ?, 9 -->
+            <rect x="30" y="125" width="50" height="30" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="55" y="145" fill="#1565C0">13</text>
+            <rect x="80" y="125" width="50" height="30" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="105" y="145" fill="#1565C0">14</text>
+            <rect x="130" y="125" width="50" height="30" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="155" y="145" fill="#C62828">?</text>
+            <rect x="180" y="125" width="50" height="30" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="205" y="145" fill="#1565C0">9</text>
+        </g>
+        <text x="155" y="180" text-anchor="middle" font-size="11" fill="#333">4 层金字塔</text>
+    </svg>`,
+    figCap:'已知: 顶层待求、第 3 层左 51、底层 13-14-?-9',
     options:['90','91','92','93','94'],
     answer:'e',
     steps:[
@@ -972,6 +1158,27 @@ const PROBLEMS = [
     id:'P57', section:'s3', num:17, taskLabel:'Aufgabe 3', points:3,
     question:'空手道训练，所有学生排成几排。<br>· 每排<b>人数相同</b><br>· Paul 从前数在<b>第 2 排</b>，从后数在<b>第 4 排</b><br>· 在他的排里，Paul 从左数是<b>第 3 个</b>，从右数是<b>第 5 个</b><br>共多少学生？',
     de:'Beim Karate-Training: Paul in 2. Reihe von vorne, 4. von hinten; 3. von links, 5. von rechts.',
+    figure:`<svg viewBox="0 0 300 200" width="280">
+        <!-- 5 排 x 7 列 的点阵 -->
+        <text x="150" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">前 ↑</text>
+        <text x="150" y="195" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">后 ↓</text>
+        <g fill="#C8E6C9" stroke="#2E7D32" stroke-width="1">
+            ${Array.from({length:5}).map((_,r)=>Array.from({length:7}).map((_,c)=>`<circle cx="${50+c*35}" cy="${35+r*30}" r="9"/>`).join('')).join('')}
+        </g>
+        <!-- Paul: 第 2 排 (从前), 第 3 个 (从左) -->
+        <circle cx="${50+2*35}" cy="${35+1*30}" r="11" fill="#C62828" stroke="#B71C1C" stroke-width="2"/>
+        <text x="${50+2*35}" y="${35+1*30+4}" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">P</text>
+        <!-- 左侧标注排 -->
+        <g font-size="10" fill="#666">
+            <text x="20" y="38">1</text>
+            <text x="20" y="68">2</text>
+            <text x="20" y="98">3</text>
+            <text x="20" y="128">4</text>
+            <text x="20" y="158">5</text>
+        </g>
+        <text x="150" y="180" text-anchor="middle" font-size="12" fill="#C62828" font-weight="bold">5 排 × 7 人 = 35</text>
+    </svg>`,
+    figCap:'从前 2 + 从后 4 − 1 = 5 排；从左 3 + 从右 5 − 1 = 7 人',
     options:['28','35','40','42','48'],
     answer:'b',
     steps:[
@@ -985,6 +1192,32 @@ const PROBLEMS = [
     id:'P67', section:'s3', num:18, taskLabel:'Aufgabe 12', points:3,
     question:'图中是立方体的展开图。一些面被涂灰色（三角形）。把展开图折起来后，立方体的边上<b>有多少条两个灰色三角形相遇</b>？',
     de:'Würfelnetz mit grauen Dreiecken. Wie viele Kanten treffen zwei graue Dreiecke aufeinander?',
+    figure:`<svg viewBox="0 0 260 220" width="240">
+        <!-- 十字展开图 (6 格) -->
+        <g stroke="#1565C0" stroke-width="2" fill="#fff">
+            <!-- 中间 4 格一行 -->
+            <rect x="40" y="80" width="40" height="40"/>
+            <rect x="80" y="80" width="40" height="40"/>
+            <rect x="120" y="80" width="40" height="40"/>
+            <rect x="160" y="80" width="40" height="40"/>
+            <!-- 上 1 格 -->
+            <rect x="80" y="40" width="40" height="40"/>
+            <!-- 下 1 格 -->
+            <rect x="80" y="120" width="40" height="40"/>
+        </g>
+        <!-- 灰色三角形 (示意: 4 个面各有一半) -->
+        <g fill="#9E9E9E">
+            <!-- 中间 2 面各一个三角 -->
+            <polygon points="80,80 120,80 80,120"/>
+            <polygon points="120,80 160,80 160,120"/>
+            <!-- 顶上一个 -->
+            <polygon points="80,40 120,40 80,80"/>
+            <!-- 底下一个 -->
+            <polygon points="80,120 120,120 120,160"/>
+        </g>
+        <text x="130" y="200" text-anchor="middle" font-size="11" fill="#333">灰色区域会在棱上相遇</text>
+    </svg>`,
+    figCap:'示意：展开图上灰色三角形的分布（原题以 PDF 为准）',
     options:['0','1','2','3','4'],
     answer:'c',
     steps:[
@@ -1015,7 +1248,25 @@ const PROBLEMS = [
     id:'P37', section:'s4', num:1, taskLabel:'Aufgabe 2', points:4,
     question:'一只蜗牛沿黑色路线从 A 到 B（<b>Hinweg 去的路</b>）用 <b>1 小时</b>。沿灰色路线从 B 到 A（<b>Rückweg 回的路</b>）。两段路蜗牛速度相同。回程用多久？',
     de:'Schnecke: Hinweg schwarz 1h, Rückweg grau. Gleiche Geschwindigkeit. Zeit für Rückweg?',
-    figure:'网格图：黑色路线和灰色路线各有多少格，灰色比黑色稍长',
+    figure:`<svg viewBox="0 0 320 180" width="300">
+        <!-- 网格 -->
+        <g stroke="#ddd" stroke-width="0.5">
+            <path d="M20 20 h280 M20 50 h280 M20 80 h280 M20 110 h280 M20 140 h280 M20 170 h280"/>
+            <path d="M20 20 v150 M50 20 v150 M80 20 v150 M110 20 v150 M140 20 v150 M170 20 v150 M200 20 v150 M230 20 v150 M260 20 v150 M290 20 v150"/>
+        </g>
+        <!-- 黑色路线 (去) -->
+        <path d="M30 160 L30 100 L90 100 L90 50 L180 50" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- 灰色路线 (回) -->
+        <path d="M180 50 L240 50 L240 100 L270 100 L270 160 L210 160 L210 130 L30 130" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,3"/>
+        <!-- A B 标注 -->
+        <circle cx="30" cy="160" r="7" fill="#C62828"/>
+        <text x="18" y="165" font-size="12" fill="#fff" font-weight="bold">A</text>
+        <circle cx="180" cy="50" r="7" fill="#1565C0"/>
+        <text x="170" y="55" font-size="12" fill="#fff" font-weight="bold">B</text>
+        <text x="155" y="15" font-size="11" fill="#000" font-weight="bold">— 黑: 去 6 格 (60 min)</text>
+        <text x="155" y="178" font-size="11" fill="#555" font-weight="bold">┄ 灰: 回 8 格 (?)</text>
+    </svg>`,
+    figCap:'速度相同 → 时间比 = 格数比',
     options:['60 min','70 min','80 min','90 min','100 min'],
     answer:'c',
     steps:[
@@ -1056,7 +1307,32 @@ const PROBLEMS = [
     id:'P40', section:'s4', num:4, taskLabel:'Aufgabe 4', points:4,
     question:'Knobelkreuz（谜题十字）包含 4 个等式。把数字 <b>5, 8, 16, 85</b> 填入圆圈让所有等式成立。<b>问号处</b>填哪个数？',
     de:'Knobelkreuz mit 4 Gleichungen. Setze 5, 8, 16, 85 ein.',
-    figure:'十字结构，已知部分 11, 2, 17, 77',
+    figure:`<svg viewBox="0 0 260 200" width="240">
+        <!-- 十字布局：中心 + 四臂 -->
+        <g stroke="#1565C0" stroke-width="2" fill="#E3F2FD">
+            <circle cx="130" cy="30" r="20"/>
+            <circle cx="130" cy="90" r="20"/>
+            <circle cx="130" cy="150" r="20"/>
+            <circle cx="60" cy="90" r="20"/>
+            <circle cx="200" cy="90" r="20"/>
+        </g>
+        <!-- 已知数字 (已填) -->
+        <g font-size="14" text-anchor="middle" font-weight="bold" fill="#1565C0">
+            <text x="130" y="35">11</text>
+            <text x="60" y="95">2</text>
+            <text x="200" y="95">17</text>
+            <text x="130" y="155">77</text>
+        </g>
+        <!-- 中心 ? -->
+        <circle cx="130" cy="90" r="22" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+        <text x="130" y="96" text-anchor="middle" font-size="18" font-weight="bold" fill="#C62828">?</text>
+        <!-- 等式符号示意 -->
+        <text x="97" y="94" font-size="12" fill="#666">×</text>
+        <text x="163" y="94" font-size="12" fill="#666">+</text>
+        <text x="133" y="63" font-size="12" fill="#666">−</text>
+        <text x="133" y="123" font-size="12" fill="#666">÷</text>
+    </svg>`,
+    figCap:'十字 4 等式约束，中心填入 5/8/16/85 之一',
     options:['5','8','16','85','nicht lösbar'],
     answer:'b',
     steps:[
@@ -1069,7 +1345,31 @@ const PROBLEMS = [
     id:'P41', section:'s4', num:5, taskLabel:'Aufgabe 8', points:4,
     question:'这个三角形能装入下面的图形多少次？可以<b>任意旋转</b>但<b>不能改变大小</b>。',
     de:'Wie oft passt dieses Dreieck in die Abbildung? Beliebig drehen, Größe nicht ändern.',
-    figure:'大图形由三角形拼成，需数能放入的三角形数',
+    figure:`<svg viewBox="0 0 320 180" width="300">
+        <!-- 小三角形 (单位) -->
+        <text x="40" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">单位三角</text>
+        <polygon points="20,70 60,70 40,35" fill="#FFE082" stroke="#E65100" stroke-width="2"/>
+        <!-- 大图形：由 12 个小三角拼成的平行四边形示例 -->
+        <text x="200" y="20" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">大图形 (12 份)</text>
+        <g fill="#FFF3E0" stroke="#E65100" stroke-width="1.5">
+            <!-- 第 1 行 6 个三角 (上下交替) -->
+            <polygon points="100,70 140,70 120,35"/>
+            <polygon points="140,70 100,70 120,105" fill="#FFE082"/>
+            <polygon points="140,70 180,70 160,35"/>
+            <polygon points="180,70 140,70 160,105" fill="#FFE082"/>
+            <polygon points="180,70 220,70 200,35"/>
+            <polygon points="220,70 180,70 200,105" fill="#FFE082"/>
+            <polygon points="220,70 260,70 240,35"/>
+            <polygon points="260,70 220,70 240,105" fill="#FFE082"/>
+            <polygon points="260,70 300,70 280,35"/>
+            <polygon points="300,70 260,70 280,105" fill="#FFE082"/>
+            <!-- 第 2 行 -->
+            <polygon points="100,105 140,105 120,140"/>
+            <polygon points="140,105 180,105 160,140"/>
+        </g>
+        <text x="200" y="165" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">数一数：12 个</text>
+    </svg>`,
+    figCap:'大图形拆为单位三角 → 可放 12 次',
     options:['4 次','8 次','10 次','12 次','14 次'],
     answer:'d',
     steps:[
@@ -1083,6 +1383,29 @@ const PROBLEMS = [
     id:'P42', section:'s4', num:6, taskLabel:'Aufgabe 6', points:4,
     question:'用一些小立方体<b>拼成一个大立方体</b>，没有剩余的小立方体。最少用多少个小立方体？',
     de:'Aus kleinen Würfeln ein großer Würfel ohne Rest. Wie viele kleine Würfel?',
+    figure:`<svg viewBox="0 0 220 180" width="200">
+        <!-- 2x2x2 立方体 (等距投影) -->
+        <!-- 顶面 2x2 -->
+        <g stroke="#2E7D32" stroke-width="1.5">
+            <polygon points="40,70 110,30 180,70 110,110" fill="#C8E6C9"/>
+            <line x1="75" y1="50" x2="145" y2="90"/>
+            <line x1="75" y1="90" x2="145" y2="50"/>
+        </g>
+        <!-- 左面 -->
+        <g stroke="#2E7D32" stroke-width="1.5">
+            <polygon points="40,70 110,110 110,170 40,130" fill="#A5D6A7"/>
+            <line x1="75" y1="90" x2="75" y2="150"/>
+            <line x1="40" y1="100" x2="110" y2="140"/>
+        </g>
+        <!-- 右面 -->
+        <g stroke="#2E7D32" stroke-width="1.5">
+            <polygon points="110,110 180,70 180,130 110,170" fill="#81C784"/>
+            <line x1="145" y1="90" x2="145" y2="150"/>
+            <line x1="110" y1="140" x2="180" y2="100"/>
+        </g>
+        <text x="110" y="18" text-anchor="middle" font-size="12" fill="#2E7D32" font-weight="bold">2×2×2 = 8 块</text>
+    </svg>`,
+    figCap:'最小非平凡立方数 = 2³ = 8',
     options:['8 块','9 块','10 块','11 块','12 块'],
     answer:'a',
     steps:[
@@ -1096,7 +1419,45 @@ const PROBLEMS = [
     id:'P43', section:'s4', num:7, taskLabel:'Aufgabe 9', points:4,
     question:'图形序列：第 1 图、第 2 图、第 3 图、第 4 图都是 L 形方格。<b>第几图</b>由 <b>47 个方格</b>组成？',
     de:'Figurenfolge. Die wievielte Figur besteht aus 47 Quadraten?',
-    figure:'第 1 图 3 格, 第 2 图 5 格, 第 3 图 7 格, 第 4 图 9 格 (每图 L 形加 2)',
+    figure:`<svg viewBox="0 0 460 140" width="440">
+        <g fill="#F3E5F5" stroke="#6A1B9A" stroke-width="1.5">
+            <!-- 第 1 图 L 形 3 格 -->
+            <rect x="10" y="90" width="20" height="20"/>
+            <rect x="30" y="90" width="20" height="20"/>
+            <rect x="10" y="70" width="20" height="20"/>
+            <!-- 第 2 图 L 形 5 格 -->
+            <rect x="90" y="90" width="20" height="20"/>
+            <rect x="110" y="90" width="20" height="20"/>
+            <rect x="130" y="90" width="20" height="20"/>
+            <rect x="90" y="70" width="20" height="20"/>
+            <rect x="90" y="50" width="20" height="20"/>
+            <!-- 第 3 图 L 形 7 格 -->
+            <rect x="190" y="90" width="20" height="20"/>
+            <rect x="210" y="90" width="20" height="20"/>
+            <rect x="230" y="90" width="20" height="20"/>
+            <rect x="250" y="90" width="20" height="20"/>
+            <rect x="190" y="70" width="20" height="20"/>
+            <rect x="190" y="50" width="20" height="20"/>
+            <rect x="190" y="30" width="20" height="20"/>
+            <!-- 第 4 图 L 形 9 格 -->
+            <rect x="310" y="90" width="20" height="20"/>
+            <rect x="330" y="90" width="20" height="20"/>
+            <rect x="350" y="90" width="20" height="20"/>
+            <rect x="370" y="90" width="20" height="20"/>
+            <rect x="390" y="90" width="20" height="20"/>
+            <rect x="310" y="70" width="20" height="20"/>
+            <rect x="310" y="50" width="20" height="20"/>
+            <rect x="310" y="30" width="20" height="20"/>
+            <rect x="310" y="10" width="20" height="20"/>
+        </g>
+        <g font-size="11" fill="#333" text-anchor="middle" font-weight="bold">
+            <text x="25" y="128">图 1 (3)</text>
+            <text x="115" y="128">图 2 (5)</text>
+            <text x="220" y="128">图 3 (7)</text>
+            <text x="350" y="128">图 4 (9)</text>
+        </g>
+    </svg>`,
+    figCap:'每图比上一图多 2 格 → aₙ = 2n+1',
     options:['21','22','23','24','95'],
     answer:'c',
     steps:[
@@ -1123,7 +1484,25 @@ const PROBLEMS = [
     id:'P59', section:'s4', num:9, taskLabel:'Aufgabe 3', points:4,
     question:'一个<b>立方体展开图缺一个方格</b>。可以<b>在多少个位置添加</b>一个方格，使补全的展开图能折成立方体？',
     de:'Würfelnetz fehlt ein Quadrat. Wie viele Möglichkeiten gibt es?',
-    figure:'5 格的半展开图',
+    figure:`<svg viewBox="0 0 280 180" width="260">
+        <!-- 5 格现有 (T 形示例) -->
+        <g fill="#E3F2FD" stroke="#1565C0" stroke-width="2">
+            <rect x="80" y="40" width="40" height="40"/>
+            <rect x="80" y="80" width="40" height="40"/>
+            <rect x="40" y="80" width="40" height="40"/>
+            <rect x="120" y="80" width="40" height="40"/>
+            <rect x="80" y="120" width="40" height="40"/>
+        </g>
+        <!-- 候选位置 (虚线) -->
+        <g fill="rgba(255,235,238,0.5)" stroke="#C62828" stroke-width="2" stroke-dasharray="4,3">
+            <rect x="80" y="0" width="40" height="40"/>
+            <rect x="0" y="80" width="40" height="40"/>
+            <rect x="160" y="80" width="40" height="40"/>
+            <rect x="200" y="80" width="40" height="40"/>
+        </g>
+        <text x="140" y="175" text-anchor="middle" font-size="11" fill="#333">蓝: 已有 5 格 · 红虚线: 可能添加位置</text>
+    </svg>`,
+    figCap:'需逐一验证虚线位置是否构成有效立方体展开图',
     options:['2','3','4','6','9'],
     answer:'c',
     steps:[
@@ -1137,6 +1516,25 @@ const PROBLEMS = [
     id:'P60', section:'s4', num:10, taskLabel:'Aufgabe 4', points:4,
     question:'5a 班的学生排成<b>两人一排</b>。Christian 剩下来，站在 Anton 和 Banu 旁边。这三个孩子组成<b>从前数第 7 排</b>和<b>从后数第 6 排</b>。5a 班共多少学生？',
     de:'Klasse 5a in Zweierreihen. Christian + Anton + Banu bilden 7. Reihe von vorne und 6. von hinten.',
+    figure:`<svg viewBox="0 0 220 320" width="200">
+        <text x="100" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">前 ↑</text>
+        <g fill="#C8E6C9" stroke="#2E7D32" stroke-width="1">
+            ${Array.from({length:12}).map((_,r)=>{
+                if (r === 6) return '';
+                return `<circle cx="70" cy="${35+r*22}" r="9"/><circle cx="110" cy="${35+r*22}" r="9"/>`;
+            }).join('')}
+        </g>
+        <!-- 第 7 排 (特殊: Anton, Christian, Banu) -->
+        <g fill="#FFCDD2" stroke="#C62828" stroke-width="1.5">
+            <circle cx="50" cy="${35+6*22}" r="10"/>
+            <circle cx="90" cy="${35+6*22}" r="10"/>
+            <circle cx="130" cy="${35+6*22}" r="10"/>
+        </g>
+        <text x="140" y="${35+6*22+4}" font-size="10" fill="#C62828" font-weight="bold">A·C·B</text>
+        <text x="20" y="${35+6*22+4}" font-size="10" fill="#C62828" font-weight="bold">第 7 排</text>
+        <text x="100" y="310" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">后 ↓</text>
+    </svg>`,
+    figCap:'前 7 + 后 6 − 1 = 12 排；11 排 × 2 + 第 7 排 3 人 = 25',
     options:['23','25','27','29','31'],
     answer:'e',
     steps:[
@@ -1181,7 +1579,50 @@ const PROBLEMS = [
     id:'P45', section:'s5', num:2, taskLabel:'Aufgabe 2', points:5,
     question:'图中有 <b>4 个立方体展开图</b> A、B、C、D。哪些展开图折叠后，<b>相对面颜色相同</b>？',
     de:'Vier Würfelnetze A, B, C, D. Bei welchen sind gegenüberliegende Seiten gleich gefärbt?',
-    figure:'4 个展开图，每个有灰/白格子的分布',
+    figure:`<svg viewBox="0 0 480 220" width="460">
+        <!-- A: 十字 (灰白混合 - 对面不同) -->
+        <g stroke="#1565C0" stroke-width="1.5">
+            <rect x="30" y="30" width="20" height="20" fill="#fff"/>
+            <rect x="10" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="30" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="50" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="70" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="30" y="70" width="20" height="20" fill="#9E9E9E"/>
+        </g>
+        <text x="50" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">A ✗</text>
+        <!-- B: 十字 (对面同色) -->
+        <g stroke="#1565C0" stroke-width="1.5">
+            <rect x="150" y="30" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="130" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="150" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="170" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="190" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="150" y="70" width="20" height="20" fill="#9E9E9E"/>
+        </g>
+        <text x="170" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">B ✓</text>
+        <!-- C: 十字 (对面同色) -->
+        <g stroke="#1565C0" stroke-width="1.5">
+            <rect x="270" y="30" width="20" height="20" fill="#fff"/>
+            <rect x="250" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="270" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="290" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="310" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="270" y="70" width="20" height="20" fill="#fff"/>
+        </g>
+        <text x="290" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">C ✓</text>
+        <!-- D: 十字 (对面不同) -->
+        <g stroke="#1565C0" stroke-width="1.5">
+            <rect x="390" y="30" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="370" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="390" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="410" y="50" width="20" height="20" fill="#fff"/>
+            <rect x="430" y="50" width="20" height="20" fill="#9E9E9E"/>
+            <rect x="390" y="70" width="20" height="20" fill="#fff"/>
+        </g>
+        <text x="410" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">D ✗</text>
+        <text x="240" y="200" text-anchor="middle" font-size="11" fill="#333">相对面规律：展开图上<b>隔一格共线</b>的是相对面</text>
+    </svg>`,
+    figCap:'示意图（原题以 PDF 为准）；灰白格分布决定对面是否同色',
     options:['A 和 D','B 和 C','A 和 B','B 和 D','C 和 D'],
     answer:'b',
     steps:[
@@ -1292,6 +1733,32 @@ const PROBLEMS = [
     id:'P53', section:'s5', num:10, taskLabel:'Aufgabe 10 / 11', points:5,
     question:'Tobias 有 <b>6 支蜡烛</b>。10:00 点第 1 支，之后<b>每 10 分钟</b>点一支新的。每支烧 <b>50 分钟</b>。11:15 时，<b>有几支蜡烛在燃</b>？',
     de:'6 Kerzen, 10:00 erste an, alle 10 min neue, jede brennt 50 min. 11:15 wie viele brennen?',
+    figure:`<svg viewBox="0 0 460 220" width="440">
+        <!-- 时间轴 10:00 - 11:40 -->
+        <line x1="60" y1="30" x2="440" y2="30" stroke="#333" stroke-width="1.5"/>
+        <g font-size="10" fill="#333" text-anchor="middle">
+            ${Array.from({length:11}).map((_,i)=>{
+                const x = 60 + i*38;
+                const h = 10, m = i*10;
+                const label = `${h}:${(m<10?'0':'')+m}`;
+                return `<line x1="${x}" y1="26" x2="${x}" y2="34" stroke="#333"/><text x="${x}" y="20">${label}</text>`;
+            }).join('')}
+        </g>
+        <!-- 11:15 竖线 -->
+        <line x1="${60+(75/10)*38}" y1="25" x2="${60+(75/10)*38}" y2="200" stroke="#C62828" stroke-width="2" stroke-dasharray="4,3"/>
+        <text x="${60+(75/10)*38}" y="215" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">11:15</text>
+        <!-- 6 根蜡烛的燃烧时段 (条形) -->
+        ${Array.from({length:6}).map((_,i)=>{
+            const start = i*10, end = i*10+50;
+            const y = 45 + i*20;
+            const x1 = 60 + (start/10)*38, x2 = 60 + (end/10)*38;
+            const burning = (start <= 75 && 75 < end);
+            const fill = burning ? '#FFCDD2' : '#C8E6C9';
+            const stroke = burning ? '#C62828' : '#2E7D32';
+            return `<rect x="${x1}" y="${y}" width="${x2-x1}" height="14" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/><text x="${x1-5}" y="${y+10}" text-anchor="end" font-size="10" fill="#333">蜡 ${i+1}</text>`;
+        }).join('')}
+    </svg>`,
+    figCap:'粉色条 = 11:15 时仍在燃烧（第 4、5、6 支共 3 支）',
     options:['0','1','2','3','4'],
     answer:'d',
     steps:[
@@ -1305,6 +1772,30 @@ const PROBLEMS = [
     id:'P54', section:'s5', num:11, taskLabel:'Aufgabe 11 / 13', points:5,
     question:'Lisa 有一台天平和 3 个砝码：<b>1 kg、5 kg、9 kg</b>（可放两侧）。下面哪个重量她<b>不能</b>称量？',
     de:'Balkenwaage, Gewichte 1, 5, 9 kg. Welches Gewicht kann sie nicht wiegen?',
+    figure:`<svg viewBox="0 0 300 160" width="280">
+        <!-- 天平支柱 + 横梁 -->
+        <line x1="150" y1="100" x2="150" y2="140" stroke="#424242" stroke-width="3"/>
+        <polygon points="130,140 170,140 160,150 140,150" fill="#424242"/>
+        <line x1="60" y1="60" x2="240" y2="60" stroke="#424242" stroke-width="3"/>
+        <circle cx="150" cy="60" r="4" fill="#424242"/>
+        <!-- 左盘 -->
+        <path d="M30 60 L60 60 L75 90 L15 90 Z" fill="#BDBDBD" stroke="#424242" stroke-width="1.5"/>
+        <line x1="45" y1="90" x2="45" y2="60" stroke="#424242" stroke-width="1.5"/>
+        <!-- 右盘 -->
+        <path d="M225 60 L255 60 L270 90 L210 90 Z" fill="#BDBDBD" stroke="#424242" stroke-width="1.5"/>
+        <line x1="255" y1="90" x2="255" y2="60" stroke="#424242" stroke-width="1.5"/>
+        <!-- 砝码 1/5/9 -->
+        <g fill="#E65100" stroke="#BF360C" stroke-width="1.5">
+            <rect x="20" y="40" width="18" height="18" rx="2"/>
+            <text x="29" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">1</text>
+            <rect x="40" y="35" width="22" height="25" rx="2"/>
+            <text x="51" y="52" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">5</text>
+            <rect x="215" y="30" width="26" height="30" rx="2"/>
+            <text x="228" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">9</text>
+        </g>
+        <text x="150" y="20" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">砝码可放任一侧</text>
+    </svg>`,
+    figCap:'能称 = ±1, ±5, ±9 的任意组合',
     options:['4 kg','5 kg','6 kg','7 kg','8 kg'],
     answer:'d',
     steps:[
@@ -1331,6 +1822,39 @@ const PROBLEMS = [
     id:'P56', section:'s5', num:13, taskLabel:'Aufgabe 1 (another variant)', points:5,
     question:'<b>3 个正方形</b>和 <b>1 个黑色三角形</b>一样重。<b>4 个黑球</b>和 <b>1 个正方形</b>一样重。<b>多少个黑球</b>和 <b>5 个黑色三角形</b>一样重？',
     de:'3 Quadrate = 1 Dreieck. 4 Kugeln = 1 Quadrat. Wie viele Kugeln = 5 Dreiecke?',
+    figure:`<svg viewBox="0 0 320 180" width="300">
+        <!-- 等式 1: 3 □ = 1 ▲ -->
+        <g>
+            <rect x="10" y="20" width="18" height="18" fill="#fff" stroke="#1565C0" stroke-width="1.5"/>
+            <rect x="32" y="20" width="18" height="18" fill="#fff" stroke="#1565C0" stroke-width="1.5"/>
+            <rect x="54" y="20" width="18" height="18" fill="#fff" stroke="#1565C0" stroke-width="1.5"/>
+            <text x="85" y="35" font-size="18" font-weight="bold">=</text>
+            <polygon points="110,38 128,38 119,20" fill="#424242"/>
+        </g>
+        <!-- 等式 2: 4 ● = 1 □ -->
+        <g>
+            <circle cx="19" cy="80" r="7" fill="#424242"/>
+            <circle cx="37" cy="80" r="7" fill="#424242"/>
+            <circle cx="55" cy="80" r="7" fill="#424242"/>
+            <circle cx="73" cy="80" r="7" fill="#424242"/>
+            <text x="90" y="86" font-size="18" font-weight="bold">=</text>
+            <rect x="112" y="70" width="18" height="18" fill="#fff" stroke="#1565C0" stroke-width="1.5"/>
+        </g>
+        <!-- 推导: 5 ▲ = ? ● -->
+        <g>
+            <polygon points="10,160 28,160 19,140" fill="#424242"/>
+            <polygon points="32,160 50,160 41,140" fill="#424242"/>
+            <polygon points="54,160 72,160 63,140" fill="#424242"/>
+            <polygon points="76,160 94,160 85,140" fill="#424242"/>
+            <polygon points="98,160 116,160 107,140" fill="#424242"/>
+            <text x="135" y="155" font-size="16" font-weight="bold">= ?</text>
+            <circle cx="175" cy="150" r="7" fill="#424242"/>
+            <text x="195" y="155" font-size="12" fill="#C62828" font-weight="bold">× ?</text>
+        </g>
+        <text x="260" y="90" text-anchor="middle" font-size="14" fill="#C62828" font-weight="bold">5 × 3 × 4</text>
+        <text x="260" y="110" text-anchor="middle" font-size="18" fill="#C62828" font-weight="bold">= 60</text>
+    </svg>`,
+    figCap:'等价替换：三角 → 正方形 → 球',
     options:['4','12','20','30','60'],
     answer:'e',
     steps:[
@@ -1451,7 +1975,9 @@ function renderProb(p) {
             <span class="p-ti">${p.taskLabel}</span>
         </div>
         <div class="p-q">${p.question}</div>
-        ${p.figure ? `<div class="p-figure">🖼️ ${p.figure}</div>` : ''}
+        ${p.figure ? (/<svg\s/.test(p.figure)
+            ? `<div class="p-figure svg">${p.figure}${p.figCap ? `<span class="cap">${p.figCap}</span>` : ''}</div>`
+            : `<div class="p-figure">🖼️ ${p.figure}</div>`) : ''}
         <div class="p-opts">${opts}</div>
         <div class="p-steps">
             <h6>🔎 解题步骤</h6>
