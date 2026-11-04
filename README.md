@@ -1,10 +1,10 @@
 # 小学数学知识链图 · 三至六年级
 
-> 一个交互式知识图谱 Web 应用，把三套数学教学 / 竞赛体系（**中国小学教材** · **德国数学竞赛** · **瑞典盘古 Pangea 竞赛**）横向拉平，看一眼就能知道"这个知识点在别的体系里对应什么、有哪些真题、我做过没有、做错的整理成错题本"。
+> 一个交互式知识图谱 Web 应用，把四套数学教学 / 竞赛体系（**中国小学教材** · **德国数学竞赛** · **瑞典盘古 Pangea 竞赛** · **学而思秘籍**）横向拉平，看一眼就能知道"这个知识点在别的体系里对应什么、有哪些真题、我做过没有、做错的整理成错题本"。
 
 <div align="center">
 
-**📐 小学教材** &nbsp;·&nbsp; **🏆 德国竞赛（K3/K4）** &nbsp;·&nbsp; **🎨 盘古竞赛（AK4-AK9，609 道题）** &nbsp;·&nbsp; **🔗 三方关联视图**
+**📐 小学教材** &nbsp;·&nbsp; **🏆 德国竞赛（K3/K4）** &nbsp;·&nbsp; **🎨 盘古竞赛（AK4-AK9，609 道题）** &nbsp;·&nbsp; **🦕 学而思秘籍（1-12 级，238 讲）** &nbsp;·&nbsp; **🔗 三方关联视图**
 
 </div>
 
@@ -45,6 +45,37 @@
 - 一键把当前筛选下的题目导出为 UTF-8（含 BOM，Excel 中文正常）CSV
 - 15 列：`id, grade, year, round, num, difficulty, title, translation, options, answer, topics, hint, file, page, has_image, status_attempted, status_starred`
 - 文件名根据筛选条件自动命名，如 `pangu_AK5_决赛_pangu_algebra_wrong_2025-09-22.csv`
+
+---
+
+## 🦕 学而思秘籍（`xes.html`）
+
+把《学而思秘籍 · 小学数学思维培养》1-12 级共 238 讲串成知识链，并配套教学卡、OCR 提取的例题 / 练习和错题本。入口在各页面顶部的「🦕 学而思」。
+
+| 视图 | 说明 |
+|------|------|
+| **学习链** | 13 条知识链的泳道图（横向 = 级别，每条链分若干轨道），点任一讲查看前置 / 后续 / 相关 |
+| **知识图谱** | D3 图，横轴 = 级别 1→12，可按知识链 / 类别过滤，悬停高亮前后关系 |
+| **讲次目录** | 238 讲按级别分组，可按类别、知识链、解题武器、对应盘古主题、学习状态筛选 |
+| **教学卡** | 每条链一张可打印的教学卡：一句话本质、具体→图像→符号三层台阶、常见误区、家长提问清单、变式对比、90 分钟节奏、错因分类 |
+| **解题武器** | 13 种跨主题通用方法（画图、假设、转化、列方程…）的识题信号与教法 |
+| **题库 / 练习 / 错题本** | 从书中 OCR 提取的例题、举一反三、挑战自我；先看提示再看答案，做错时选**错因**（读题 / 概念 / 方法 / 计算），错题本按错因归类并提示回看前置讲次；支持打印错题卷、导出 CSV |
+| **我的进度** | 每讲「未学 / 在学 / 已学」+ 掌握度 1-3 星，推荐下一步（前置都学完的讲次），以及题库的做对 / 做错 / 错因统计；可导出 / 导入 JSON 备份 |
+
+- 进度保存在 `localStorage`：`xesProgress_v1`（讲次进度）、`xesQStatus_v1`（做题记录）
+- URL 参数：`?view=chains|graph|lectures|cards|methods|problems|practice|wrong|progress`、`?chain=<链id>`、`?graphchain=<链id>`、`?pangu=<盘古主题id>`、`?lecture=<讲次id 或 4-6>`
+- 级别对应的年级（如「约二年级下」）是按每级约 5 个月推算的**估计**，请按孩子实际进度调整
+- 盘古详情面板里会列出「对应学而思讲次」，学而思讲次详情里也能跳回盘古 / 小学教材 / 德国竞赛
+
+### 关于 OCR 题库
+
+书是扫描版 PDF（没有文字层），题目文字由 [RapidOCR](https://github.com/RapidAI/RapidOCR) 识别而来，**只处理了 `_tools/xes_ocr_plan.json` 里挑选的 21 个核心讲次**（覆盖 1-9 级，共 525 道题，其中 394 道练习类题目带参考答案；全部 238 讲约需 5 小时）。使用时请留意：
+
+- 图里的内容读不出来（天平、线段图、示意图等），个别字会认错（如「兔」→「免」），分数 / 竖式常有缺漏。每道题都带「原书 PDF 第 N 页」链接（PDF 页码，不是书上印的页码）用于核对
+- 含图或识别置信度低的题会打上 📐 / 🔎 标记；练习模式默认跳过依赖图的题。分数几乎都会丢（如 5 级第 10 讲「分数初识」整讲标为识别不确定）
+- 个别答案 / 解析缺失（如 5-10 的 4 道、6-13 的 1 道），页面会提示对照原书答案册
+- 发现错字可以写进 `_tools/xes_ocr_fixes.json`（按题目 id 校正），重新运行 `node _tools/parse_xes_ocr.js` 后不会丢
+- 要增加讲次：把 `4-6` 这样的编号加进 `_tools/xes_ocr_plan.json`，再按下面的管道重新跑
 
 ---
 
@@ -111,6 +142,7 @@ cd math-knowledge-map
 # 2. （可选）把 PDF 源材料放到对应文件夹以启用 PDF 跳转
 # 盘古竞赛/*.pdf
 # 德国竞赛题/K3_1_Chinese/*.pdf, K3_2_Chinese/*.pdf, K4_Chinese/*.pdf
+# 学而思数学/01级-…/ … 12级-…/（每级一个文件夹：各讲 PDF + 参考答案 PDF）
 
 # 3. 启一个本地 HTTP 服务器（Python）
 python -m http.server 8000
@@ -121,6 +153,7 @@ npx serve
 # http://localhost:8000/pangu.html      盘古竞赛主页
 # http://localhost:8000/index.html      小学教材知识图谱
 # http://localhost:8000/german.html     德国竞赛知识图谱
+# http://localhost:8000/xes.html        学而思秘籍知识链
 # http://localhost:8000/bridge.html     三方关联视图
 ```
 
@@ -169,16 +202,33 @@ math-knowledge-map/
 ├── data.js             小学教材数据
 ├── german-data.js      德国竞赛数据
 ├── pangu-data.js       盘古竞赛数据（609 题 · 15 主题 · 24 连边）
+├── xes.html            学而思秘籍主页（学习链 / 图谱 / 讲次 / 教学卡 / 题库 / 练习 / 错题本 / 进度）
+├── xes-app.js          学而思页面逻辑（泳道、D3 图谱、教学卡、进度）
+├── xes-practice.js     学而思题库 / 练习 / 错题本
+├── xes.css             学而思页面样式（依赖 style.css）
+├── xes-data.js         238 讲 + 13 条知识链 + 216 条连边（由 _tools/build_xes_data.js 生成）
+├── xes-cards.js        教学卡文案（手写）
+├── xes-problems.js     OCR 提取的例题 / 练习（由 _tools/parse_xes_ocr.js 生成）
 ├── style.css           全站样式
 ├── 盘古竞赛/           盘古 PDF 源材料（本地保存，见 .gitignore）
 ├── 德国竞赛题/         德国竞赛 PDF（含中文翻译）
+├── 学而思数学/         学而思秘籍 12 级 PDF 源材料（本地保存，见 .gitignore）
 └── _tools/             数据处理脚本（Python + Node）
     ├── extract_pdf.py        从 PDF 抽取文本（含瑞典字体重映射）
     ├── parse_problems.py     解析题目 / 选项 / 难度
     ├── dump_by_paper.py      按试卷输出可读文本
     ├── augment_hints.js      为图片题智能补 hint
     ├── inject_answers.js     从 hint 提取答案字母
-    └── final_check.js        整套数据的健康检查（32 项）
+    ├── final_check.js        整套数据的健康检查（32 项）
+    ├── xes_meta.js           学而思：讲次元数据 / 知识链 / 解题武器（手写，改这里）
+    ├── build_xes_data.js     学而思：生成 xes-data.js
+    ├── ocr_xes.py            学而思：对 PDF 页面做 OCR（结果缓存在 xes_ocr/）
+    ├── xes_ocr_plan.json     学而思：要 OCR 的讲次清单
+    ├── parse_xes_ocr.js      学而思：OCR 结果 → xes-problems.js
+    ├── xes_ocr_fixes.json    学而思：OCR 错字的人工校正
+    ├── xes_ocr/              学而思：OCR 缓存（每讲 / 每本答案册一个 JSON，重新识别很慢，所以入库）
+    ├── check_xes.js          学而思：数据体检
+    └── ui_smoke_xes.js       学而思：浏览器冒烟测试（Chrome DevTools 协议）
 ```
 
 ---
@@ -204,8 +254,33 @@ node inject_answers.js
 node final_check.js
 ```
 
+### 学而思管道
+
+```bash
+# 0. 依赖（OCR 才需要；网页本身零依赖）
+pip install rapidocr-onnxruntime==1.4.4 pypdfium2
+
+# 1. 改了 _tools/xes_meta.js（讲次、知识链、解题武器）后，重新生成 xes-data.js
+node _tools/build_xes_data.js
+
+# 2. OCR：按 xes_ocr_plan.json 识别讲义页 + 对应的参考答案页（约 30-60 分钟，可中断续跑）
+python _tools/ocr_xes.py --plan
+#    也可以单独跑：python _tools/ocr_xes.py --lectures 4-6   /   --answers 4 --only 6
+
+# 3. 把 OCR 结果解析成题目，生成 xes-problems.js（同时写 _tools/xes_ocr/parse_report.txt）
+node _tools/parse_xes_ocr.js
+
+# 4. 体检（讲次 / 知识链 / 教学卡 / 题目一致性）
+node _tools/check_xes.js
+
+# 5. 浏览器冒烟测试（需要 Chrome 和 Node 22+）
+node _tools/ui_smoke_xes.js
+```
+
 **已知处理点**：
 
+- 学而思答案册是双栏排版，OCR 后按栏拆开再按「练习 N → 【答案】 → 【解析】」解析；跨栏的标签偶尔被并进上一栏末行，解析器里有专门处理
+- 答案册每讲从页首开始，先用页眉小条带识别「第 N 讲」标题建立页码索引，再只识别需要的页，避免整本识别（每页约 10 秒）
 - 瑞典 Pangea PDF 用了自定义字体子集，直接抽取出的字符是错乱的（`Σ`、`÷`、`σ` 等）。管道里做了字体重映射（`extract_pdf.py::FONT_REMAP`）把它们复原成瑞典字母（`ä`、`ö`、`å`）
 - 2016 年份的 PDF 没有 `Uppgift N` 标记，用了旧格式 `N text`，管道自动识别两种格式
 - 部分 PDF 里问题号断行导致解析漏题，用了"格式检测"启发式规避（详见 `parse_problems.py` 注释）

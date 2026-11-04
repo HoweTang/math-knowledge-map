@@ -533,6 +533,8 @@ function showDetail(id) {
     const problems = problemsForPanguTopic(id);
     const elementaryTopics = (node.linkedElementary || []).map(eid => elementaryNodeMap[eid]).filter(Boolean);
     const germanTopics = (node.linkedGerman || []).map(gid => germanNodeMap[gid]).filter(Boolean);
+    // 对应的学而思讲次 (xes-data.js 未加载时安静跳过)
+    const xesLecs = (typeof xesLecturesForPangu === 'function') ? xesLecturesForPangu(id) : [];
 
     // 前置 / 后续 / 相关
     const prereqs = panguLinks.filter(l => l.target === id && l.type === 'prerequisite')
@@ -606,6 +608,15 @@ function showDetail(id) {
                     </a>
                 `).join('')}
             </div>
+        </div>` : ''}
+
+        ${xesLecs.length > 0 ? `
+        <div class="detail-section cross-map-section">
+            <h3>&#x1F995; 对应学而思讲次（${xesLecs.length} 讲）</h3>
+            <div class="prereq-tags">
+                ${xesLecs.map(l => `<a class="prereq-tag" style="text-decoration:none" href="xes.html?lecture=${l.id}">${l.level}级第${l.no}讲 ${l.title}</a>`).join('')}
+            </div>
+            <a class="cross-tag" style="margin-top:10px" href="xes.html?pangu=${id}">在学而思页面按此主题筛选 <span class="cross-tag-arrow">&rarr;</span></a>
         </div>` : ''}
 
         ${prereqs.length > 0 ? `

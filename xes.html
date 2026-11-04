@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学而思秘籍知识链 · 1-12 级 238 讲</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="xes.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">&#x1F995;</span>
+                <h1>学而思秘籍</h1>
+                <span class="subtitle subtitle-xes">1-12 级 · 238 讲</span>
+            </div>
+
+            <!-- 图谱切换 -->
+            <div class="map-switch">
+                <a class="map-switch-btn" href="index.html" title="小学教材知识图谱">&#x1F4D0; 小学教材</a>
+                <a class="map-switch-btn" href="german.html" title="德国竞赛知识图谱">&#x1F3C6; 德国竞赛</a>
+                <a class="map-switch-btn" href="pangu.html" title="盘古竞赛知识图谱">&#x1F3A8; 盘古竞赛</a>
+                <span class="map-switch-btn active">&#x1F995; 学而思</span>
+                <a class="map-switch-btn" href="bridge.html" title="查看图谱之间的关联">&#x1F517; 关联视图</a>
+                <a class="map-switch-btn" href="sweden-provinces.html" title="瑞典 25 省份记忆地图">&#x1F5FA;&#xFE0F; 瑞典地理</a>
+                <a class="map-switch-btn" href="knowledge-points.html" title="盘古竞赛知识点深度分析">&#x1F4CA; 知识点分析</a>
+                <a class="map-switch-btn" href="ak4-knowledge-expand.html" title="AK4 知识点扩展教学">&#x1F4DA; AK4 教学</a>
+                <a class="map-switch-btn" href="german-pangu-ak34.html" title="德国盘古 AK3/4 71 题">&#x1F1E9;&#x1F1EA; 德国题集</a>
+                <a class="map-switch-btn" href="german-pangu-ak34-study.html" title="71 题速记攻略">&#x26A1; 速记攻略</a>
+            </div>
+
+            <nav class="nav-tabs" id="xes-tabs">
+                <button class="tab-btn active" data-view="chains" onclick="switchView('chains')">学习链</button>
+                <button class="tab-btn" data-view="graph" onclick="switchView('graph')">知识图谱</button>
+                <button class="tab-btn" data-view="lectures" onclick="switchView('lectures')">讲次目录</button>
+                <button class="tab-btn" data-view="cards" onclick="switchView('cards')">教学卡</button>
+                <button class="tab-btn" data-view="methods" onclick="switchView('methods')">解题武器</button>
+                <button class="tab-btn" data-view="problems" onclick="switchView('problems')">题库</button>
+                <button class="tab-btn" data-view="practice" onclick="switchView('practice')">练习</button>
+                <button class="tab-btn" data-view="wrong" onclick="switchView('wrong')">错题本</button>
+                <button class="tab-btn" data-view="progress" onclick="switchView('progress')">我的进度</button>
+            </nav>
+
+            <div class="grade-filter" id="level-filter">
+                <button class="grade-btn active" data-range="all" onclick="filterLevel('all')">全部级别</button>
+                <button class="grade-btn" data-range="1-2" onclick="filterLevel('1-2')" title="约一年级">1-2 级</button>
+                <button class="grade-btn" data-range="3-4" onclick="filterLevel('3-4')" title="约二年级">3-4 级</button>
+                <button class="grade-btn" data-range="5-6" onclick="filterLevel('5-6')" title="约三年级">5-6 级</button>
+                <button class="grade-btn" data-range="7-8" onclick="filterLevel('7-8')" title="约四年级">7-8 级</button>
+                <button class="grade-btn" data-range="9-10" onclick="filterLevel('9-10')" title="约五年级">9-10 级</button>
+                <button class="grade-btn" data-range="11-12" onclick="filterLevel('11-12')" title="约六年级">11-12 级</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 学习链 (泳道图) -->
+            <div class="view-panel active" id="chains-view">
+                <div class="xes-scroll"><div class="xes-container" id="chains-container"></div></div>
+            </div>
+
+            <!-- 知识图谱 -->
+            <div class="view-panel" id="graph-view">
+                <div class="graph-container" id="xes-graph-container">
+                    <svg id="xes-graph"></svg>
+                    <div class="xes-graph-toolbar">
+                        <label>知识链
+                            <select id="graph-chain" class="topic-select" onchange="onGraphFilter()"></select>
+                        </label>
+                        <label>类别
+                            <select id="graph-category" class="topic-select" onchange="onGraphFilter()"></select>
+                        </label>
+                        <label class="xes-check"><input type="checkbox" id="graph-labels" onchange="onGraphFilter()"> 显示全部标签</label>
+                    </div>
+                    <div class="graph-legend xes-legend">
+                        <span id="graph-legend-cats" class="xes-legend-cats"></span>
+                        <span class="legend-item"><span class="line-solid"></span> 前置</span>
+                        <span class="legend-item"><span class="line-dashed"></span> 相关</span>
+                        <span class="legend-tip">横向 = 级别 1→12 · 点击圆点查看讲次 · 悬停高亮前后关系 · 滚轮缩放</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 讲次目录 -->
+            <div class="view-panel" id="lectures-view">
+                <div class="xes-scroll"><div class="xes-container" id="lectures-container"></div></div>
+            </div>
+
+            <!-- 教学卡 -->
+            <div class="view-panel" id="cards-view">
+                <div class="xes-scroll"><div class="xes-container" id="cards-container"></div></div>
+            </div>
+
+            <!-- 解题武器 -->
+            <div class="view-panel" id="methods-view">
+                <div class="xes-scroll"><div class="xes-container" id="methods-container"></div></div>
+            </div>
+
+            <!-- 题库 / 练习 / 错题本 -->
+            <div class="view-panel" id="problems-view">
+                <div class="xes-scroll"><div class="xes-container" id="problems-container"></div></div>
+            </div>
+            <div class="view-panel" id="practice-view">
+                <div class="xes-scroll"><div class="xes-container" id="practice-container"></div></div>
+            </div>
+            <div class="view-panel" id="wrong-view">
+                <div class="xes-scroll"><div class="xes-container" id="wrong-container"></div></div>
+            </div>
+
+            <!-- 我的进度 -->
+            <div class="view-panel" id="progress-view">
+                <div class="xes-scroll"><div class="xes-container" id="progress-container"></div></div>
+            </div>
+        </main>
+
+        <!-- 详情面板 -->
+        <div class="detail-overlay" id="detail-overlay" onclick="closeDetail()"></div>
+        <aside class="detail-panel" id="detail-panel">
+            <button class="close-btn" onclick="closeDetail()">&times;</button>
+            <div class="detail-content" id="detail-content"></div>
+        </aside>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="german-data.js"></script>
+    <script src="pangu-data.js"></script>
+    <script src="xes-data.js"></script>
+    <script src="xes-cards.js"></script>
+    <script src="xes-problems.js"></script>
+    <script src="xes-app.js"></script>
+    <script src="xes-practice.js"></script>
+</body>
+</html>
