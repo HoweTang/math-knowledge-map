@@ -109,6 +109,16 @@
     .box.tip h4 { color: #2E7D32; }
     .box.trap h4 { color: #C62828; }
     .box.example h4 { color: #6A1B9A; }
+    .fig {
+        text-align: center;
+        margin: 8px 0;
+        padding: 6px;
+        background: #fff;
+        border: 1px solid #E0E0E0;
+        border-radius: 4px;
+        page-break-inside: avoid;
+    }
+    .fig svg { max-width: 100%; height: auto; }
     code {
         background: #ECEFF1;
         padding: 1px 5px;
@@ -266,6 +276,27 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag easy">⋆</span> Thomas 身高</h4>
     <div class="q">Lea 身高 1 米 21 厘米，哥哥 Thomas 比 Lea 矮 23 厘米。Thomas 多高？</div>
+    <div class="fig">
+        <svg viewBox="0 0 340 150" width="320">
+            <!-- 地面 -->
+            <line x1="20" y1="130" x2="320" y2="130" stroke="#555" stroke-width="2"/>
+            <!-- Lea 121 cm -->
+            <rect x="60" y="20" width="40" height="110" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+            <text x="80" y="15" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565C0">Lea</text>
+            <text x="80" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#0D47A1">121 cm</text>
+            <!-- Thomas 98 cm -->
+            <rect x="200" y="43" width="40" height="87" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
+            <text x="220" y="38" text-anchor="middle" font-size="11" font-weight="bold" fill="#C62828">Thomas</text>
+            <text x="220" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#B71C1C">? cm</text>
+            <!-- 高度差 23 cm -->
+            <line x1="150" y1="20" x2="150" y2="43" stroke="#2E7D32" stroke-width="2"/>
+            <line x1="145" y1="20" x2="155" y2="20" stroke="#2E7D32" stroke-width="2"/>
+            <line x1="145" y1="43" x2="155" y2="43" stroke="#2E7D32" stroke-width="2"/>
+            <text x="160" y="35" font-size="12" fill="#2E7D32" font-weight="bold">矮 23 cm</text>
+            <!-- 比较箭头 -->
+            <text x="280" y="140" font-size="10" fill="#666">答：98 cm</text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>统一单位：1 m 21 cm = <code>121 cm</code>（<b>必须先换单位</b>）</li>
         <li>121 − 23 = <code>98 cm</code></li>
@@ -308,6 +339,25 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag easy">⋆</span> 柠檬和牛油果（PMT 2021/22 O1 #1）</h4>
     <div class="q">Kevin 买一个柠檬和一个牛油果，共付 40 克朗。牛油果比柠檬贵 30 克朗。柠檬几克朗？</div>
+    <div class="fig">
+        <svg viewBox="0 0 420 150" width="400">
+            <!-- 柠檬线段 -->
+            <text x="40" y="35" font-size="12" fill="#FBC02D" font-weight="bold">🍋 柠檬</text>
+            <line x1="100" y1="30" x2="140" y2="30" stroke="#FBC02D" stroke-width="8" stroke-linecap="round"/>
+            <text x="120" y="22" text-anchor="middle" font-size="10" fill="#F57F17" font-weight="bold">?</text>
+            <!-- 牛油果线段 (柠檬 + 差 30) -->
+            <text x="40" y="70" font-size="12" fill="#558B2F" font-weight="bold">🥑 牛油果</text>
+            <line x1="100" y1="65" x2="140" y2="65" stroke="#FBC02D" stroke-width="8" stroke-linecap="round"/>
+            <line x1="140" y1="65" x2="340" y2="65" stroke="#558B2F" stroke-width="8" stroke-linecap="round"/>
+            <text x="120" y="80" text-anchor="middle" font-size="10" fill="#F57F17">?</text>
+            <text x="240" y="80" text-anchor="middle" font-size="11" fill="#558B2F" font-weight="bold">+30</text>
+            <!-- 总 40 大括号 -->
+            <path d="M 100 100 L 100 110 L 340 110 L 340 100" fill="none" stroke="#C62828" stroke-width="1.5"/>
+            <text x="220" y="128" text-anchor="middle" font-size="13" fill="#C62828" font-weight="bold">共 40 克朗</text>
+            <!-- 解答提示 -->
+            <text x="20" y="145" font-size="10" fill="#666">和差：(40−30)÷2 = <tspan font-weight="bold" fill="#C62828">5</tspan></text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>和差问题：和 = 40，差 = 30</li>
         <li>柠檬（小的）= (40 − 30) ÷ 2 = <code>5</code></li>
@@ -351,9 +401,38 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag mid">⋆⋆⋆</span> 外正方形+两对角线+内嵌小正方形（PMT 2122 决赛类）</h4>
     <div class="q">大正方形里画两条对角线，再画一个顶点在边中点的小正方形（旋转 45°）。图中有多少个三角形？</div>
+    <div class="fig">
+        <svg viewBox="0 0 320 180" width="300">
+            <!-- 左：原图 -->
+            <text x="70" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">原图</text>
+            <rect x="20" y="30" width="100" height="100" fill="none" stroke="#1565C0" stroke-width="2"/>
+            <line x1="20" y1="30" x2="120" y2="130" stroke="#1565C0" stroke-width="2"/>
+            <line x1="120" y1="30" x2="20" y2="130" stroke="#1565C0" stroke-width="2"/>
+            <polygon points="70,30 120,80 70,130 20,80" fill="rgba(243,229,245,0.5)" stroke="#6A1B9A" stroke-width="2"/>
+            <!-- 右：标注 -->
+            <text x="230" y="18" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">4 大 + 4 小 = 8</text>
+            <rect x="180" y="30" width="100" height="100" fill="none" stroke="#1565C0" stroke-width="2"/>
+            <line x1="180" y1="30" x2="280" y2="130" stroke="#1565C0" stroke-width="2"/>
+            <line x1="280" y1="30" x2="180" y2="130" stroke="#1565C0" stroke-width="2"/>
+            <polygon points="230,30 280,80 230,130 180,80" fill="rgba(243,229,245,0.3)" stroke="#6A1B9A" stroke-width="2"/>
+            <!-- 4 大三角编号 -->
+            <text x="230" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#C62828">1</text>
+            <text x="255" y="83" text-anchor="middle" font-size="11" font-weight="bold" fill="#C62828">2</text>
+            <text x="230" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#C62828">3</text>
+            <text x="205" y="83" text-anchor="middle" font-size="11" font-weight="bold" fill="#C62828">4</text>
+            <!-- 4 小三角 -->
+            <text x="218" y="48" text-anchor="middle" font-size="9" fill="#2E7D32" font-weight="bold">a</text>
+            <text x="258" y="68" text-anchor="middle" font-size="9" fill="#2E7D32" font-weight="bold">b</text>
+            <text x="245" y="117" text-anchor="middle" font-size="9" fill="#2E7D32" font-weight="bold">c</text>
+            <text x="205" y="100" text-anchor="middle" font-size="9" fill="#2E7D32" font-weight="bold">d</text>
+            <!-- 分隔线 -->
+            <line x1="150" y1="30" x2="150" y2="130" stroke="#aaa" stroke-dasharray="4,3"/>
+            <text x="160" y="155" font-size="10" fill="#666">红：4 大（对角线分）  绿：4 小（小正方形+对角线）</text>
+        </svg>
+    </div>
     <ol class="steps">
-        <li>两条对角线把大正方形分 <b>4 个大三角形</b></li>
-        <li>对角线和小正方形相交形成 <b>4 个小三角形</b></li>
+        <li>两条对角线把大正方形分 <b>4 个大三角形</b>（红色 1-4）</li>
+        <li>对角线和小正方形相交形成 <b>4 个小三角形</b>（绿色 a-d）</li>
         <li>共 4 + 4 = <code>8</code></li>
     </ol>
     <div class="ans">答：8 个</div>
@@ -369,6 +448,71 @@
     <li><b>立方体切割 / 涂色</b>：n³ 块分 3 面/2 面/1 面/0 面涂色</li>
     <li><b>堆叠计数</b>：数方块、补成大长方体缺多少</li>
 </ul>
+
+<div class="fig">
+    <svg viewBox="0 0 540 150" width="520">
+        <!-- 骰子对面和 7 -->
+        <text x="60" y="18" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565C0">骰子对面和 7</text>
+        <g stroke="#1565C0" stroke-width="1.5">
+            <polygon points="20,40 60,25 100,40 60,55" fill="#E3F2FD"/>
+            <polygon points="20,40 60,55 60,110 20,95" fill="#BBDEFB"/>
+            <polygon points="100,40 60,55 60,110 100,95" fill="#90CAF9"/>
+        </g>
+        <!-- 顶面 1 点 -->
+        <circle cx="60" cy="40" r="3" fill="#0D47A1"/>
+        <!-- 正面 (左) 2 点 -->
+        <circle cx="33" cy="68" r="3" fill="#0D47A1"/>
+        <circle cx="47" cy="88" r="3" fill="#0D47A1"/>
+        <!-- 右面 3 点 -->
+        <circle cx="73" cy="68" r="3" fill="#0D47A1"/>
+        <circle cx="80" cy="78" r="3" fill="#0D47A1"/>
+        <circle cx="87" cy="88" r="3" fill="#0D47A1"/>
+        <text x="60" y="135" text-anchor="middle" font-size="10" fill="#333">背面=7−1=6</text>
+
+        <!-- 十字展开图 -->
+        <text x="200" y="18" text-anchor="middle" font-size="11" font-weight="bold" fill="#6A1B9A">十字展开图</text>
+        <g stroke="#6A1B9A" stroke-width="1.5" fill="#F3E5F5">
+            <rect x="170" y="30" width="25" height="25"/>
+            <rect x="170" y="55" width="25" height="25"/>
+            <rect x="145" y="55" width="25" height="25"/>
+            <rect x="195" y="55" width="25" height="25"/>
+            <rect x="220" y="55" width="25" height="25"/>
+            <rect x="170" y="80" width="25" height="25"/>
+        </g>
+        <text x="195" y="135" text-anchor="middle" font-size="10" fill="#333">相隔一格相对面</text>
+
+        <!-- 2x2x2 切块 -->
+        <text x="340" y="18" text-anchor="middle" font-size="11" font-weight="bold" fill="#2E7D32">n×n×n 切块</text>
+        <g stroke="#2E7D32" stroke-width="1.2">
+            <polygon points="285,40 340,25 395,40 340,55" fill="#C8E6C9"/>
+            <line x1="312" y1="32" x2="367" y2="48"/>
+            <line x1="312" y1="48" x2="367" y2="32"/>
+            <polygon points="285,40 340,55 340,105 285,90" fill="#A5D6A7"/>
+            <line x1="312" y1="48" x2="312" y2="97"/>
+            <line x1="285" y1="65" x2="340" y2="80"/>
+            <polygon points="340,55 395,40 395,90 340,105" fill="#81C784"/>
+            <line x1="367" y1="48" x2="367" y2="97"/>
+            <line x1="340" y1="80" x2="395" y2="65"/>
+        </g>
+        <text x="340" y="135" text-anchor="middle" font-size="10" fill="#333">角 8 棱 12 面 6 心 1</text>
+
+        <!-- 三视图 -->
+        <text x="470" y="18" text-anchor="middle" font-size="11" font-weight="bold" fill="#E65100">三视图</text>
+        <g stroke="#E65100" stroke-width="1.5">
+            <rect x="420" y="30" width="18" height="18" fill="#FFE0B2"/>
+            <rect x="438" y="30" width="18" height="18" fill="#FFE0B2"/>
+            <rect x="438" y="48" width="18" height="18" fill="#FFE0B2"/>
+            <text x="429" y="78" font-size="9">正</text>
+            <rect x="460" y="30" width="18" height="18" fill="#FFCC80"/>
+            <rect x="460" y="48" width="18" height="18" fill="#FFCC80"/>
+            <text x="465" y="78" font-size="9">左</text>
+            <rect x="485" y="30" width="18" height="18" fill="#FFB74D"/>
+            <rect x="503" y="30" width="18" height="18" fill="#FFB74D"/>
+            <text x="500" y="78" font-size="9">俯</text>
+        </g>
+        <text x="470" y="135" text-anchor="middle" font-size="10" fill="#333">正视/左视/俯视</text>
+    </svg>
+</div>
 
 <h3>如何引导</h3>
 <ol>
@@ -397,6 +541,38 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆</span> 立方体最少数</h4>
     <div class="q">用一些小立方体拼成一个大立方体（不剩）。最少几块？</div>
+    <div class="fig">
+        <svg viewBox="0 0 320 180" width="300">
+            <!-- 2x2x2 立方体 (等距投影) -->
+            <!-- 顶面 2x2 -->
+            <g stroke="#2E7D32" stroke-width="1.5">
+                <polygon points="60,70 110,45 160,70 110,95" fill="#C8E6C9"/>
+                <line x1="85" y1="57" x2="135" y2="82"/>
+                <line x1="85" y1="82" x2="135" y2="57"/>
+            </g>
+            <!-- 左面 -->
+            <g stroke="#2E7D32" stroke-width="1.5">
+                <polygon points="60,70 110,95 110,145 60,120" fill="#A5D6A7"/>
+                <line x1="85" y1="82" x2="85" y2="133"/>
+                <line x1="60" y1="95" x2="110" y2="120"/>
+            </g>
+            <!-- 右面 -->
+            <g stroke="#2E7D32" stroke-width="1.5">
+                <polygon points="110,95 160,70 160,120 110,145" fill="#81C784"/>
+                <line x1="135" y1="82" x2="135" y2="133"/>
+                <line x1="110" y1="120" x2="160" y2="95"/>
+            </g>
+            <text x="110" y="35" text-anchor="middle" font-size="12" fill="#2E7D32" font-weight="bold">2×2×2 = 8 块</text>
+            <!-- 旁边列出立方数 -->
+            <g font-size="12" fill="#333">
+                <text x="200" y="60" font-weight="bold" fill="#1565C0">立方数：</text>
+                <text x="200" y="80">1 = 1³</text>
+                <text x="200" y="100" font-weight="bold" fill="#C62828">8 = 2³ ✓最小</text>
+                <text x="200" y="120">27 = 3³</text>
+                <text x="200" y="140">64 = 4³</text>
+            </g>
+        </svg>
+    </div>
     <ol class="steps">
         <li>拼出来必须是 <b>立方数</b>：1, 8, 27, 64...</li>
         <li>1 块是"大=小"，不算；最小是 <code>8 块</code>（2×2×2）</li>
@@ -423,6 +599,31 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag mid">⋆⋆</span> ★+■−● 三方程（PMT 2122 O1 #5）</h4>
     <div class="q">6+★=14、★−■=5、■·●=6。求 ★+■−●。</div>
+    <div class="fig">
+        <svg viewBox="0 0 400 170" width="380">
+            <!-- 三方程 -->
+            <g font-size="14" font-weight="bold" text-anchor="middle">
+                <text x="200" y="30">6 + <tspan fill="#FFA000">★</tspan> = 14</text>
+                <text x="200" y="55"><tspan fill="#FFA000">★</tspan> − <tspan fill="#1565C0">■</tspan> = 5</text>
+                <text x="200" y="80"><tspan fill="#1565C0">■</tspan> · <tspan fill="#C62828">●</tspan> = 6</text>
+            </g>
+            <!-- 推导箭头 -->
+            <path d="M 310 25 L 350 25" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arr)"/>
+            <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/></marker></defs>
+            <text x="330" y="20" text-anchor="middle" font-size="10" fill="#2E7D32" font-weight="bold">★=8</text>
+            <path d="M 310 50 L 350 50" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="330" y="45" text-anchor="middle" font-size="10" fill="#2E7D32" font-weight="bold">■=3</text>
+            <path d="M 310 75 L 350 75" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="330" y="70" text-anchor="middle" font-size="10" fill="#2E7D32" font-weight="bold">●=2</text>
+            <!-- 最终答案 -->
+            <line x1="20" y1="105" x2="380" y2="105" stroke="#999" stroke-dasharray="3,3"/>
+            <text x="200" y="130" text-anchor="middle" font-size="15" font-weight="bold">
+                <tspan fill="#FFA000">★</tspan>+<tspan fill="#1565C0">■</tspan>−<tspan fill="#C62828">●</tspan> = 8+3−2 =
+                <tspan fill="#2E7D32" font-size="18">9</tspan>
+            </text>
+            <text x="200" y="155" text-anchor="middle" font-size="11" fill="#666">三方程联立：从简单的先解</text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>从第 1 式：★ = 14 − 6 = <code>8</code></li>
         <li>从第 2 式：■ = 8 − 5 = <code>3</code></li>
@@ -458,6 +659,39 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆</span> 一本书用了 264 位数字（PMT 2122 O1 #9）</h4>
     <div class="q">一本书页码用了 264 个数字。书有几页？</div>
+    <div class="fig">
+        <svg viewBox="0 0 420 150" width="400">
+            <!-- 1-9 段 -->
+            <rect x="20" y="40" width="30" height="40" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5"/>
+            <text x="35" y="30" text-anchor="middle" font-size="10" font-weight="bold" fill="#2E7D32">1-9</text>
+            <text x="35" y="65" text-anchor="middle" font-size="11" font-weight="bold">9 页</text>
+            <text x="35" y="100" text-anchor="middle" font-size="10" fill="#333">×1 位</text>
+            <text x="35" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#2E7D32">= 9</text>
+
+            <!-- 10-99 段 -->
+            <rect x="80" y="40" width="130" height="40" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+            <text x="145" y="30" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565C0">10-99</text>
+            <text x="145" y="65" text-anchor="middle" font-size="11" font-weight="bold">90 页</text>
+            <text x="145" y="100" text-anchor="middle" font-size="10" fill="#333">×2 位</text>
+            <text x="145" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565C0">= 180</text>
+
+            <!-- 100-? 段 -->
+            <rect x="240" y="40" width="80" height="40" fill="#FFCDD2" stroke="#C62828" stroke-width="1.5"/>
+            <text x="280" y="30" text-anchor="middle" font-size="10" font-weight="bold" fill="#C62828">100-?</text>
+            <text x="280" y="65" text-anchor="middle" font-size="11" font-weight="bold">25 页</text>
+            <text x="280" y="100" text-anchor="middle" font-size="10" fill="#333">×3 位</text>
+            <text x="280" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#C62828">= 75</text>
+
+            <!-- 累计说明 -->
+            <text x="360" y="55" font-size="11" fill="#333">合计</text>
+            <text x="360" y="75" font-size="14" font-weight="bold" fill="#333">264 位</text>
+            <text x="360" y="100" font-size="10" fill="#666">↓</text>
+            <text x="360" y="118" font-size="14" font-weight="bold" fill="#2E7D32">124 页</text>
+
+            <!-- 底部公式 -->
+            <text x="200" y="145" text-anchor="middle" font-size="10" fill="#666">9 + 180 + (264−189) ÷ 3 = 99 + 25 = 124</text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>1-9：9 页 × 1 位 = <code>9</code> 位</li>
         <li>10-99：90 页 × 2 位 = <code>180</code> 位（累计 189 位）</li>
@@ -496,6 +730,44 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag easy">⋆</span> 点阵第 5 图（PMT 2122 O1 #3）</h4>
     <div class="q">图 1: 1 点、图 2: 3 点、图 3: 6 点、图 4: 10 点。第 5 图几点？</div>
+    <div class="fig">
+        <svg viewBox="0 0 440 130" width="420">
+            <!-- Fig 1 -->
+            <text x="30" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">图 1 (1)</text>
+            <circle cx="30" cy="105" r="4" fill="#1565C0"/>
+            <!-- Fig 2 -->
+            <text x="80" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">图 2 (3)</text>
+            <g fill="#1565C0">
+                <circle cx="70" cy="105" r="4"/><circle cx="90" cy="105" r="4"/>
+                <circle cx="80" cy="85" r="4"/>
+            </g>
+            <!-- Fig 3 -->
+            <text x="150" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">图 3 (6)</text>
+            <g fill="#1565C0">
+                <circle cx="130" cy="105" r="4"/><circle cx="150" cy="105" r="4"/><circle cx="170" cy="105" r="4"/>
+                <circle cx="140" cy="85" r="4"/><circle cx="160" cy="85" r="4"/>
+                <circle cx="150" cy="65" r="4"/>
+            </g>
+            <!-- Fig 4 -->
+            <text x="240" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">图 4 (10)</text>
+            <g fill="#1565C0">
+                <circle cx="210" cy="105" r="4"/><circle cx="230" cy="105" r="4"/><circle cx="250" cy="105" r="4"/><circle cx="270" cy="105" r="4"/>
+                <circle cx="220" cy="85" r="4"/><circle cx="240" cy="85" r="4"/><circle cx="260" cy="85" r="4"/>
+                <circle cx="230" cy="65" r="4"/><circle cx="250" cy="65" r="4"/>
+                <circle cx="240" cy="45" r="4"/>
+            </g>
+            <!-- Fig 5 -->
+            <text x="360" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#C62828">图 5 (?)</text>
+            <g fill="#C62828">
+                <circle cx="320" cy="105" r="4"/><circle cx="340" cy="105" r="4"/><circle cx="360" cy="105" r="4"/><circle cx="380" cy="105" r="4"/><circle cx="400" cy="105" r="4"/>
+                <circle cx="330" cy="85" r="4"/><circle cx="350" cy="85" r="4"/><circle cx="370" cy="85" r="4"/><circle cx="390" cy="85" r="4"/>
+                <circle cx="340" cy="65" r="4"/><circle cx="360" cy="65" r="4"/><circle cx="380" cy="65" r="4"/>
+                <circle cx="350" cy="45" r="4"/><circle cx="370" cy="45" r="4"/>
+                <circle cx="360" cy="25" r="4"/>
+            </g>
+            <text x="360" y="125" text-anchor="middle" font-size="11" fill="#C62828" font-weight="bold">= 15</text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>序列 1, 3, 6, 10 → 差 2, 3, 4（三角数）</li>
         <li>第 5 图 = 10 + 5 = <code>15</code></li>
@@ -522,6 +794,40 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag mid">⋆⋆⋆</span> 6 人赛跑名次（PMT 2122 O1 #7）</h4>
     <div class="q">Ella 第 3；Saga 在 Lucas 之后、Ronja 之前；Aylin 第 1；Fabian 在 Saga 之后但不最后。第 4 名是谁？</div>
+    <div class="fig">
+        <svg viewBox="0 0 480 130" width="460">
+            <!-- 6 格排位 -->
+            <g font-size="11" text-anchor="middle">
+                <rect x="20" y="40" width="70" height="50" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
+                <text x="55" y="30" font-weight="bold" fill="#2E7D32">第 1</text>
+                <text x="55" y="62" font-weight="bold">Aylin</text>
+                <text x="55" y="78" font-size="9" fill="#2E7D32">给定</text>
+                <rect x="90" y="40" width="70" height="50" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                <text x="125" y="30" font-weight="bold" fill="#1565C0">第 2</text>
+                <text x="125" y="62" font-weight="bold">Lucas</text>
+                <text x="125" y="78" font-size="9" fill="#666">推理</text>
+                <rect x="160" y="40" width="70" height="50" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
+                <text x="195" y="30" font-weight="bold" fill="#2E7D32">第 3</text>
+                <text x="195" y="62" font-weight="bold">Ella</text>
+                <text x="195" y="78" font-size="9" fill="#2E7D32">给定</text>
+                <rect x="230" y="40" width="70" height="50" fill="#FFCDD2" stroke="#C62828" stroke-width="2.5"/>
+                <text x="265" y="30" font-weight="bold" fill="#C62828">第 4 ★</text>
+                <text x="265" y="62" font-weight="bold" fill="#C62828">Saga</text>
+                <text x="265" y="78" font-size="9" fill="#C62828">答案</text>
+                <rect x="300" y="40" width="70" height="50" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                <text x="335" y="30" font-weight="bold" fill="#1565C0">第 5</text>
+                <text x="335" y="62" font-weight="bold">Fabian</text>
+                <text x="335" y="78" font-size="9" fill="#666">推理</text>
+                <rect x="370" y="40" width="70" height="50" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+                <text x="405" y="30" font-weight="bold" fill="#1565C0">第 6</text>
+                <text x="405" y="62" font-weight="bold">Ronja</text>
+                <text x="405" y="78" font-size="9" fill="#666">推理</text>
+            </g>
+            <text x="230" y="115" text-anchor="middle" font-size="11" fill="#666">
+                条件: Lucas &lt; Saga &lt; Ronja; Fabian &gt; Saga 且 Fabian ≠ 6
+            </text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>先定死的：Aylin=1、Ella=3</li>
         <li>Lucas &lt; Saga &lt; Ronja，而 2、4、5、6 还空着</li>
@@ -557,6 +863,45 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆⋆</span> 四位数末尾 0 抹掉（PMT 2122 O1 #12）</h4>
     <div class="q">四位数 N 末位是 0，抹掉 0 得三位数 x。N + x = 1903，求 N − x。</div>
+    <div class="fig">
+        <svg viewBox="0 0 420 180" width="400">
+            <!-- 原四位数 N = 1 7 3 [0] -->
+            <text x="50" y="30" font-size="11" font-weight="bold" fill="#1565C0">四位数 N:</text>
+            <g>
+                <rect x="130" y="15" width="30" height="30" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+                <text x="145" y="35" text-anchor="middle" font-size="14" font-weight="bold">1</text>
+                <rect x="160" y="15" width="30" height="30" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+                <text x="175" y="35" text-anchor="middle" font-size="14" font-weight="bold">7</text>
+                <rect x="190" y="15" width="30" height="30" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+                <text x="205" y="35" text-anchor="middle" font-size="14" font-weight="bold">3</text>
+                <rect x="220" y="15" width="30" height="30" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
+                <text x="235" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="#C62828">0</text>
+            </g>
+            <text x="310" y="35" font-size="12" font-weight="bold">= 1730</text>
+            <!-- 抹掉 0 -->
+            <path d="M 260 30 L 275 30" stroke="#2E7D32" stroke-width="2" marker-end="url(#arr2)"/>
+            <defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/></marker></defs>
+            <!-- 新三位数 -->
+            <text x="40" y="85" font-size="11" font-weight="bold" fill="#2E7D32">抹 0 → x:</text>
+            <g>
+                <rect x="130" y="70" width="30" height="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5"/>
+                <text x="145" y="90" text-anchor="middle" font-size="14" font-weight="bold">1</text>
+                <rect x="160" y="70" width="30" height="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5"/>
+                <text x="175" y="90" text-anchor="middle" font-size="14" font-weight="bold">7</text>
+                <rect x="190" y="70" width="30" height="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5"/>
+                <text x="205" y="90" text-anchor="middle" font-size="14" font-weight="bold">3</text>
+            </g>
+            <text x="310" y="90" font-size="12" font-weight="bold">= 173</text>
+            <!-- 关键等式 -->
+            <line x1="20" y1="115" x2="400" y2="115" stroke="#999" stroke-dasharray="3,3"/>
+            <text x="200" y="140" text-anchor="middle" font-size="13" font-weight="bold">
+                <tspan fill="#1565C0">N</tspan> + <tspan fill="#2E7D32">x</tspan> = 10x + x = 11x = 1903
+            </text>
+            <text x="200" y="162" text-anchor="middle" font-size="12" fill="#C62828" font-weight="bold">
+                x = 1903÷11 = 173  →  N−x = 1730−173 = 1557
+            </text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>N = 10x，所以 N + x = 11x = <code>1903</code></li>
         <li>1903 ÷ 11 = <code>173</code>（整除）→ x = 173，N = 1730</li>
@@ -584,6 +929,41 @@
 <div class="box example">
     <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆</span> 公车下下趟（PMT 2122 O1 #10）</h4>
     <div class="q">现在 14:42。上趟公车 5 分钟前发车（但晚了 3 分钟）。下趟 14:50 发。下下趟几点？</div>
+    <div class="fig">
+        <svg viewBox="0 0 480 150" width="460">
+            <!-- 时间轴 -->
+            <line x1="40" y1="80" x2="460" y2="80" stroke="#333" stroke-width="2"/>
+            <!-- 时间点 -->
+            <g font-size="10" text-anchor="middle">
+                <!-- 14:34 应发 -->
+                <line x1="60" y1="70" x2="60" y2="90" stroke="#999" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <text x="60" y="60" fill="#666">14:34</text>
+                <text x="60" y="105" fill="#666" font-size="9">应发</text>
+                <!-- 14:37 实发 -->
+                <circle cx="105" cy="80" r="7" fill="#C62828"/>
+                <text x="105" y="60" fill="#C62828" font-weight="bold">14:37</text>
+                <text x="105" y="105" fill="#C62828" font-size="9">实发</text>
+                <text x="80" y="118" font-size="9" fill="#C62828">晚 3 分</text>
+                <!-- 14:42 现在 -->
+                <polygon points="180,70 185,80 180,90 175,80" fill="#FFA000"/>
+                <text x="180" y="60" fill="#FFA000" font-weight="bold">14:42</text>
+                <text x="180" y="105" fill="#FFA000" font-size="9">现在</text>
+                <!-- 14:50 下趟 -->
+                <circle cx="280" cy="80" r="7" fill="#2E7D32"/>
+                <text x="280" y="60" fill="#2E7D32" font-weight="bold">14:50</text>
+                <text x="280" y="105" fill="#2E7D32" font-size="9">下趟</text>
+                <!-- 15:06 下下趟 -->
+                <circle cx="430" cy="80" r="8" fill="#1565C0"/>
+                <text x="430" y="60" fill="#1565C0" font-weight="bold">15:06</text>
+                <text x="430" y="105" fill="#1565C0" font-size="9">下下趟 ★</text>
+            </g>
+            <!-- 间隔标注 -->
+            <path d="M 60 125 L 60 130 L 280 130 L 280 125" fill="none" stroke="#555"/>
+            <text x="170" y="145" text-anchor="middle" font-size="10" fill="#555" font-weight="bold">间隔 16 分</text>
+            <path d="M 280 125 L 280 130 L 430 130 L 430 125" fill="none" stroke="#1565C0"/>
+            <text x="355" y="145" text-anchor="middle" font-size="10" fill="#1565C0" font-weight="bold">+16 分</text>
+        </svg>
+    </div>
     <ol class="steps">
         <li>上趟按时刻表 = 14:37（真实发车）− 3 分钟（晚点）= <code>14:34</code>（应发时刻）</li>
         <li>间隔 = 14:50 − 14:34 = <code>16</code> 分</li>
