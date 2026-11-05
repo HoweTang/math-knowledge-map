@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘古数学 AK4（四年级）辅导手册 · 可打印</title>
+<style>
+    @page {
+        size: A4;
+        margin: 15mm 14mm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+        font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+        color: #222;
+        line-height: 1.55;
+        font-size: 11.5pt;
+        background: #f6f6f6;
+    }
+    .page {
+        background: #fff;
+        max-width: 820px;
+        margin: 20px auto;
+        padding: 28px 36px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+        font-size: 20pt;
+        color: #1a237e;
+        border-bottom: 3px solid #1a237e;
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+    }
+    .meta { color: #666; font-size: 10pt; margin-bottom: 20px; }
+    h2 {
+        font-size: 15pt;
+        color: #0D47A1;
+        margin-top: 22px;
+        margin-bottom: 10px;
+        padding: 6px 10px;
+        background: #E3F2FD;
+        border-left: 5px solid #1565C0;
+        page-break-after: avoid;
+    }
+    h3 {
+        font-size: 12.5pt;
+        color: #2E7D32;
+        margin-top: 14px;
+        margin-bottom: 6px;
+        page-break-after: avoid;
+    }
+    h4 {
+        font-size: 11.5pt;
+        color: #333;
+        margin-top: 10px;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+    }
+    p { margin: 4px 0; }
+    ul, ol { margin: 4px 0 8px 22px; }
+    li { margin: 2px 0; }
+    .lead {
+        background: #FFF8E1;
+        border-left: 4px solid #FBC02D;
+        padding: 10px 14px;
+        margin: 10px 0 18px;
+        font-size: 11pt;
+    }
+    .cat-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0 18px;
+        font-size: 10.5pt;
+    }
+    .cat-table th, .cat-table td {
+        border: 1px solid #ccc;
+        padding: 5px 8px;
+        text-align: left;
+    }
+    .cat-table th {
+        background: #0D47A1;
+        color: #fff;
+        font-weight: 600;
+    }
+    .cat-table td.num { text-align: center; }
+    .cat-table tr:nth-child(even) { background: #f8f9fa; }
+    .box {
+        border: 1px solid #E0E0E0;
+        border-left: 4px solid #0D47A1;
+        padding: 10px 14px;
+        margin: 10px 0;
+        border-radius: 4px;
+        background: #FAFAFA;
+        page-break-inside: avoid;
+    }
+    .box.tip {
+        border-left-color: #43A047;
+        background: #F1F8E9;
+    }
+    .box.trap {
+        border-left-color: #E53935;
+        background: #FFEBEE;
+    }
+    .box.example {
+        border-left-color: #7B1FA2;
+        background: #F3E5F5;
+    }
+    .box h4 { margin: 0 0 6px; color: inherit; }
+    .box.tip h4 { color: #2E7D32; }
+    .box.trap h4 { color: #C62828; }
+    .box.example h4 { color: #6A1B9A; }
+    code {
+        background: #ECEFF1;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 10.5pt;
+        color: #0D47A1;
+    }
+    .star { color: #FBC02D; font-size: 1em; }
+    .q {
+        font-style: italic;
+        color: #333;
+        background: #FFF;
+        border: 1px dashed #999;
+        padding: 6px 10px;
+        margin: 6px 0;
+        font-size: 10.5pt;
+    }
+    .ans {
+        color: #C62828;
+        font-weight: 700;
+        margin-top: 4px;
+    }
+    .steps {
+        margin: 4px 0 4px 22px;
+        font-size: 10.5pt;
+    }
+    .steps li { margin: 2px 0; }
+    .tag {
+        display: inline-block;
+        padding: 1px 7px;
+        border-radius: 10px;
+        font-size: 9.5pt;
+        font-weight: 600;
+        margin-right: 4px;
+    }
+    .tag.easy { background: #C8E6C9; color: #1B5E20; }
+    .tag.mid  { background: #FFE0B2; color: #E65100; }
+    .tag.hard { background: #FFCDD2; color: #B71C1C; }
+    .plan-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 10.5pt;
+    }
+    .plan-table th, .plan-table td {
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+        text-align: left;
+        vertical-align: top;
+    }
+    .plan-table th { background: #2E7D32; color: #fff; }
+    footer {
+        margin-top: 30px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+        font-size: 9.5pt;
+        color: #777;
+        text-align: center;
+    }
+    .avoid-break { page-break-inside: avoid; }
+    .page-break { page-break-before: always; }
+    .no-print { }
+    @media print {
+        body { background: #fff; font-size: 10.5pt; }
+        .page { box-shadow: none; margin: 0; padding: 0; max-width: 100%; }
+        .no-print { display: none; }
+        h2 { background: #E3F2FD !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .cat-table th { background: #0D47A1 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .plan-table th { background: #2E7D32 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .box, .box.tip, .box.trap, .box.example { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    .print-btn {
+        position: fixed; top: 16px; right: 16px;
+        padding: 8px 16px; background: #0D47A1; color: #fff;
+        border: none; border-radius: 4px; cursor: pointer;
+        font-size: 11pt; box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
+    .print-btn:hover { background: #002171; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ 打印 / 保存 PDF</button>
+
+<div class="page">
+
+<h1>🎯 盘古数学 AK4（四年级）家长辅导手册</h1>
+<div class="meta">按知识大类整理 · 配套策略和例题 · 适合家长/教师陪练 · A4 可打印</div>
+
+<div class="lead">
+    <strong>🧭 AK4 是什么：</strong>盘古竞赛（Pangea Matematiktävling）四年级组，瑞典 PMT。初赛 12 题（1-5⋆），决赛 10 题（1-5⋆）。
+    每题 5 选 1，答对加分、答错扣少量分、不答 0 分。<br>
+    <strong>⚡ 核心能力：</strong>读题 + 运算 + 空间想象 + 模式识别。<em>不考</em>分数运算、代数证明、角度、百分数、概率。<br>
+    <strong>🏆 拿分策略：</strong>1-2⋆ 送分题 <b>一道都不能错</b>；3⋆ 稳扎稳打；4-5⋆ 挑强项做；<b>没把握就跳过</b>（避免扣分）。
+</div>
+
+<h2>📊 一、十大知识点板块总览</h2>
+
+<table class="cat-table">
+    <thead>
+    <tr><th>#</th><th>板块</th><th class="num">题占比</th><th class="num">难度</th><th>必学 / 加分</th><th>辅导侧重</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>1</td><td>🧮 基础运算</td><td class="num">20%</td><td class="num">2.4⋆</td><td>必学</td><td>速算 + 单位换算 + 运算顺序</td></tr>
+    <tr><td>2</td><td>💼 应用题</td><td class="num">21%</td><td class="num">3.7⋆</td><td>必学</td><td>读题 + 画线段/表格</td></tr>
+    <tr><td>3</td><td>📏 平面几何</td><td class="num">18%</td><td class="num">3.8⋆</td><td>必学</td><td>周长 · 图形计数 · 阴影面积</td></tr>
+    <tr><td>4</td><td>🧊 立体几何</td><td class="num">11%</td><td class="num">4.3⋆</td><td>加分</td><td>骰子对面 · 展开图 · 三视图</td></tr>
+    <tr><td>5</td><td>🧩 智力/数字谜</td><td class="num">16%</td><td class="num">3.3⋆</td><td>必学</td><td>填符号 · 填数 · 对等变换</td></tr>
+    <tr><td>6</td><td>🎯 计数/组合</td><td class="num">13%</td><td class="num">3.9⋆</td><td>必学</td><td>分类不漏不重 · 简单组合</td></tr>
+    <tr><td>7</td><td>🔁 规律/数列</td><td class="num">13%</td><td class="num">3.4⋆</td><td>必学</td><td>等差 · 二阶差 · 三角数</td></tr>
+    <tr><td>8</td><td>🧠 逻辑推理</td><td class="num">12%</td><td class="num">3.7⋆</td><td>必学</td><td>排序 · 排位 · 陷阱识别</td></tr>
+    <tr><td>9</td><td>🔢 数论/数位</td><td class="num">11%</td><td class="num">3.4⋆</td><td>加分</td><td>位数计数 · 奇偶 · 整除</td></tr>
+    <tr><td>10</td><td>⏰ 时间/日期</td><td class="num">6%</td><td class="num">2.3⋆</td><td>必学</td><td>时刻差 · 周期 · 星期几</td></tr>
+    </tbody>
+</table>
+
+<div class="box tip">
+    <h4>👨‍👩‍👧 给家长的 5 句话</h4>
+    <ol>
+        <li><b>读题比运算重要</b>。孩子答错 70% 不是算错，是读错题——"比多"读成"多"、单位没换、问的是和还是差。</li>
+        <li><b>画图是护身符</b>。几何题画图、应用题画线段、逻辑题画表格——不画图就减分。</li>
+        <li><b>陷阱题要练</b>。"农民几岁"（动物数量 ≠ 年龄）是经典陷阱，答案常是 <code>e) 无法解决</code>。</li>
+        <li><b>运算必须 100% 正确</b>。1-2⋆ 送分题错一道，总分就落后 5-7 分。</li>
+        <li><b>没把握就跳过</b>。盘古答错扣少量分（1/4 分），不答 0 分。概率小于 1/5 不要蒙。</li>
+    </ol>
+</div>
+
+<h2>🧮 二、基础运算（必学 · 送分最多）</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li>加减乘除混合运算、运算顺序、速算技巧（凑整、配对、逆运算）</li>
+    <li>单位换算：长度 (cm/dm/m/km)、重量 (g/kg)、容积 (ml/l)、时间 (秒/分/时)</li>
+    <li>填符号 / 填数：如 <code>12 __ 3 = 36</code> 填 ×</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>每天 10 分钟口算</b>（50 道），要求又快又准</li>
+    <li><b>凑整感觉</b>：25×4=100、125×8=1000、99=100−1，熟练后口算 10 以内加减瞬间完成</li>
+    <li><b>单位换算卡片</b>：1 m = 100 cm = 1000 mm、1 km = 1000 m、1 kg = 1000 g（反复背）</li>
+    <li><b>运算顺序口诀</b>：先括号 → 再乘除 → 最后加减；同级从左往右</li>
+</ol>
+
+<div class="box trap">
+    <h4>⚠️ 要注意</h4>
+    <ul>
+        <li>瑞典用<b>小数点逗号</b>（1,21 m = 1.21 m）。要让孩子<b>认识</b>这个写法</li>
+        <li>瑞典单位写法：krona (kr) 克朗、meter (m)、kilogram (kg)。欧洲数字用<b>空格</b>分组（1 234 = 1234）</li>
+        <li>"比 X 少 n" 写成 X−n，不是 n−X——读题时划横线强调</li>
+    </ul>
+</div>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag easy">⋆</span> Thomas 身高</h4>
+    <div class="q">Lea 身高 1 米 21 厘米，哥哥 Thomas 比 Lea 矮 23 厘米。Thomas 多高？</div>
+    <ol class="steps">
+        <li>统一单位：1 m 21 cm = <code>121 cm</code>（<b>必须先换单位</b>）</li>
+        <li>121 − 23 = <code>98 cm</code></li>
+    </ol>
+    <div class="ans">答：98 cm</div>
+</div>
+
+<h2>💼 三、应用题（必学 · 读题是关键）</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li>和差倍问题、鸡兔同笼变形、简单行程、简单工程、容器、经济（买卖）、年龄</li>
+    <li>最常见题型：<b>和差问题</b>（如柠檬牛油果共 40 kr，牛油果贵 30 kr，柠檬几 kr？）</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>读题三遍法</b>：
+        <ul>
+            <li>第 1 遍：找问什么（画问号）</li>
+            <li>第 2 遍：找已知条件（划线）</li>
+            <li>第 3 遍：找陷阱（有没有多余信息？单位一样吗？）</li>
+        </ul>
+    </li>
+    <li><b>画线段图</b>：和差问题画两条线段，长短对比直观</li>
+    <li><b>列表格</b>：鸡兔同笼类画假设表</li>
+    <li><b>先估后算</b>：答案在选项中大概落哪个范围？排除明显不合理的</li>
+</ol>
+
+<div class="box tip">
+    <h4>🧠 和差问题公式（必背）</h4>
+    <p>两数和 = a + b；两数差 = a − b（a 大）</p>
+    <ul>
+        <li>小的 = (和 − 差) ÷ 2</li>
+        <li>大的 = (和 + 差) ÷ 2</li>
+    </ul>
+    <p>例：和 40、差 30 → 小 = (40−30)÷2 = <code>5</code>，大 = (40+30)÷2 = <code>35</code>。</p>
+</div>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag easy">⋆</span> 柠檬和牛油果（PMT 2021/22 O1 #1）</h4>
+    <div class="q">Kevin 买一个柠檬和一个牛油果，共付 40 克朗。牛油果比柠檬贵 30 克朗。柠檬几克朗？</div>
+    <ol class="steps">
+        <li>和差问题：和 = 40，差 = 30</li>
+        <li>柠檬（小的）= (40 − 30) ÷ 2 = <code>5</code></li>
+    </ol>
+    <div class="ans">答：a) 5 克朗</div>
+</div>
+
+<div class="box trap">
+    <h4>⚠️ 应用题 3 大陷阱</h4>
+    <ol>
+        <li><b>"农民几岁"类</b>：题目给动物数量、问主人年龄——两者无关 → 答 <code>无法解决</code></li>
+        <li><b>单位不统一</b>：有 m、有 cm、有 mm 要先换</li>
+        <li><b>"比多"≠"多"</b>：A 比 B 多 5，意思是 A = B + 5，不是 A = 5</li>
+    </ol>
+</div>
+
+<h2>📏 四、平面几何（必学 · 画图！）</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>周长</b>：L 形/凸凹图形的周长（走一圈的边长总和）</li>
+    <li><b>图形计数</b>：数三角形、正方形、长方形（分大小分类不漏不重）</li>
+    <li><b>阴影面积</b>：割补法、整体减法</li>
+    <li><b>图形拼接 / 剪切</b>：能否一刀切拼成正方形</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>必画图</b>！看到几何题立刻拿草稿纸画出来</li>
+    <li><b>L 形周长技巧</b>：L 形的周长 = 外接长方形的周长（凹进去的那段来回抵消）</li>
+    <li><b>图形计数套路</b>：
+        <ul>
+            <li>n×n 方格里的正方形数 = 1² + 2² + ... + n²</li>
+            <li>2×2 方格 = 5 个正方形（<b>要记</b>）、3×3 = 14 个</li>
+            <li>长方形数 = C(横线数, 2) × C(竖线数, 2)</li>
+        </ul>
+    </li>
+    <li><b>阴影面积三法</b>：割（拆成小块）、补（补成规整）、减（整体 − 空白）</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag mid">⋆⋆⋆</span> 外正方形+两对角线+内嵌小正方形（PMT 2122 决赛类）</h4>
+    <div class="q">大正方形里画两条对角线，再画一个顶点在边中点的小正方形（旋转 45°）。图中有多少个三角形？</div>
+    <ol class="steps">
+        <li>两条对角线把大正方形分 <b>4 个大三角形</b></li>
+        <li>对角线和小正方形相交形成 <b>4 个小三角形</b></li>
+        <li>共 4 + 4 = <code>8</code></li>
+    </ol>
+    <div class="ans">答：8 个</div>
+</div>
+
+<h2>🧊 五、立体几何（高难度 · 空间想象）</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>骰子</b>：对面之和 = 7（1↔6、2↔5、3↔4）</li>
+    <li><b>展开图</b>：11 种标准展开图，判断能否折立方体、哪两面相对</li>
+    <li><b>三视图</b>：正视 / 左视 / 俯视，正反推</li>
+    <li><b>立方体切割 / 涂色</b>：n³ 块分 3 面/2 面/1 面/0 面涂色</li>
+    <li><b>堆叠计数</b>：数方块、补成大长方体缺多少</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>动手搭积木</b>：买一盒磁力片或小木块，让孩子亲手搭 2×2×2、3×3×3，再数三视图</li>
+    <li><b>折纸练展开图</b>：拿硬纸板画 6 格十字，剪下折成立方体，<b>每面标数字</b>，观察相对面</li>
+    <li><b>骰子口诀</b>：对面和 7 不变，一颗骰子所有点数之和 = 1+2+3+4+5+6 = <code>21</code>；n 颗骰子 = 21n</li>
+    <li><b>立方体切割公式</b>（n×n×n 大立方体 → n³ 小方块）：
+        <ul>
+            <li>3 面涂色（角）：永远 8 个</li>
+            <li>2 面涂色（棱中间）：12(n−2)</li>
+            <li>1 面涂色（面中间）：6(n−2)²</li>
+            <li>0 面涂色（内部）：(n−2)³</li>
+        </ul>
+    </li>
+</ol>
+
+<div class="box trap">
+    <h4>⚠️ 立体几何高频坑</h4>
+    <ul>
+        <li><b>骰子对面</b>给 2 问背面，背面 = 7 − 2 = 5，不是直接选 5 的下一个</li>
+        <li><b>展开图相对面</b>：排一行 1-2-3 时 <b>1 和 3 对面</b>，不是 1 和 2</li>
+        <li><b>堆叠计数</b>：被挡住的后排方块也要算</li>
+    </ul>
+</div>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆</span> 立方体最少数</h4>
+    <div class="q">用一些小立方体拼成一个大立方体（不剩）。最少几块？</div>
+    <ol class="steps">
+        <li>拼出来必须是 <b>立方数</b>：1, 8, 27, 64...</li>
+        <li>1 块是"大=小"，不算；最小是 <code>8 块</code>（2×2×2）</li>
+    </ol>
+    <div class="ans">答：8 块</div>
+</div>
+
+<h2>🧩 六、智力题 / 数字谜（填符号 / 填数）</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>算式填符号</b>：如 <code>12 __ 4 __ 3 = 15</code>，判断填什么运算符</li>
+    <li><b>算式填数</b>：如 <code>7□9 − 222 = 497</code>，□ 填几</li>
+    <li><b>符号代数</b>：★+■−● 由三个等式求值</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>反推</b>：告诉孩子"看等号右边倒着做"</li>
+    <li><b>试填</b>：选项不多的时候逐个代入</li>
+    <li><b>多方程联立</b>：从简单方程先求出一个变量，代入其他方程</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag mid">⋆⋆</span> ★+■−● 三方程（PMT 2122 O1 #5）</h4>
+    <div class="q">6+★=14、★−■=5、■·●=6。求 ★+■−●。</div>
+    <ol class="steps">
+        <li>从第 1 式：★ = 14 − 6 = <code>8</code></li>
+        <li>从第 2 式：■ = 8 − 5 = <code>3</code></li>
+        <li>从第 3 式：● = 6 ÷ 3 = <code>2</code></li>
+        <li>★+■−● = 8+3−2 = <code>9</code></li>
+    </ol>
+    <div class="ans">答：e) 9</div>
+</div>
+
+<h2>🎯 七、计数 / 组合</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li>排列（有序）：3 本书排一排 = 3×2×1 = 6 种</li>
+    <li>组合（无序）：5 队循环赛 = C(5,2) = 10 场</li>
+    <li>书页 / 位数：一本书页码用 264 位，有几页？</li>
+    <li>排队 / 握手问题</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>画树状图枚举</b>：数量不大时直接列出来</li>
+    <li><b>加法原理 vs 乘法原理</b>：
+        <ul>
+            <li>"或"（分类）→ 加法：A 事件 n 种 + B 事件 m 种 = n+m</li>
+            <li>"再"（分步）→ 乘法：第 1 步 n 种，第 2 步 m 种 → n×m</li>
+        </ul>
+    </li>
+    <li><b>组合公式</b>：n 选 2 = n×(n−1)÷2（握手 / 比赛场次常用）</li>
+    <li><b>书页位数</b>：1-9 用 9 位、10-99 用 180 位、100-999 用 2700 位（按三段算）</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆</span> 一本书用了 264 位数字（PMT 2122 O1 #9）</h4>
+    <div class="q">一本书页码用了 264 个数字。书有几页？</div>
+    <ol class="steps">
+        <li>1-9：9 页 × 1 位 = <code>9</code> 位</li>
+        <li>10-99：90 页 × 2 位 = <code>180</code> 位（累计 189 位）</li>
+        <li>还剩 264 − 189 = <code>75</code> 位分给 100 以上，每页 3 位 → 75 ÷ 3 = <code>25</code> 页</li>
+        <li>共 99 + 25 = <code>124</code> 页</li>
+    </ol>
+    <div class="ans">答：b) 124</div>
+</div>
+
+<h2>🔁 八、规律 / 数列</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>等差数列</b>：相邻差相等。如 2, 5, 8, 11... (d=3)</li>
+    <li><b>二阶差</b>：相邻差本身是等差。如 1, 2, 4, 7, 11, 16 (差 1, 2, 3, 4, 5)</li>
+    <li><b>三角数</b>：1, 3, 6, 10, 15, 21... = n(n+1)/2</li>
+    <li><b>平方数</b>：1, 4, 9, 16, 25... = n²</li>
+    <li><b>图形规律</b>：第 n 图的点/边/格子数</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>看前几项规律</b>：先算差（等差？）→ 算差的差（二阶差？）→ 算比值（等比？）</li>
+    <li><b>熟背 5 大数列</b>：
+        <ul>
+            <li>等差：2, 5, 8, 11... 公差 d</li>
+            <li>三角数：1, 3, 6, 10, 15... Tₙ = n(n+1)/2</li>
+            <li>平方数：1, 4, 9, 16... n²</li>
+            <li>斐波那契：1, 1, 2, 3, 5, 8, 13...</li>
+            <li>二阶差：1, 2, 4, 7, 11... 差递增</li>
+        </ul>
+    </li>
+    <li><b>图形规律</b>：数出前 3-4 图的个数，列成序列再找规律</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag easy">⋆</span> 点阵第 5 图（PMT 2122 O1 #3）</h4>
+    <div class="q">图 1: 1 点、图 2: 3 点、图 3: 6 点、图 4: 10 点。第 5 图几点？</div>
+    <ol class="steps">
+        <li>序列 1, 3, 6, 10 → 差 2, 3, 4（三角数）</li>
+        <li>第 5 图 = 10 + 5 = <code>15</code></li>
+    </ol>
+    <div class="ans">答：b) 15</div>
+</div>
+
+<h2>🧠 九、逻辑推理</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>排序 / 排位推理</b>：几个人按条件排名次</li>
+    <li><b>真假话</b>：一句真/几句假，推出事实（AK4 较少，4-5⋆）</li>
+    <li><b>陷阱题</b>：问题和条件无关（"农民几岁"）</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>画表格</b>：横着人，竖着位置，打 ✓/✗</li>
+    <li><b>先定死的</b>：条件中最具体的信息（"X 是第 1"）先定</li>
+    <li><b>排除法</b>：选项 5 个，排除 4 个即可</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag mid">⋆⋆⋆</span> 6 人赛跑名次（PMT 2122 O1 #7）</h4>
+    <div class="q">Ella 第 3；Saga 在 Lucas 之后、Ronja 之前；Aylin 第 1；Fabian 在 Saga 之后但不最后。第 4 名是谁？</div>
+    <ol class="steps">
+        <li>先定死的：Aylin=1、Ella=3</li>
+        <li>Lucas &lt; Saga &lt; Ronja，而 2、4、5、6 还空着</li>
+        <li>Fabian &gt; Saga 且 Fabian ≠ 6</li>
+        <li>尝试：Lucas=2、Saga=4、Fabian=5、Ronja=6 全满足 ✓</li>
+    </ol>
+    <div class="ans">答：a) Saga</div>
+</div>
+
+<h2>🔢 十、数论 / 数位</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>奇偶性</b>：奇+奇=偶、奇×奇=奇</li>
+    <li><b>整除</b>：能被 2/3/5/9 整除的特征</li>
+    <li><b>位数计数</b>：数字 N 用几位（见"计数"章）</li>
+    <li><b>数轴 / 定位</b>：标定一个数在数轴哪里</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>整除口诀</b>：
+        <ul>
+            <li>÷2：末位是偶数</li>
+            <li>÷3 或 ÷9：所有位数之和能被 3 或 9 整除</li>
+            <li>÷5：末位是 0 或 5</li>
+            <li>÷4：末 2 位数能被 4 整除</li>
+        </ul>
+    </li>
+    <li><b>奇偶检验法</b>：答案一定是奇数？偶数？先排除</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆⋆</span> 四位数末尾 0 抹掉（PMT 2122 O1 #12）</h4>
+    <div class="q">四位数 N 末位是 0，抹掉 0 得三位数 x。N + x = 1903，求 N − x。</div>
+    <ol class="steps">
+        <li>N = 10x，所以 N + x = 11x = <code>1903</code></li>
+        <li>1903 ÷ 11 = <code>173</code>（整除）→ x = 173，N = 1730</li>
+        <li>N − x = 1730 − 173 = <code>1557</code></li>
+    </ol>
+    <div class="ans">答：c) 1557</div>
+</div>
+
+<h2>⏰ 十一、时间 / 日期</h2>
+
+<h3>考什么</h3>
+<ul>
+    <li><b>时刻差</b>：从 A 时到 B 时过了多久</li>
+    <li><b>周期</b>：每 n 天跑一次步，几号再同时跑</li>
+    <li><b>星期几</b>：今天星期三，过 50 天是星期几</li>
+</ul>
+
+<h3>如何引导</h3>
+<ol>
+    <li><b>60 进制</b>：1 时 = 60 分、1 分 = 60 秒。时间减法要借 60</li>
+    <li><b>LCM 最小公倍数</b>：周期题关键</li>
+    <li><b>星期几模 7</b>：过 n 天 = 当前 + (n mod 7) 天</li>
+</ol>
+
+<div class="box example">
+    <h4>📝 例题 · <span class="tag hard">⋆⋆⋆⋆</span> 公车下下趟（PMT 2122 O1 #10）</h4>
+    <div class="q">现在 14:42。上趟公车 5 分钟前发车（但晚了 3 分钟）。下趟 14:50 发。下下趟几点？</div>
+    <ol class="steps">
+        <li>上趟按时刻表 = 14:37（真实发车）− 3 分钟（晚点）= <code>14:34</code>（应发时刻）</li>
+        <li>间隔 = 14:50 − 14:34 = <code>16</code> 分</li>
+        <li>下下趟 = 14:50 + 16 = <code>15:06</code></li>
+    </ol>
+    <div class="ans">答：e) 15:06</div>
+</div>
+
+<h2>📅 十二、4 周训练计划</h2>
+
+<table class="plan-table">
+    <thead>
+    <tr><th>周</th><th>主题</th><th>内容</th><th>目标</th></tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><b>第 1 周<br>基础</b></td>
+        <td>运算 + 单位</td>
+        <td>每天 50 道口算 + 10 道单位换算 + 1 道和差应用题</td>
+        <td>运算 100% 准确、单位反应熟练</td>
+    </tr>
+    <tr>
+        <td><b>第 2 周<br>几何</b></td>
+        <td>平面几何 + 立体几何</td>
+        <td>每天 3 道几何题（周长 1、面积 1、立体 1）<br>动手搭积木 15 分钟</td>
+        <td>会画图、理解相对面</td>
+    </tr>
+    <tr>
+        <td><b>第 3 周<br>逻辑</b></td>
+        <td>规律 + 逻辑 + 计数</td>
+        <td>每天 2 道规律 + 1 道逻辑 + 1 道组合<br>熟记 5 大数列</td>
+        <td>看一眼知道哪类数列</td>
+    </tr>
+    <tr>
+        <td><b>第 4 周<br>综合</b></td>
+        <td>模拟 + 查漏</td>
+        <td>按真题形式做整套（12 题 40 分钟）<br>错题重做</td>
+        <td>整套 ≥ 50% 得分</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>🚫 十三、十大常见错误（照着改）</h2>
+
+<ol>
+    <li><b>不读题就下笔</b>：读 3 遍再动笔</li>
+    <li><b>单位不统一</b>：先全部换成一个单位</li>
+    <li><b>"比多"读成"多"</b>：A 比 B 多 5 → A = B+5</li>
+    <li><b>几何不画图</b>：画了图题就解完了一半</li>
+    <li><b>立方体展开图相对面搞错</b>：排一行时 1、3 对面，不是 1、2</li>
+    <li><b>数列只看前 2 项</b>：至少看 3 项再判断</li>
+    <li><b>排序推理不画表格</b>：条件多就一定要画</li>
+    <li><b>陷阱题答成具体数字</b>：仔细想问题和条件有没有必然联系</li>
+    <li><b>蒙题</b>：没把握不如空着（答错扣分）</li>
+    <li><b>检查环节跳过</b>：留 5 分钟逐题过一遍</li>
+</ol>
+
+<footer>
+    盘古数学 AK4 家长辅导手册 · 2026 版 · 配套 ak4-knowledge-expand.html 使用效果更佳<br>
+    打印建议：A4 纸、双面、彩色；若黑白打印，关键的颜色框会以边框区分
+</footer>
+
+</div>
+
+</body>
+</html>
