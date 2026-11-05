@@ -79,6 +79,26 @@
 
 ---
 
+## 📘 李永乐 × 盘古 AK4（`li.html`）
+
+把「AK4 知识点扩展教学」里的 **52 个盘古 AK4 知识点**逐个对到**李永乐小学数学**（三、四年级为主，缺口处指向五、六年级）的讲次，并按李永乐的方法补写了 **24 个学习单元（讲解 + 144 道练习，每题带答案和讲解）**。入口在各页面顶部的「📘 李永乐×盘古」。
+
+| 视图 | 说明 |
+|------|------|
+| **匹配总表** | 52 个知识点 × 对应讲次。强度分 直接对应 29 / 部分对应 12 / 间接·延伸 7 / 缺口 4；讲次标签分 核心·辅助·前置·延伸，点开可看该讲的讲义 / 习题 / 答案 PDF |
+| **学习单元** | 24 个单元：李永乐怎么讲 → 盘古怎么考 → 解题步骤和精讲例题 → 盘古真题对照（含原题 PDF 页码）→ 6 道练习（李永乐式基础 → 盘古式选择题 → 挑战）。选择题直接点选项，填空题自评 ✓/✗，进度存在 `localStorage`（`liProgress_v1`）；可打印空白卷 / 带答案卷 |
+| **讲次反查** | 反过来看：李永乐某一讲对应盘古哪些考点；灰色的讲次是盘古 AK4 基本不考的内容 |
+| **缺口与补充** | 李永乐三～四年级没有的考点（真假话、匹配推理、幻方、骰子……）、盘古真题里额外出现的 11 个考点、四年级里 AK4 基本不涉及的讲次 |
+| **抽题练习** | 按单元 / 难度 / 状态（还没做、错题、已做对）随机抽题 |
+
+- URL 参数：`?view=map|units|lectures|gaps|practice`、`?unit=u12`、`?point=38`（按知识点编号打开所在单元）、`?ref=4-47`（讲次反查并高亮）
+- 李永乐的 PDF 不入库（`李永乐小学数学/` 在 `.gitignore` 里），把文件夹放在仓库根目录即可，页面里的讲义 / 习题 / 答案链接按文件原路径生成
+- 练习题是按李永乐的方法和盘古的出题风格**原创**的，没有抄录课程原题；每道题的答案都有程序校验（`_tools/check_li.js`）
+- 资料里缺的文件会在页面上标 ✗：四年级第 50 / 56 讲没有习题和答案，三年级"鸡兔同笼（一）"整讲缺、"鸡兔同笼"没有讲义，三年级第 60 讲没有习题
+- 部分讲义（除法竖式谜、图形计数、等积变形）的 PDF 文字层里图都丢了，匹配时只能依据方法句和标题，这几讲的对应关系偏粗
+
+---
+
 ## 📊 数据概览
 
 ### 盘古竞赛（Pangea Matematiktävling）
@@ -143,6 +163,7 @@ cd math-knowledge-map
 # 盘古竞赛/*.pdf
 # 德国竞赛题/K3_1_Chinese/*.pdf, K3_2_Chinese/*.pdf, K4_Chinese/*.pdf
 # 学而思数学/01级-…/ … 12级-…/（每级一个文件夹：各讲 PDF + 参考答案 PDF）
+# 李永乐小学数学/三年级讲义+习题+答案/ … 六年级讲义+习题+答案/（讲义、习题、习题答案）
 
 # 3. 启一个本地 HTTP 服务器（Python）
 python -m http.server 8000
@@ -154,6 +175,7 @@ npx serve
 # http://localhost:8000/index.html      小学教材知识图谱
 # http://localhost:8000/german.html     德国竞赛知识图谱
 # http://localhost:8000/xes.html        学而思秘籍知识链
+# http://localhost:8000/li.html         李永乐 × 盘古 AK4 匹配与练习
 # http://localhost:8000/bridge.html     三方关联视图
 ```
 
@@ -209,7 +231,13 @@ math-knowledge-map/
 ├── xes-data.js         238 讲 + 13 条知识链 + 216 条连边（由 _tools/build_xes_data.js 生成）
 ├── xes-cards.js        教学卡文案（手写）
 ├── xes-problems.js     OCR 提取的例题 / 练习（由 _tools/parse_xes_ocr.js 生成）
+├── li.html             李永乐 × 盘古 AK4 主页（匹配总表 / 学习单元 / 讲次反查 / 缺口 / 抽题）
+├── li-app.js           李永乐页面逻辑
+├── li.css              李永乐页面样式（依赖 style.css）
+├── li-data.js          李永乐讲次目录 + 52 个知识点匹配表（由 _tools/build_li_data.js 生成）
+├── li-study-1..5.js    24 个学习单元：讲解 + 144 道练习（手写，每题带答案和 chk 校验函数）
 ├── style.css           全站样式
+├── 李永乐小学数学/     李永乐 PDF 源材料（本地保存，见 .gitignore）
 ├── 盘古竞赛/           盘古 PDF 源材料（本地保存，见 .gitignore）
 ├── 德国竞赛题/         德国竞赛 PDF（含中文翻译）
 ├── 学而思数学/         学而思秘籍 12 级 PDF 源材料（本地保存，见 .gitignore）
@@ -228,7 +256,14 @@ math-knowledge-map/
     ├── xes_ocr_fixes.json    学而思：OCR 错字的人工校正
     ├── xes_ocr/              学而思：OCR 缓存（每讲 / 每本答案册一个 JSON，重新识别很慢，所以入库）
     ├── check_xes.js          学而思：数据体检
-    └── ui_smoke_xes.js       学而思：浏览器冒烟测试（Chrome DevTools 协议）
+    ├── ui_smoke_xes.js       学而思：浏览器冒烟测试（Chrome DevTools 协议）
+    ├── dump_ak4_points.js    李永乐：从 ak4-knowledge-expand.html 取出 52 个知识点
+    ├── li_extract.py         李永乐：三～六年级 PDF 建目录（li_catalog.json）+ 三/四年级文字层
+    ├── li_grep.py            李永乐：在文字层里搜关键词（确认某考点有没有对应讲次）
+    ├── li_meta.js            李永乐：知识点 ↔ 讲次匹配（手写，改这里）
+    ├── build_li_data.js      李永乐：生成 li-data.js
+    ├── check_li.js           李永乐：体检（匹配表 / PDF 路径 / 盘古真题 ID / 每道题的答案重新计算）
+    └── ui_smoke_li.js        李永乐：浏览器冒烟测试
 ```
 
 ---
@@ -253,6 +288,26 @@ node inject_answers.js
 # 5. 整套体检（32 项断言）
 node final_check.js
 ```
+
+### 李永乐管道
+
+```bash
+# 依赖：Python 的 PyMuPDF（pip install pymupdf）；网页本身零依赖
+
+# 1. 给三～六年级的 PDF 建目录，并抽三/四年级的文字层（生成 _tools/li_catalog.json、_tools/li_text/）
+python _tools/li_extract.py
+
+# 2. 改了 _tools/li_meta.js（知识点 ↔ 讲次匹配）后，重新生成 li-data.js
+node _tools/build_li_data.js
+
+# 3. 体检：匹配表、PDF 路径、盘古真题 ID，以及 144 道题的答案用代码重新算一遍
+node _tools/check_li.js
+
+# 4. 浏览器冒烟测试（需要 Chrome 和 Node 22+）
+node _tools/ui_smoke_li.js
+```
+
+新增练习：在 `li-study-N.js` 的单元里加一个 `{ lv, q, opts?, a, why, chk }` 对象。`chk` 返回正确答案，`check_li.js` 会拿它核对 `a`；选择题要 5 个互异选项。
 
 ### 学而思管道
 

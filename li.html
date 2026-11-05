@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李永乐 × 盘古 AK4 · 知识点匹配与练习</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="li.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">&#x1F4D8;</span>
+                <h1>李永乐 × 盘古 AK4</h1>
+                <span class="subtitle subtitle-li" id="li-subtitle">知识点匹配 · 讲解 · 练习</span>
+            </div>
+
+            <!-- 图谱切换 -->
+            <div class="map-switch">
+                <a class="map-switch-btn" href="index.html" title="小学教材知识图谱">&#x1F4D0; 小学教材</a>
+                <a class="map-switch-btn" href="german.html" title="德国竞赛知识图谱">&#x1F3C6; 德国竞赛</a>
+                <a class="map-switch-btn" href="pangu.html" title="盘古竞赛知识图谱">&#x1F3A8; 盘古竞赛</a>
+                <a class="map-switch-btn" href="xes.html" title="学而思秘籍 1-12 级 238 讲知识链">&#x1F995; 学而思</a>
+                <span class="map-switch-btn active">&#x1F4D8; 李永乐×盘古</span>
+                <a class="map-switch-btn" href="bridge.html" title="查看图谱之间的关联">&#x1F517; 关联视图</a>
+                <a class="map-switch-btn" href="sweden-provinces.html" title="瑞典 25 省份记忆地图">&#x1F5FA;&#xFE0F; 瑞典地理</a>
+                <a class="map-switch-btn" href="knowledge-points.html" title="盘古竞赛知识点深度分析">&#x1F4CA; 知识点分析</a>
+                <a class="map-switch-btn" href="ak4-knowledge-expand.html" title="AK4 知识点扩展教学">&#x1F4DA; AK4 教学</a>
+            </div>
+
+            <nav class="nav-tabs" id="li-tabs">
+                <button class="tab-btn active" data-view="map">匹配总表</button>
+                <button class="tab-btn" data-view="units">学习单元</button>
+                <button class="tab-btn" data-view="lectures">讲次反查</button>
+                <button class="tab-btn" data-view="gaps">缺口与补充</button>
+                <button class="tab-btn" data-view="practice">抽题练习</button>
+            </nav>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <div class="view-panel active" id="map-view"><div class="li-scroll"><div class="li-container" id="map-container"></div></div></div>
+            <div class="view-panel" id="units-view"><div class="li-scroll"><div class="li-container" id="units-container"></div></div></div>
+            <div class="view-panel" id="lectures-view"><div class="li-scroll"><div class="li-container" id="lectures-container"></div></div></div>
+            <div class="view-panel" id="gaps-view"><div class="li-scroll"><div class="li-container" id="gaps-container"></div></div></div>
+            <div class="view-panel" id="practice-view"><div class="li-scroll"><div class="li-container" id="practice-container"></div></div></div>
+        </main>
+    </div>
+
+    <script src="pangu-data.js"></script>
+    <script src="li-data.js"></script>
+    <script src="li-study-1.js"></script>
+    <script src="li-study-2.js"></script>
+    <script src="li-study-3.js"></script>
+    <script src="li-study-4.js"></script>
+    <script src="li-study-5.js"></script>
+    <script src="li-app.js"></script>
+</body>
+</html>

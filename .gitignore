@@ -18,6 +18,7 @@ AI Transformation in Test Automation*.pptx
 盘古竞赛/
 德国竞赛题/
 学而思数学/
+李永乐小学数学/
 
 # Python 缓存
 __pycache__/
@@ -31,3 +32,11 @@ _tools/pdf_qw/
 _tools/pdf_qw_pages/
 _tools/*_log.txt
 .commit-msg.tmp
+
+# 李永乐：文字层抽取缓存与分析中间产物（可用 _tools/li_extract.py 重新生成）
+_tools/li_text/
+_tools/li_text_all.json
+_tools/li_digest.txt
+_tools/ak4_points.json
+_tools/check_li_out.txt
+_tools/ui_smoke_li_out.txt
